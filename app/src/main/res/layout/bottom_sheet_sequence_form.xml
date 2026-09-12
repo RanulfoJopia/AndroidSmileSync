@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_bottom_sheet"
+        android:padding="20dp">
+
+        <!-- Drag handle -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="#3A4A6B"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tv_seq_sheet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Sequence Step"
+            android:textColor="@color/text_white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Description -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Procedure Description *" android:textColor="#5A7AAF" android:textSize="11sp"
+            android:layout_marginBottom="4dp" />
+        <EditText
+            android:id="@+id/et_seq_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/text_white"
+            android:textColorHint="#5A7AAF"
+            android:hint="e.g. Root canal treatment on tooth #16"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Procedure Code -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Procedure Code" android:textColor="#5A7AAF" android:textSize="11sp"
+            android:layout_marginBottom="4dp" />
+        <EditText
+            android:id="@+id/et_seq_proc_code"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:textColor="@color/text_white"
+            android:textColorHint="#5A7AAF"
+            android:hint="e.g. D3330 (optional)"
+            android:inputType="text"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Phase row -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginBottom="12dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical" android:layout_marginRight="8dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Phase" android:textColor="#5A7AAF" android:textSize="11sp"
+                    android:layout_marginBottom="4dp" />
+                <Spinner
+                    android:id="@+id/sp_seq_phase"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_input_field"
+                    android:paddingLeft="12dp" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Status" android:textColor="#5A7AAF" android:textSize="11sp"
+                    android:layout_marginBottom="4dp" />
+                <Spinner
+                    android:id="@+id/sp_seq_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_input_field"
+                    android:paddingLeft="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Notes -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Notes" android:textColor="#5A7AAF" android:textSize="11sp"
+            android:layout_marginBottom="4dp" />
+        <EditText
+            android:id="@+id/et_seq_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/text_white"
+            android:textColorHint="#5A7AAF"
+            android:hint="Additional notes (optional)"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Buttons -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_seq_cancel"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:textColor="@color/text_light_gray"
+                android:background="@drawable/bg_chip_modern"
+                android:stateListAnimator="@null"
+                android:layout_marginRight="8dp" />
+            <Button
+                android:id="@+id/btn_seq_save"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Add Step"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_primary"
+                android:stateListAnimator="@null" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

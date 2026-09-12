@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_header_hero"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/btn_back_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="14dp"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                android:src="@drawable/ic_arrow_right" android:rotation="180" android:alpha="0.7" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp" android:text="Back"
+                android:textColor="@color/text_light_gray" android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_patient_form_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Patient"
+            android:textColor="@color/text_white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <ProgressBar
+                android:id="@+id/patient_form_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_glass"
+                android:padding="20dp">
+
+                <!-- Section label -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="PATIENT INFORMATION" android:textColor="#5A7AAF"
+                    android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.1"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- First Name -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="First Name *" android:textColor="@color/text_light_gray" android:textSize="12sp"
+                    android:layout_marginBottom="4dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_first_name" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="First Name" android:inputType="textPersonName" android:maxLines="1" />
+                </LinearLayout>
+
+                <!-- Middle Name -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Middle Name" android:textColor="@color/text_light_gray" android:textSize="12sp"
+                    android:layout_marginBottom="4dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_middle_name" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Middle Name (optional)" android:inputType="textPersonName" android:maxLines="1" />
+                </LinearLayout>
+
+                <!-- Last Name -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Last Name *" android:textColor="@color/text_light_gray" android:textSize="12sp"
+                    android:layout_marginBottom="4dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_last_name" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Last Name" android:inputType="textPersonName" android:maxLines="1" />
+                </LinearLayout>
+
+                <!-- Name Suffix -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Name Suffix" android:textColor="@color/text_light_gray" android:textSize="12sp"
+                    android:layout_marginBottom="4dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_name_suffix" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Jr., Sr., III (optional)" android:maxLines="1" />
+                </LinearLayout>
+
+                <!-- Birthdate -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Birthdate * (YYYY-MM-DD)" android:textColor="@color/text_light_gray" android:textSize="12sp"
+                    android:layout_marginBottom="4dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_birthdate" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="1990-01-31" android:inputType="date" android:maxLines="1" />
+                </LinearLayout>
+
+                <!-- Sex -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Sex *" android:textColor="@color/text_light_gray" android:textSize="12sp"
+                    android:layout_marginBottom="8dp" />
+                <RadioGroup android:id="@+id/rg_sex" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_marginBottom="14dp">
+                    <RadioButton android:id="@+id/rb_male" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="Male"
+                        android:textColor="@color/text_white" android:layout_marginRight="24dp"
+                        android:buttonTint="#42A5F5" />
+                    <RadioButton android:id="@+id/rb_female" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="Female"
+                        android:textColor="@color/text_white" android:buttonTint="#42A5F5" />
+                </RadioGroup>
+
+                <!-- Address -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Address" android:textColor="@color/text_light_gray" android:textSize="12sp"
+                    android:layout_marginBottom="4dp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="80dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="top"
+                    android:paddingLeft="14dp" android:paddingRight="14dp"
+                    android:paddingTop="10dp" android:layout_marginBottom="24dp">
+                    <EditText android:id="@+id/et_address" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Street, City, Province" android:inputType="textMultiLine"
+                        android:gravity="top" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_save_patient"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Save Patient"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_button_primary"
+                    android:stateListAnimator="@null" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

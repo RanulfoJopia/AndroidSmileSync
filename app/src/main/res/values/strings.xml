@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">SmileSync</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_full_name">Full Name icon</string>
+    <string name="cd_license">Dental License icon</string>
+    <string name="cd_email">Email icon</string>
+    <string name="cd_phone">Phone icon</string>
+    <string name="cd_password">Password icon</string>
+    <string name="cd_confirm_password">Confirm Password icon</string>
+    <string name="cd_toggle_password">Toggle password visibility</string>
+    <string name="cd_toggle_confirm_password">Toggle confirm password visibility</string>
+
+    <!-- Login -->
+    <string name="welcome_back">WELCOME BACK</string>
+    <string name="login_subtitle">Login to your account</string>
+    <string name="hint_username">User Name</string>
+    <string name="hint_password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="btn_login">Login</string>
+    <string name="have_account">Do you have account? </string>
+    <string name="signup">Signup</string>
+
+    <!-- Register -->
+    <string name="welcome_smilesync">WELCOME TO SMILESYNC</string>
+    <string name="register_subtitle">Register your account</string>
+    <string name="btn_register">REGISTER ACCOUNT</string>
+    <string name="already_have_account">Already have an account? </string>
+
+    <!-- Dashboard -->
+    <string name="welcome_doctor">Welcome back, Doctor</string>
+    <string name="dashboard_subtitle">Overview of today\'s dental activities</string>
+    <string name="stat_total_patients">Total Patients</string>
+    <string name="stat_examined">Patients Examined Today</string>
+    <string name="stat_treatment">Active Treatment Plans</string>
+    <string name="stat_pending">Pending Treatment Plan Approval</string>
+    <string name="recent_patients">Recent Patients</string>
+    <string name="view_patient">View Patient</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_patient">Patient</string>
+    <string name="nav_consultation">Consultation</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Settings -->
+    <string name="settings_edit_profile">Edit Profile</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_privacy">Privacy &amp; Security</string>
+    <string name="settings_help">Help &amp; Support</string>
+    <string name="settings_about">About SmileSync</string>
+    <string name="settings_logout">Logout</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- SmileSync Brand Colors -->
+    <color name="bg_dark_navy">#0A0F2E</color>
+    <color name="bg_dark_blue">#0D1B4B</color>
+    <color name="bg_mid_blue">#0F2460</color>
+    <color name="accent_blue">#1565C0</color>
+    <color name="accent_blue_light">#1976D2</color>
+    <color name="button_blue">#1A6FD4</color>
+    <color name="button_blue_dark">#1557B0</color>
+
+    <!-- Input fields (dark theme) -->
+    <color name="input_bg">#162050</color>
+    <color name="input_border">#2A3F7E</color>
+    <color name="input_hint">#5A7AAF</color>
+    <color name="input_text">#FFFFFF</color>
+
+    <!-- Text -->
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_light_gray">#B0BEC5</color>
+    <color name="link_color">#42A5F5</color>
+
+    <!-- Avatar / icons -->
+    <color name="avatar_bg">#1565C0</color>
+    <color name="divider_color">#2A3F7E</color>
+
+    <!-- Stat card accents -->
+    <color name="stat_teal">#00838F</color>
+    <color name="stat_indigo">#3949AB</color>
+    <color name="stat_amber">#F57C00</color>
+
+    <!-- Status badges -->
+    <color name="status_active">#2E7D32</color>
+    <color name="status_complete">#1565C0</color>
+    <color name="status_pending">#E65100</color>
+
+    <!-- Danger -->
+    <color name="color_logout">#EF5350</color>
+</resources>

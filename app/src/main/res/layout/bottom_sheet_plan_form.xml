@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_bottom_sheet"
+        android:padding="20dp">
+
+        <!-- Drag handle -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="#3A4A6B"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tv_plan_sheet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Treatment Plan"
+            android:textColor="@color/text_white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Clinical Justification -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Clinical Justification *" android:textColor="#5A7AAF" android:textSize="11sp"
+            android:layout_marginBottom="4dp" />
+        <EditText
+            android:id="@+id/et_plan_justification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/text_white"
+            android:textColorHint="#5A7AAF"
+            android:hint="Enter clinical justification..."
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Risk & Complications -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Risks &amp; Complications *" android:textColor="#5A7AAF" android:textSize="11sp"
+            android:layout_marginBottom="4dp" />
+        <EditText
+            android:id="@+id/et_plan_risk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/text_white"
+            android:textColorHint="#5A7AAF"
+            android:hint="Enter risks and complications..."
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Prognosis -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Prognosis *" android:textColor="#5A7AAF" android:textSize="11sp"
+            android:layout_marginBottom="4dp" />
+        <EditText
+            android:id="@+id/et_plan_prognosis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/text_white"
+            android:textColorHint="#5A7AAF"
+            android:hint="Enter prognosis..."
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Plan Result -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Plan Result" android:textColor="#5A7AAF" android:textSize="11sp"
+            android:layout_marginBottom="4dp" />
+        <EditText
+            android:id="@+id/et_plan_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/text_white"
+            android:textColorHint="#5A7AAF"
+            android:hint="Enter plan result (optional)..."
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Buttons -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_plan_cancel"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:textColor="@color/text_light_gray"
+                android:background="@drawable/bg_chip_modern"
+                android:stateListAnimator="@null"
+                android:layout_marginRight="8dp" />
+            <Button
+                android:id="@+id/btn_plan_save"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Save Plan"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_primary"
+                android:stateListAnimator="@null" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>3D Dental Exam</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;background:#0f1117;overflow:hidden;font-family:ui-sans-serif,sans-serif;color:#fff}
+
+  /* ── Layout ─────────────────────────────────────────────── */
+  #root{display:flex;height:100%;width:100%}
+
+  /* ── Left tool strip ───────────────────────────────────── */
+  #toolStrip{width:52px;background:#1a1d27;border-right:1px solid rgba(255,255,255,.07);
+    display:flex;flex-direction:column;align-items:center;padding:8px 0;gap:4px;flex-shrink:0}
+  .tool-btn{width:40px;height:40px;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;border-radius:8px;cursor:pointer;font-size:16px;color:#6b7280;
+    transition:background .15s,color .15s;border:none;background:transparent}
+  .tool-btn span{font-size:7px;font-weight:600;margin-top:2px;letter-spacing:.03em}
+  .tool-btn.active{background:rgba(45,212,191,.12);color:#2dd4bf;box-shadow:inset 0 0 0 1px #2dd4bf66}
+  .tool-btn:hover:not(.active){background:rgba(255,255,255,.05);color:#d1d5db}
+  .strip-sep{width:32px;border-top:1px solid rgba(255,255,255,.08);margin:4px 0}
+  .cam-btn{width:40px;height:32px;font-size:8px;font-weight:700;border-radius:4px;
+    cursor:pointer;color:#6b7280;background:transparent;border:none;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;transition:all .15s}
+  .cam-btn:hover{background:rgba(255,255,255,.05);color:#d1d5db}
+
+  /* ── Centre viewer ─────────────────────────────────────── */
+  #viewerWrap{flex:1;position:relative;overflow:hidden}
+  #canvas3d{position:absolute;inset:0}
+  #chartView{position:absolute;inset:0;display:none;background:#12151e;
+    align-items:center;justify-content:center;overflow:auto;padding:16px}
+  #chartView.active{display:flex}
+
+  /* View tabs */
+  #viewTabs{position:absolute;top:8px;left:50%;transform:translateX(-50%);
+    display:flex;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);
+    border-radius:8px;overflow:hidden;z-index:20}
+  .vtab{padding:5px 14px;font-size:11px;font-weight:600;cursor:pointer;color:#6b7280;
+    transition:background .15s,color .15s;border:none;background:transparent}
+  .vtab.active{background:#14b8a6;color:#fff}
+
+  /* Hover tooltip */
+  #tooltip{position:absolute;pointer-events:none;background:rgba(17,24,39,.95);
+    border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:5px 10px;
+    font-size:11px;font-weight:600;white-space:nowrap;display:none;z-index:30}
+
+  /* Status bar */
+  #statusBar{position:absolute;bottom:0;left:0;right:0;height:32px;background:rgba(26,29,39,.9);
+    border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;
+    gap:12px;padding:0 14px;font-size:11px;backdrop-filter:blur(4px);z-index:20}
+  #statusTooth{color:#2dd4bf;font-weight:700}
+  #statusTool{margin-left:auto;background:rgba(255,255,255,.05);
+    padding:2px 8px;border-radius:4px;color:#9ca3af}
+
+  /* Loading overlay */
+  #loadOverlay{position:absolute;inset:0;background:#0f1117;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;z-index:50}
+  .spinner{width:48px;height:48px;border:4px solid #14b8a6;border-top-color:transparent;
+    border-radius:50%;animation:spin 1s linear infinite;margin-bottom:14px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ── Right panel ────────────────────────────────────────── */
+  #rightPanel{width:290px;background:#1a1d27;border-left:1px solid rgba(255,255,255,.07);
+    display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+  #panelScroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:10px}
+  #panelScroll::-webkit-scrollbar{width:4px}
+  #panelScroll::-webkit-scrollbar-thumb{background:#374151;border-radius:2px}
+
+  .panel-label{font-size:9px;font-weight:700;letter-spacing:.1em;color:#6b7280;
+    text-transform:uppercase;margin-bottom:6px;margin-top:10px}
+  .panel-label:first-child{margin-top:0}
+
+  /* Tooth selector */
+  #toothSelect{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    border-radius:8px;color:#e5e7eb;font-size:12px;padding:6px 8px;outline:none}
+  #toothSelect:focus{border-color:#14b8a6}
+
+  /* Tooth state card */
+  #toothCard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;padding:10px;margin-top:8px}
+  .tooth-title{font-size:11px;font-weight:700;color:#fff}
+  .tooth-badge{font-size:9px;font-weight:700;border-radius:20px;padding:2px 8px;
+    margin-left:auto;display:inline-block}
+  .status-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px}
+  .st-btn{border-radius:4px;padding:4px 6px;font-size:9px;font-weight:600;
+    cursor:pointer;border:1px solid rgba(255,255,255,.1);color:#9ca3af;
+    background:transparent;transition:all .15s;text-align:left}
+  .st-btn.active{border-color:transparent}
+  .st-btn:hover:not(.active){background:rgba(255,255,255,.05);color:#d1d5db}
+
+  textarea.panel-ta{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    border-radius:6px;color:#e5e7eb;font-size:11px;padding:6px 8px;resize:vertical;
+    min-height:50px;outline:none;margin-top:4px}
+  textarea.panel-ta:focus{border-color:#14b8a6}
+  textarea.panel-ta:disabled{opacity:.3}
+
+  /* Panel tabs */
+  #panelTabs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+    background:rgba(0,0,0,.3);border-radius:8px;padding:4px;margin-top:8px}
+  .ptab{border-radius:6px;padding:5px 2px;font-size:9px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.05em;cursor:pointer;
+    border:none;background:transparent;color:#6b7280;transition:all .15s;text-align:center}
+  .ptab.active{background:#14b8a6;color:#fff}
+
+  /* Condition buttons */
+  .cond-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px}
+  .cond-btn{display:flex;align-items:center;gap:5px;border-radius:4px;padding:5px 6px;
+    font-size:10px;font-weight:500;cursor:pointer;
+    border:1px solid rgba(255,255,255,.1);color:#9ca3af;background:rgba(255,255,255,.04);
+    transition:all .15s}
+  .cond-btn.active{border-color:rgba(45,212,191,.5);background:rgba(45,212,191,.1);color:#2dd4bf}
+  .cond-btn:disabled{opacity:.25;cursor:not-allowed}
+  .cond-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+  /* Highlight colours */
+  .color-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .c-btn{width:28px;height:28px;border-radius:50%;border:2px solid transparent;
+    cursor:pointer;transition:all .15s}
+  .c-btn.active{border-color:#fff;transform:scale(1.15)}
+  .c-btn:disabled{opacity:.25}
+  .c-clear{width:28px;height:28px;border-radius:50%;border:2px dashed rgba(255,255,255,.2);
+    cursor:pointer;font-size:10px;color:#6b7280;background:transparent;
+    display:flex;align-items:center;justify-content:center}
+  .c-clear:disabled{opacity:.25}
+
+  /* Action btns */
+  .action-btn{width:100%;border-radius:6px;padding:6px 10px;font-size:10px;font-weight:600;
+    cursor:pointer;border:none;transition:all .15s;margin-top:4px}
+  .action-btn-remove{background:transparent;border:1px solid rgba(239,68,68,.3);color:#f87171}
+  .action-btn-remove:hover{background:rgba(239,68,68,.1)}
+  .action-btn-restore{background:transparent;border:1px solid rgba(34,197,94,.3);color:#4ade80}
+  .action-btn-restore:hover{background:rgba(34,197,94,.1)}
+  .action-btn-clear{background:transparent;border:1px solid rgba(255,255,255,.1);color:#6b7280;width:auto;padding:6px 10px}
+  .action-row{display:flex;gap:4px;margin-top:4px}
+
+  /* Save btn in panel */
+  .save-btn{width:100%;background:#14b8a6;color:#fff;border:none;border-radius:8px;
+    padding:8px;font-size:12px;font-weight:700;cursor:pointer;margin-top:8px;
+    transition:background .15s}
+  .save-btn:hover{background:#0d9488}
+</style>
+</head>
+<body>
+<div id="root">
+
+  <!-- ── Left tool strip ──────────────────────────────────── -->
+  <div id="toolStrip">
+    <button class="tool-btn active" data-tool="select" title="Select">🖱
+      <span>SEL</span></button>
+    <button class="tool-btn" data-tool="orbit" title="Orbit/Pan">🔄
+      <span>ORB</span></button>
+    <div class="strip-sep"></div>
+    <button class="cam-btn" data-preset="front" title="Front view">👄<br>FRONT</button>
+    <button class="cam-btn" data-preset="upper" title="Upper arch">⬆<br>TOP</button>
+    <button class="cam-btn" data-preset="lower" title="Lower arch">⬇<br>BOT</button>
+    <button class="cam-btn" data-preset="left"  title="Left side">◀<br>LEFT</button>
+    <button class="cam-btn" data-preset="right" title="Right side">▶<br>RIGHT</button>
+  </div>
+
+  <!-- ── Centre viewer ────────────────────────────────────── -->
+  <div id="viewerWrap">
+    <div id="canvas3d"></div>
+
+    <!-- SVG FDI Chart -->
+    <div id="chartView"></div>
+
+    <!-- View tabs -->
+    <div id="viewTabs">
+      <button class="vtab active" data-view="3d">3D</button>
+      <button class="vtab" data-view="chart">Chart</button>
+    </div>
+
+    <!-- Hover tooltip -->
+    <div id="tooltip"></div>
+
+    <!-- Status bar -->
+    <div id="statusBar">
+      <span id="statusTooth">Click a tooth to select</span>
+      <span id="statusTool">Tool: Select</span>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadOverlay">
+      <div class="spinner"></div>
+      <p style="color:#9ca3af;font-size:13px">Loading 3D model…</p>
+    </div>
+  </div>
+
+  <!-- ── Right panel ───────────────────────────────────────── -->
+  <div id="rightPanel">
+    <div id="panelScroll">
+
+      <!-- Tooth selector -->
+      <p class="panel-label">Tooth Selection</p>
+      <select id="toothSelect">
+        <option value="">— select tooth —</option>
+      </select>
+
+      <!-- Tooth state card (hidden until tooth selected) -->
+      <div id="toothCard" style="display:none">
+        <div style="display:flex;align-items:center;margin-bottom:8px">
+          <span class="tooth-title" id="tcTitle">TOOTH #—</span>
+          <span class="tooth-badge" id="tcBadge">present</span>
+        </div>
+
+        <!-- Status grid -->
+        <p class="panel-label">Status</p>
+        <div class="status-grid" id="statusGrid"></div>
+
+        <!-- Record notes -->
+        <p class="panel-label" style="margin-top:8px">Record Notes</p>
+        <textarea class="panel-ta" id="taRecordNotes" rows="2" placeholder="Notes for this tooth…"></textarea>
+
+        <!-- Remove / Restore / Clear row -->
+        <div class="action-row" id="actionRow"></div>
+
+        <!-- Panel tabs -->
+        <div id="panelTabs">
+          <button class="ptab active" data-tab="labels">Labels</button>
+          <button class="ptab" data-tab="color">Color</button>
+          <button class="ptab" data-tab="gum">Gum</button>
+          <button class="ptab" data-tab="ortho">Ortho</button>
+        </div>
+
+        <!-- TAB: Conditions / Labels -->
+        <div id="tab-labels">
+          <p class="panel-label" style="margin-top:8px">Conditions</p>
+          <div class="cond-grid" id="condGrid"></div>
+          <p class="panel-label" style="margin-top:8px">Clinical Notes</p>
+          <textarea class="panel-ta" id="taCondNotes" rows="2" placeholder="Clinical notes…"></textarea>
+        </div>
+
+        <!-- TAB: Highlight colour -->
+        <div id="tab-color" style="display:none">
+          <p class="panel-label" style="margin-top:8px">Highlight Colour</p>
+          <div class="color-grid" id="colorGrid"></div>
+          <p class="panel-label" style="margin-top:6px">Note</p>
+          <textarea class="panel-ta" id="taHighlightNote" rows="2" placeholder="Note for this highlight…"></textarea>
+          <button class="save-btn" id="btnApplyHighlight">Apply Highlight</button>
+        </div>
+
+        <!-- TAB: Gum (periodontal) -->
+        <div id="tab-gum" style="display:none">
+          <p class="panel-label" style="margin-top:8px">Periodontal Data</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div>
+              <p style="font-size:9px;color:#6b7280;margin-bottom:2px">Pocket Depth (mm)</p>
+              <input id="gumPocket" type="number" step="0.1" min="0" max="20" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#e5e7eb;font-size:11px;padding:5px 8px;outline:none">
+            </div>
+            <div>
+              <p style="font-size:9px;color:#6b7280;margin-bottom:2px">Mobility Grade</p>
+              <input id="gumMobility" type="number" min="0" max="3" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#e5e7eb;font-size:11px;padding:5px 8px;outline:none">
+            </div>
+          </div>
+          <label style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:#9ca3af;cursor:pointer">
+            <input type="checkbox" id="gumBleeding" style="accent-color:#14b8a6"> Gingival Bleeding
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;margin-top:4px;font-size:11px;color:#9ca3af;cursor:pointer">
+            <input type="checkbox" id="gumPlaque" style="accent-color:#14b8a6"> Plaque Present
+          </label>
+        </div>
+
+        <!-- TAB: Ortho -->
+        <div id="tab-ortho" style="display:none">
+          <p class="panel-label" style="margin-top:8px">Orthodontic Tools</p>
+          <div id="orthoGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:4px"></div>
+        </div>
+      </div>
+
+      <!-- Global save button -->
+      <button class="save-btn" id="btnGlobalSave" style="margin-top:12px">💾 Save Examination</button>
+
+    </div><!-- /panelScroll -->
+  </div><!-- /rightPanel -->
+
+</div><!-- /root -->
+
+<!-- ─── Three.js from CDN ──────────────────────────────────────────────── -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader }    from 'three/addons/loaders/GLTFLoader.js';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Constants
+// ═══════════════════════════════════════════════════════════════════════════
+const FDI = {
+  upperRight:[18,17,16,15,14,13,12,11],
+  upperLeft: [21,22,23,24,25,26,27,28],
+  lowerLeft: [31,32,33,34,35,36,37,38],
+  lowerRight:[41,42,43,44,45,46,47,48],
+};
+const ALL_FDI = [...FDI.upperRight,...FDI.upperLeft,...FDI.lowerLeft,...FDI.lowerRight];
+
+const TOOTH_STATUSES = {
+  present:   {label:'Present',   dot:'●', color:'#9ca3af'},
+  missing:   {label:'Missing',   dot:'○', color:'#ef4444'},
+  extracted: {label:'Extracted', dot:'✕', color:'#b91c1c'},
+  restored:  {label:'Restored',  dot:'★', color:'#f59e0b'},
+};
+
+const CONDITIONS = [
+  {value:1, label:'Caries',       color:'#ef4444'},
+  {value:2, label:'Filling',      color:'#3b82f6'},
+  {value:3, label:'Crown',        color:'#f59e0b'},
+  {value:4, label:'Root Canal',   color:'#8b5cf6'},
+  {value:5, label:'Fracture',     color:'#f97316'},
+  {value:6, label:'Abscess',      color:'#dc2626'},
+  {value:7, label:'Mobility',     color:'#a78bfa'},
+  {value:8, label:'Impacted',     color:'#6b7280'},
+];
+
+const HIGHLIGHT_COLORS = [
+  {hex:'#ef4444',label:'Red'},
+  {hex:'#f97316',label:'Orange'},
+  {hex:'#eab308',label:'Yellow'},
+  {hex:'#22c55e',label:'Green'},
+  {hex:'#3b82f6',label:'Blue'},
+  {hex:'#a855f7',label:'Purple'},
+  {hex:'#ec4899',label:'Pink'},
+  {hex:'#ffffff',label:'White'},
+];
+
+const ORTHO_TOOLS = [
+  {value:'braces',    label:'Braces',      icon:'🦷'},
+  {value:'rotation',  label:'Rotation',    icon:'↻'},
+  {value:'crowding',  label:'Crowding',    icon:'⇌'},
+  {value:'spacing',   label:'Spacing',     icon:'↔'},
+  {value:'overbite',  label:'Overbite',    icon:'⬇'},
+  {value:'crossbite', label:'Crossbite',   icon:'✕'},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// State
+// ═══════════════════════════════════════════════════════════════════════════
+let ctx = { patientId:null, measureId:null, token:null, apiBase:null };
+let selectedTooth    = null;
+let activeTool       = 'select';
+let activeView       = '3d';
+let activeTab        = 'labels';
+let hoverTooth       = null;
+
+// Per-tooth state: { status, recordNotes, conditions:{type->notes}, highlight, highlightNote, gum:{}, ortho:[] }
+const toothState     = {};
+
+const history        = [];   // undo stack (snapshots of toothState)
+let   historyIndex   = -1;
+
+// Three.js objects
+let renderer, scene, camera, controls;
+let toothMeshMap     = new Map();   // FDI number → THREE.Object3D
+let toothMeshList    = [];          // flat mesh list for raycasting
+let modelLoaded      = false;
+
+const NATURAL_COLOR  = 0xf0ece0;
+const SELECTION_COLOR= 0x2dd4bf;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Three.js scene setup
+// ═══════════════════════════════════════════════════════════════════════════
+function initThree() {
+  const wrap = document.getElementById('canvas3d');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+
+  renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(W, H);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+  renderer.shadowMap.enabled = true;
+  wrap.appendChild(renderer.domElement);
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(45, W/H, 0.001, 1000);
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.06;
+  controls.minDistance   = 0.05;
+  controls.maxDistance   = 5;
+  controls.enablePan     = true;
+  controls.screenSpacePanning = true;
+  resetCamera();
+
+  // Lighting
+  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  const dir = new THREE.DirectionalLight(0xffffff, 1.2);
+  dir.position.set(0.5, 1, 0.8);
+  scene.add(dir);
+  scene.add(new THREE.HemisphereLight(0xb0c8ff, 0x444444, 0.4));
+
+  window.addEventListener('resize', () => {
+    const W2 = wrap.clientWidth, H2 = wrap.clientHeight;
+    camera.aspect = W2/H2;
+    camera.updateProjectionMatrix();
+    renderer.setSize(W2, H2);
+  });
+
+  animate();
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+function resetCamera() {
+  camera.position.set(0, 0.02, 0.28);
+  controls.target.set(0, 0, 0);
+  controls.update();
+}
+
+function applyCameraPreset(preset) {
+  const pos = {
+    front: [0, 0.02, 0.28],
+    upper: [0, 0.28, 0.02],
+    lower: [0,-0.28, 0.02],
+    left:  [-0.25, 0.02, 0.05],
+    right: [ 0.25, 0.02, 0.05],
+  }[preset];
+  if (pos) { camera.position.set(...pos); controls.target.set(0,0,0); controls.update(); }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// GLB loading
+// ═══════════════════════════════════════════════════════════════════════════
+async function loadModel() {
+  const loader = new GLTFLoader();
+  try {
+    const gltf = await new Promise((res,rej) => loader.load('teeth_separated.glb', res, undefined, rej));
+    gltf.scene.traverse(obj => {
+      const m = obj.name.match(/^tooth_(\d+)$/);
+      if (!m) return;
+      const fdi = parseInt(m[1], 10);
+      if (isNaN(fdi)) return;
+      obj.userData.toothNumber = fdi;
+      applyNaturalMaterial(obj);
+      toothMeshMap.set(fdi, obj);
+    });
+    scene.add(gltf.scene);
+    // Build flat raycast list
+    toothMeshMap.forEach(obj => {
+      obj.traverse(c => { if(c.isMesh){ c.userData.toothNumber=obj.userData.toothNumber; toothMeshList.push(c); }});
+    });
+    modelLoaded = true;
+    syncAllToothVisuals();
+    console.log('[SmileSync] Model loaded, teeth:', toothMeshMap.size);
+  } catch(e) {
+    console.warn('[SmileSync] GLB load failed:', e.message, '— using fallback spheres');
+    buildFallbackModel();
+  }
+  document.getElementById('loadOverlay').style.display = 'none';
+  AndroidBridge.onReady();
+}
+
+function buildFallbackModel() {
+  const geo = new THREE.SphereGeometry(0.012, 10, 8);
+  const positions = computeToothPositions();
+  for (const fdi of ALL_FDI) {
+    const mat = new THREE.MeshStandardMaterial({color:NATURAL_COLOR, roughness:.3, metalness:.04});
+    const mesh = new THREE.Mesh(geo.clone(), mat);
+    const pos = positions[fdi] || [0,0,0];
+    mesh.position.set(...pos);
+    mesh.userData.toothNumber = fdi;
+    scene.add(mesh);
+    toothMeshMap.set(fdi, mesh);
+    toothMeshList.push(mesh);
+  }
+  modelLoaded = true;
+}
+
+function computeToothPositions() {
+  const pos = {};
+  const upperRight = FDI.upperRight;  // 18→11 (right→centre, upper)
+  const upperLeft  = FDI.upperLeft;   // 21→28
+  const lowerLeft  = FDI.lowerLeft;   // 31→38
+  const lowerRight = FDI.lowerRight;  // 41→48
+  const R = 0.065, ry = 0.03, lx = 0.008;
+  for (let i=0;i<8;i++){
+    const a = (i/14)*Math.PI;
+    pos[upperRight[7-i]] = [-Math.sin(a)*R - lx,  ry, -Math.cos(a)*R];
+    pos[upperLeft[i]]    = [ Math.sin(a)*R + lx,  ry, -Math.cos(a)*R];
+    pos[lowerLeft[i]]    = [ Math.sin(a)*R + lx, -ry, -Math.cos(a)*R];
+    pos[lowerRight[7-i]] = [-Math.sin(a)*R - lx, -ry, -Math.cos(a)*R];
+  }
+  return pos;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Material helpers
+// ═══════════════════════════════════════════════════════════════════════════
+function applyNaturalMaterial(obj) {
+  const mat = new THREE.MeshStandardMaterial({color:NATURAL_COLOR, roughness:.25, metalness:.04});
+  setObjMaterial(obj, mat);
+}
+
+function applyColorMaterial(obj, hex) {
+  const mat = new THREE.MeshStandardMaterial({color:new THREE.Color(hex), roughness:.3, metalness:.04});
+  setObjMaterial(obj, mat);
+}
+
+function applySelectionMaterial(obj) {
+  const mat = new THREE.MeshStandardMaterial({color:new THREE.Color(SELECTION_COLOR),
+    emissive:new THREE.Color(SELECTION_COLOR), emissiveIntensity:.55,
+    roughness:.22, metalness:.05, transparent:true, opacity:.88});
+  setObjMaterial(obj, mat);
+}
+
+function setObjMaterial(obj, mat) {
+  if(obj.isMesh){ obj.material = mat; }
+  else { obj.traverse(c => { if(c.isMesh) c.material = mat.clone(); }); }
+}
+
+function syncAllToothVisuals() {
+  toothMeshMap.forEach((obj, fdi) => syncToothVisual(fdi));
+}
+
+function syncToothVisual(fdi) {
+  const obj = toothMeshMap.get(fdi);
+  if (!obj) return;
+  const st = toothState[fdi];
+  if (!st || st.status === 'present') {
+    obj.visible = true;
+    applyNaturalMaterial(obj);
+  } else if (st.status === 'missing' || st.status === 'extracted') {
+    obj.visible = false;
+  } else if (st.status === 'restored') {
+    obj.visible = true;
+    applyColorMaterial(obj, '#f59e0b');
+  }
+  // highlight overrides natural
+  if (obj.visible && st?.highlight) {
+    applyColorMaterial(obj, st.highlight);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Raycasting
+// ═══════════════════════════════════════════════════════════════════════════
+const raycaster = new THREE.Raycaster();
+const mouse     = new THREE.Vector2();
+
+function getToothFromEvent(e) {
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.set(
+    ((e.clientX - rect.left)  / rect.width)  * 2 - 1,
+    -((e.clientY - rect.top) / rect.height) * 2 + 1,
+  );
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(toothMeshList, false);
+  return hits.length ? hits[0].object.userData.toothNumber : null;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tooth selection
+// ═══════════════════════════════════════════════════════════════════════════
+function selectTooth(fdi) {
+  // Deselect old
+  if (selectedTooth !== null) syncToothVisual(selectedTooth);
+
+  selectedTooth = fdi;
+  if (fdi === null) { updateStatusBar(); updateToothCard(); return; }
+
+  if (!toothState[fdi]) toothState[fdi] = { status:'present', recordNotes:'', conditions:[], highlight:null, highlightNote:'', gum:{}, ortho:[] };
+
+  const obj = toothMeshMap.get(fdi);
+  if (obj && obj.visible) applySelectionMaterial(obj);
+
+  updateStatusBar();
+  updateToothCard();
+
+  // Sync selector dropdown
+  document.getElementById('toothSelect').value = fdi;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// History (undo/redo)
+// ═══════════════════════════════════════════════════════════════════════════
+function pushHistory() {
+  history.splice(historyIndex + 1);   // drop redo tail
+  history.push(JSON.parse(JSON.stringify(toothState)));
+  historyIndex = history.length - 1;
+}
+
+window.smileUndo = function() {
+  if (historyIndex <= 0) return;
+  historyIndex--;
+  Object.assign(toothState, JSON.parse(JSON.stringify(history[historyIndex])));
+  syncAllToothVisuals();
+  updateToothCard();
+};
+
+window.smileRedo = function() {
+  if (historyIndex >= history.length - 1) return;
+  historyIndex++;
+  Object.assign(toothState, JSON.parse(JSON.stringify(history[historyIndex])));
+  syncAllToothVisuals();
+  updateToothCard();
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UI builders
+// ═══════════════════════════════════════════════════════════════════════════
+function buildDropdown() {
+  const sel = document.getElementById('toothSelect');
+  const groups = [
+    {label:'Upper Right', teeth:FDI.upperRight},
+    {label:'Upper Left',  teeth:FDI.upperLeft},
+    {label:'Lower Left',  teeth:FDI.lowerLeft},
+    {label:'Lower Right', teeth:FDI.lowerRight},
+  ];
+  groups.forEach(g => {
+    const og = document.createElement('optgroup');
+    og.label = g.label;
+    g.teeth.forEach(n => {
+      const opt = document.createElement('option');
+      opt.value = n; opt.textContent = `Tooth ${n}`;
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  });
+  sel.addEventListener('change', () => selectTooth(sel.value ? parseInt(sel.value) : null));
+}
+
+function buildStatusGrid() {
+  const grid = document.getElementById('statusGrid');
+  grid.innerHTML = '';
+  Object.entries(TOOTH_STATUSES).forEach(([key,st]) => {
+    const btn = document.createElement('button');
+    btn.className = 'st-btn';
+    btn.dataset.status = key;
+    btn.textContent = `${st.dot} ${st.label}`;
+    btn.addEventListener('click', () => setToothStatus(key));
+    grid.appendChild(btn);
+  });
+}
+
+function buildCondGrid() {
+  const grid = document.getElementById('condGrid');
+  grid.innerHTML = '';
+  CONDITIONS.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'cond-btn';
+    btn.dataset.condVal = c.value;
+    btn.disabled = true;
+    btn.innerHTML = `<span class="cond-dot" style="background:${c.color}"></span>${c.label}`;
+    btn.addEventListener('click', () => toggleCondition(c.value));
+    grid.appendChild(btn);
+  });
+}
+
+function buildColorGrid() {
+  const grid = document.getElementById('colorGrid');
+  grid.innerHTML = '';
+  HIGHLIGHT_COLORS.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'c-btn';
+    btn.style.background = c.hex;
+    btn.title = c.label;
+    btn.disabled = true;
+    btn.addEventListener('click', () => setHighlight(c.hex));
+    grid.appendChild(btn);
+  });
+  const clr = document.createElement('button');
+  clr.className = 'c-clear';
+  clr.title = 'Clear';
+  clr.textContent = '✕';
+  clr.disabled = true;
+  clr.addEventListener('click', () => setHighlight(null));
+  grid.appendChild(clr);
+}
+
+function buildOrthoGrid() {
+  const grid = document.getElementById('orthoGrid');
+  ORTHO_TOOLS.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'cond-btn';
+    btn.dataset.orthoVal = t.value;
+    btn.disabled = true;
+    btn.innerHTML = `<span style="font-size:14px">${t.icon}</span>${t.label}`;
+    btn.addEventListener('click', () => toggleOrtho(t.value));
+    grid.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tooth card update
+// ═══════════════════════════════════════════════════════════════════════════
+function updateToothCard() {
+  const card  = document.getElementById('toothCard');
+  if (!selectedTooth) { card.style.display='none'; return; }
+  card.style.display = 'block';
+
+  const st = toothState[selectedTooth] || {};
+  const status = st.status || 'present';
+  const stDef = TOOTH_STATUSES[status] || TOOTH_STATUSES.present;
+
+  document.getElementById('tcTitle').textContent = `TOOTH #${selectedTooth}`;
+  const badge = document.getElementById('tcBadge');
+  badge.textContent = `${stDef.dot} ${stDef.label}`;
+  badge.style.background  = stDef.color + '22';
+  badge.style.color        = stDef.color;
+
+  // Status grid highlight
+  document.querySelectorAll('.st-btn').forEach(btn => {
+    const s = TOOTH_STATUSES[btn.dataset.status];
+    btn.classList.toggle('active', btn.dataset.status === status);
+    if (btn.dataset.status === status) {
+      btn.style.background  = s.color + '22';
+      btn.style.borderColor = s.color + '66';
+      btn.style.color       = s.color;
+    } else {
+      btn.style.background  = '';
+      btn.style.borderColor = '';
+      btn.style.color       = '';
+    }
+  });
+
+  // Record notes
+  document.getElementById('taRecordNotes').value = st.recordNotes || '';
+  document.getElementById('taRecordNotes').disabled = false;
+
+  // Action row
+  const actionRow = document.getElementById('actionRow');
+  const isMissing = status === 'missing' || status === 'extracted';
+  actionRow.innerHTML = '';
+  if (!isMissing) {
+    const r = document.createElement('button');
+    r.className = 'action-btn action-btn-remove'; r.textContent = '🗑 Remove Tooth';
+    r.addEventListener('click', () => { setToothStatus('extracted'); });
+    actionRow.appendChild(r);
+  } else {
+    const r = document.createElement('button');
+    r.className = 'action-btn action-btn-restore'; r.textContent = '✚ Restore Tooth';
+    r.addEventListener('click', () => { setToothStatus('present'); });
+    actionRow.appendChild(r);
+  }
+  const clr = document.createElement('button');
+  clr.className = 'action-btn action-btn-clear'; clr.textContent = '✕';
+  clr.title = 'Clear tooth state';
+  clr.addEventListener('click', () => clearToothState());
+  actionRow.appendChild(clr);
+
+  // Enable condition/colour buttons
+  document.querySelectorAll('.cond-btn, .c-btn, .c-clear, .orthoGrid button').forEach(b => b.disabled = false);
+  document.querySelectorAll('[data-cond-val]').forEach(b => {
+    const active = (st.conditions||[]).some(c => c.type == b.dataset.condVal);
+    b.classList.toggle('active', active);
+  });
+  document.querySelectorAll('[data-ortho-val]').forEach(b => {
+    const active = (st.ortho||[]).includes(b.dataset.orthoVal);
+    b.classList.toggle('active', active);
+  });
+  document.querySelectorAll('.c-btn').forEach(b => {
+    b.classList.toggle('active', b.style.background === st.highlight);
+    b.disabled = false;
+  });
+  document.querySelector('.c-clear').disabled = false;
+  document.getElementById('taCondNotes').disabled      = false;
+  document.getElementById('taHighlightNote').disabled  = false;
+  document.getElementById('taRecordNotes').disabled    = false;
+  document.querySelectorAll('#tab-gum input').forEach(i => i.disabled = false);
+  document.querySelectorAll('#tab-ortho button').forEach(b => b.disabled = false);
+
+  // Populate gum fields
+  const gum = st.gum || {};
+  document.getElementById('gumPocket').value   = gum.pocket_depth_mm  ?? '';
+  document.getElementById('gumMobility').value = gum.mobility_grade   ?? '';
+  document.getElementById('gumBleeding').checked = !!gum.gingival_bleeding;
+  document.getElementById('gumPlaque').checked   = !!gum.plaque_present;
+}
+
+function updateStatusBar() {
+  const sb = document.getElementById('statusTooth');
+  if (!selectedTooth) { sb.textContent = 'Click a tooth to select'; return; }
+  const st  = toothState[selectedTooth];
+  const stDef = TOOTH_STATUSES[st?.status || 'present'];
+  sb.textContent = `Tooth #${selectedTooth} — ${stDef.dot} ${stDef.label}`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tooth state mutation helpers
+// ═══════════════════════════════════════════════════════════════════════════
+function ensureState(fdi) {
+  if (!toothState[fdi]) toothState[fdi] = {status:'present',recordNotes:'',conditions:[],highlight:null,highlightNote:'',gum:{},ortho:[]};
+  return toothState[fdi];
+}
+
+function setToothStatus(status) {
+  if (!selectedTooth) return;
+  pushHistory();
+  const st = ensureState(selectedTooth);
+  st.status = status;
+  syncToothVisual(selectedTooth);
+  if (selectedTooth) applySelectionMaterial(toothMeshMap.get(selectedTooth));
+  updateToothCard();
+  updateStatusBar();
+  triggerBridgeToothUpdate(selectedTooth);
+}
+
+function clearToothState() {
+  if (!selectedTooth) return;
+  pushHistory();
+  delete toothState[selectedTooth];
+  syncToothVisual(selectedTooth);
+  const obj = toothMeshMap.get(selectedTooth);
+  if (obj && obj.visible) applySelectionMaterial(obj);
+  updateToothCard();
+}
+
+function toggleCondition(val) {
+  if (!selectedTooth) return;
+  pushHistory();
+  const st = ensureState(selectedTooth);
+  const idx = (st.conditions||[]).findIndex(c => c.type == val);
+  if (idx >= 0) st.conditions.splice(idx, 1);
+  else          (st.conditions = st.conditions||[]).push({type:val, notes:''});
+  updateToothCard();
+}
+
+function setHighlight(hex) {
+  if (!selectedTooth) return;
+  pushHistory();
+  const st = ensureState(selectedTooth);
+  st.highlight = hex;
+  syncToothVisual(selectedTooth);
+  const obj = toothMeshMap.get(selectedTooth);
+  if (obj && obj.visible) applySelectionMaterial(obj);
+  updateToothCard();
+}
+
+function toggleOrtho(val) {
+  if (!selectedTooth) return;
+  pushHistory();
+  const st = ensureState(selectedTooth);
+  st.ortho = st.ortho || [];
+  const idx = st.ortho.indexOf(val);
+  if (idx >= 0) st.ortho.splice(idx, 1);
+  else          st.ortho.push(val);
+  document.querySelectorAll('[data-ortho-val]').forEach(b =>
+    b.classList.toggle('active', (st.ortho||[]).includes(b.dataset.orthoVal)));
+}
+
+function triggerBridgeToothUpdate(fdi) {
+  const st = toothState[fdi];
+  if (!st) return;
+  const procs = (st.conditions||[]).map(c => conditionLabel(c.type));
+  try {
+    AndroidBridge.onToothUpdated(
+      fdi,
+      st.status || 'present',
+      procs.join(','),
+      st.recordNotes || ''
+    );
+  } catch(e) {}
+}
+
+function conditionLabel(typeVal) {
+  return CONDITIONS.find(c => c.value == typeVal)?.label?.toLowerCase().replace(' ','_') || 'other';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FDI SVG Chart
+// ═══════════════════════════════════════════════════════════════════════════
+function buildSvgChart() {
+  const W = 520, H = 260, cx = W/2, cy = H/2;
+  const rows = [
+    {teeth:[...FDI.upperRight].reverse(), y:cy-50, dir:-1},
+    {teeth:FDI.upperLeft, y:cy-50, dir:1},
+    {teeth:[...FDI.lowerRight].reverse(), y:cy+50, dir:-1},
+    {teeth:FDI.lowerLeft, y:cy+50, dir:1},
+  ];
+  let svgContent = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-height:400px;select:none">`;
+  svgContent += `<text x="8" y="18" font-size="9" fill="#475569" font-weight="600">UPPER ARCH</text>`;
+  svgContent += `<text x="8" y="${H-6}" font-size="9" fill="#475569" font-weight="600">LOWER ARCH</text>`;
+  svgContent += `<line x1="${cx}" y1="0" x2="${cx}" y2="${H}" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  svgContent += `<line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="#1e293b" stroke-width="1"/>`;
+
+  let xStart = 22;
+  rows.forEach(row => {
+    row.teeth.forEach((fdi, i) => {
+      const r = 14;
+      const x = xStart + 32 + i*32 * (row.dir > 0 ? 1 : 1);
+      const st = toothState[fdi];
+      const status = st?.status || 'present';
+      const isMissing = status === 'missing' || status === 'extracted';
+      const hl = st?.highlight;
+      const fill = hl || (isMissing ? '#1e293b' : '#1e3a5f');
+      const textY = row.y > cy ? row.y + r + 12 : row.y - r - 4;
+      const isSelected = selectedTooth === fdi;
+      const stroke = isSelected ? '#2dd4bf' : '#334155';
+      const sw = isSelected ? 2.5 : 1.5;
+      const opacity = isMissing ? 0.4 : 1;
+
+      svgContent += `<g style="cursor:pointer" data-fdi="${fdi}" onclick="svgToothClick(${fdi})">`;
+      svgContent += `<circle r="${r}" cx="${x}" cy="${row.y}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" opacity="${opacity}"/>`;
+      if (isMissing) {
+        svgContent += `<line x1="${x-6}" y1="${row.y-6}" x2="${x+6}" y2="${row.y+6}" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>`;
+        svgContent += `<line x1="${x+6}" y1="${row.y-6}" x2="${x-6}" y2="${row.y+6}" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>`;
+      }
+      svgContent += `<text x="${x}" y="${textY}" text-anchor="middle" font-size="8" fill="${isSelected?'#2dd4bf':'#64748b'}" font-family="sans-serif" ${isSelected?'font-weight="700"':''}}>${fdi}</text>`;
+      svgContent += `</g>`;
+    });
+  });
+  svgContent += '</svg>';
+  document.getElementById('chartView').innerHTML = svgContent;
+}
+
+window.svgToothClick = function(fdi) {
+  selectTooth(fdi);
+  refreshChartIfActive();
+};
+
+function refreshChartIfActive() {
+  if (activeView === 'chart') buildSvgChart();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Save / data export
+// ═══════════════════════════════════════════════════════════════════════════
+function buildSavePayload() {
+  const tooth_records   = [];
+  const odontograms     = [];
+  const tooth_notes     = [];
+  const periodontograms = [];
+
+  ALL_FDI.forEach(fdi => {
+    const st = toothState[fdi];
+    if (!st) return;
+
+    tooth_records.push({
+      tooth_number: fdi,
+      status:       st.status || 'present',
+      procedures:   (st.conditions||[]).map(c => conditionLabel(c.type)),
+      record_notes: st.recordNotes || null,
+    });
+
+    (st.conditions||[]).forEach(c => {
+      odontograms.push({
+        tooth_number:   fdi,
+        condition_type: c.type,
+        odont_notes:    c.notes || null,
+      });
+    });
+
+    if (st.highlight) {
+      tooth_notes.push({
+        tooth_number:    fdi,
+        highlight_color: st.highlight.replace('#',''),
+        note_notes:      st.highlightNote || null,
+      });
+    }
+
+    const gum = st.gum || {};
+    if (Object.keys(gum).length > 0) {
+      periodontograms.push({ tooth_number:fdi, ...gum });
+    }
+  });
+
+  const payload = {
+    measure_notes: null,
+    tooth_records,
+    odontograms,
+    tooth_notes,
+    periodontograms,
+  };
+  if (ctx.measureId) payload.measure_id = ctx.measureId;
+  return payload;
+}
+
+window.smileRequestSave = function() {
+  const payload = buildSavePayload();
+  AndroidBridge.onSaveRequested(JSON.stringify(payload));
+};
+
+window.smileOnSaved = function(newMeasureId) {
+  ctx.measureId = newMeasureId;
+  console.log('[SmileSync] Saved. measureId =', newMeasureId);
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Entrypoint called from Android (DentalExamActivity.onPageFinished)
+// ═══════════════════════════════════════════════════════════════════════════
+window.smileInit = function(config) {
+  ctx = { ...ctx, ...config };
+  console.log('[SmileSync] Init', ctx);
+  // If resuming a session, load its data
+  if (ctx.measureId) fetchExistingMeasurement(ctx.measureId);
+};
+
+async function fetchExistingMeasurement(measureId) {
+  if (!ctx.token || !ctx.apiBase || !ctx.patientId) return;
+  try {
+    const url = `${ctx.apiBase}patients/${ctx.patientId}/measurements/latest`;
+    const resp = await fetch(url, {
+      headers: { 'Authorization': `Bearer ${ctx.token}`, 'Accept': 'application/json' }
+    });
+    if (!resp.ok) return;
+    const json = await resp.json();
+    const m = json.result;
+    if (!m) return;
+    // Populate toothState from stored records
+    (m.tooth_records || []).forEach(r => {
+      ensureState(r.tooth_number).status       = r.status;
+      ensureState(r.tooth_number).recordNotes  = r.record_notes || '';
+    });
+    (m.odontograms || []).forEach(o => {
+      const st = ensureState(o.tooth_number);
+      st.conditions = st.conditions || [];
+      if (!st.conditions.some(c => c.type === o.condition_type))
+        st.conditions.push({type: o.condition_type, notes: o.odont_notes || ''});
+    });
+    (m.tooth_notes || []).forEach(n => {
+      const st = ensureState(n.tooth_number);
+      st.highlight      = n.highlight_color ? `#${n.highlight_color}` : null;
+      st.highlightNote  = n.note_notes || '';
+    });
+    pushHistory();
+    syncAllToothVisuals();
+    refreshChartIfActive();
+    console.log('[SmileSync] Session restored from measureId', measureId);
+  } catch(e) {
+    console.warn('[SmileSync] Failed to restore session:', e.message);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Android bridge shim (prevents errors when not running in WebView)
+// ═══════════════════════════════════════════════════════════════════════════
+const AndroidBridge = window.AndroidBridge || {
+  onSaveRequested: p => console.log('[Bridge stub] onSaveRequested', p),
+  onToothUpdated:  (...a) => console.log('[Bridge stub] onToothUpdated', ...a),
+  onReady:         () => console.log('[Bridge stub] onReady'),
+  log:             m => console.log('[Bridge stub]', m),
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Event wiring
+// ═══════════════════════════════════════════════════════════════════════════
+function wireEvents() {
+  // Tool strip
+  document.querySelectorAll('.tool-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTool = btn.dataset.tool;
+      document.getElementById('statusTool').textContent = `Tool: ${btn.title}`;
+      if (controls) controls.enabled = (activeTool === 'orbit');
+    });
+  });
+
+  // Camera presets
+  document.querySelectorAll('.cam-btn').forEach(btn =>
+    btn.addEventListener('click', () => applyCameraPreset(btn.dataset.preset)));
+
+  // View tabs
+  document.querySelectorAll('.vtab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.vtab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeView = btn.dataset.view;
+      const cv = document.getElementById('chartView');
+      cv.classList.toggle('active', activeView === 'chart');
+      if (activeView === 'chart') buildSvgChart();
+    });
+  });
+
+  // Panel tabs
+  document.querySelectorAll('.ptab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTab = btn.dataset.tab;
+      ['labels','color','gum','ortho'].forEach(t => {
+        const el = document.getElementById(`tab-${t}`);
+        if(el) el.style.display = (t === activeTab) ? 'block' : 'none';
+      });
+    });
+  });
+
+  // 3D click
+  document.getElementById('canvas3d').addEventListener('click', e => {
+    if (activeTool !== 'select' || !modelLoaded) return;
+    const fdi = getToothFromEvent(e);
+    selectTooth(fdi);
+  });
+
+  // Hover
+  document.getElementById('canvas3d').addEventListener('mousemove', e => {
+    if (activeTool !== 'select' || !modelLoaded) return;
+    const fdi = getToothFromEvent(e);
+    if (fdi !== hoverTooth) {
+      hoverTooth = fdi;
+      const tt = document.getElementById('tooltip');
+      if (fdi) {
+        tt.style.display = 'block';
+        tt.style.left    = (e.clientX - document.getElementById('toolStrip').clientWidth) + 'px';
+        tt.style.top     = (e.clientY - 48) + 'px';
+        tt.textContent   = `Tooth ${fdi}`;
+      } else {
+        tt.style.display = 'none';
+      }
+    }
+  });
+
+  document.getElementById('canvas3d').addEventListener('mouseleave', () => {
+    hoverTooth = null;
+    document.getElementById('tooltip').style.display = 'none';
+  });
+
+  // Record notes auto-save on blur
+  document.getElementById('taRecordNotes').addEventListener('blur', () => {
+    if (!selectedTooth) return;
+    ensureState(selectedTooth).recordNotes = document.getElementById('taRecordNotes').value;
+    triggerBridgeToothUpdate(selectedTooth);
+  });
+
+  // Condition notes auto-save
+  document.getElementById('taCondNotes').addEventListener('blur', () => {
+    if (!selectedTooth) return;
+    // store on the last condition for simplicity
+    const st = ensureState(selectedTooth);
+    if (st.conditions?.length)
+      st.conditions[st.conditions.length-1].notes = document.getElementById('taCondNotes').value;
+  });
+
+  // Highlight apply
+  document.getElementById('btnApplyHighlight').addEventListener('click', () => {
+    if (!selectedTooth) return;
+    const st = ensureState(selectedTooth);
+    st.highlightNote = document.getElementById('taHighlightNote').value;
+    syncToothVisual(selectedTooth);
+    if (st.highlight) { const obj=toothMeshMap.get(selectedTooth); if(obj&&obj.visible) applySelectionMaterial(obj); }
+  });
+
+  // Gum fields auto-save
+  ['gumPocket','gumMobility','gumBleeding','gumPlaque'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('change', () => {
+      if (!selectedTooth) return;
+      const st = ensureState(selectedTooth);
+      st.gum = st.gum || {};
+      st.gum.pocket_depth_mm    = parseFloat(document.getElementById('gumPocket').value)   || null;
+      st.gum.mobility_grade     = parseInt(document.getElementById('gumMobility').value)   || null;
+      st.gum.gingival_bleeding  = document.getElementById('gumBleeding').checked;
+      st.gum.plaque_present     = document.getElementById('gumPlaque').checked;
+    });
+  });
+
+  // Global save button in panel
+  document.getElementById('btnGlobalSave').addEventListener('click', window.smileRequestSave);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Bootstrap
+// ═══════════════════════════════════════════════════════════════════════════
+(async function main() {
+  buildDropdown();
+  buildStatusGrid();
+  buildCondGrid();
+  buildColorGrid();
+  buildOrthoGrid();
+  wireEvents();
+  initThree();
+  await loadModel();
+  pushHistory(); // baseline snapshot
+})();
+</script>
+</body>
+</html>

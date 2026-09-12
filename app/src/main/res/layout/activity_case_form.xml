@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_header_hero"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/btn_back_case_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                android:src="@drawable/ic_arrow_right" android:rotation="180" android:alpha="0.7" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp" android:text="Back"
+                android:textColor="@color/text_light_gray" android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_case_form_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Treatment Case"
+            android:textColor="@color/text_white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ProgressBar
+                android:id="@+id/case_form_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_glass"
+                android:padding="20dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView android:text="CASE DETAILS" android:textColor="#5A7AAF"
+                    android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.1"
+                    android:layout_marginBottom="16dp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+                <!-- Patient Spinner -->
+                <TextView android:text="Patient *" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="8dp" android:paddingRight="8dp" android:layout_marginBottom="14dp">
+                    <Spinner android:id="@+id/sp_patient" android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+                </LinearLayout>
+
+                <!-- Case Type Spinner -->
+                <TextView android:text="Case Type *" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="8dp" android:paddingRight="8dp" android:layout_marginBottom="14dp">
+                    <Spinner android:id="@+id/sp_case_type" android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+                </LinearLayout>
+
+                <!-- Case Title -->
+                <TextView android:text="Case Title *" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_case_title" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="e.g. Full Orthodontic Treatment" android:maxLines="1" />
+                </LinearLayout>
+
+                <!-- Chief Complaint -->
+                <TextView android:text="Chief Complaint" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="80dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="top"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:paddingTop="10dp"
+                    android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_chief_complaint" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Patient's main concern…" android:gravity="top"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <!-- Dentist Diagnosis -->
+                <TextView android:text="Dentist Diagnosis" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="80dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="top"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:paddingTop="10dp"
+                    android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_dentist_diagnosis" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Your clinical diagnosis…" android:gravity="top"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <!-- Clinical Findings -->
+                <TextView android:text="Clinical Findings" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="80dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="top"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:paddingTop="10dp"
+                    android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_clinical_findings" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Observed findings…" android:gravity="top"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <!-- Vital Signs -->
+                <TextView android:text="Vital Signs" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="center_vertical"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_vital_signs" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="BP, HR, temp…" android:maxLines="1" />
+                </LinearLayout>
+
+                <!-- Description -->
+                <TextView android:text="Description" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="80dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="top"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:paddingTop="10dp"
+                    android:layout_marginBottom="14dp">
+                    <EditText android:id="@+id/et_case_description" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Case overview…" android:gravity="top"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <!-- Case Notes -->
+                <TextView android:text="Case Notes" android:textColor="@color/text_light_gray"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="80dp"
+                    android:background="@drawable/bg_input_modern" android:gravity="top"
+                    android:paddingLeft="14dp" android:paddingRight="14dp" android:paddingTop="10dp"
+                    android:layout_marginBottom="24dp">
+                    <EditText android:id="@+id/et_case_notes" android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:background="@null"
+                        android:textColor="@color/text_white" android:textColorHint="#5A7AAF"
+                        android:hint="Additional notes…" android:gravity="top"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_save_case"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Save Case"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_button_primary"
+                    android:stateListAnimator="@null" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

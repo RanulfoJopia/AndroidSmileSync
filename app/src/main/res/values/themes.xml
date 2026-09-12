@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="Base.Theme.SmileSync" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/accent_blue</item>
+        <item name="colorPrimaryVariant">@color/accent_blue_light</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowBackground">@color/bg_dark_navy</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@color/bg_dark_navy</item>
+        <item name="android:navigationBarColor">@color/bg_dark_navy</item>
+    </style>
+
+    <style name="Theme.SmileSync" parent="Base.Theme.SmileSync" />
+</resources>
