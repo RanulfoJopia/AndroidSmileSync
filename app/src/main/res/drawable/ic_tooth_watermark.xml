@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Tooth shape -->
+    <path
+        android:fillColor="#C8E0F8"
+        android:pathData="M50,8 C38,8 28,15 24,25 C20,22 14,22 10,27 C5,33 7,42 10,48 C13,54 14,60 16,67 C18,74 20,82 25,82 C29,82 31,77 33,72 C35,67 37,63 50,63 C63,63 65,67 67,72 C69,77 71,82 75,82 C80,82 82,74 84,67 C86,60 87,54 90,48 C93,42 95,33 90,27 C86,22 80,22 76,25 C72,15 62,8 50,8Z" />
+    <!-- Sparkle star top right of tooth -->
+    <path
+        android:fillColor="#A0C8E8"
+        android:pathData="M72,12 L73.5,16 L77.5,17.5 L73.5,19 L72,23 L70.5,19 L66.5,17.5 L70.5,16Z" />
+</vector>

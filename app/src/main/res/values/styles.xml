@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text Styles -->
+    <style name="TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Subtitle" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Body" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextAppearance.Caption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="CardView.Themed">
+        <item name="android:background">@drawable/bg_card_themed</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <!-- Input Field Styles -->
+    <style name="EditText.Themed" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/bg_input_themed</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textColorHint">?attr/colorInputHint</item>
+        <item name="android:padding">14dp</item>
+    </style>
+
+    <!-- ── Floating Bubble Nav Bar ── -->
+
+    <!-- White rounded pill indicator behind the active nav tab icon -->
+    <style name="NavBubbleIndicator">
+        <item name="android:width">60dp</item>
+        <item name="android:height">40dp</item>
+        <item name="android:color">#FFFFFF</item>
+        <item name="shapeAppearance">@style/NavBubbleShape</item>
+    </style>
+
+    <style name="NavBubbleShape" parent="ShapeAppearance.Material3.Corner.Full">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Nav label text styles -->
+    <style name="NavTextActive" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#0A2F5C</item>
+    </style>
+
+    <style name="NavTextInactive" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">#AAFFFFFF</item>
+    </style>
+
+</resources>

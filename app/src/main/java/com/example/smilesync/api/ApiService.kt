@@ -8,9 +8,9 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // AUTH
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @POST("login")
     suspend fun login(@Body body: Map<String, String>): Response<ApiResponse<AuthResult>>
@@ -27,11 +27,11 @@ interface ApiService {
     @PATCH("profile")
     suspend fun updateProfile(@Body body: Map<String, String>): Response<ApiResponse<AuthResult>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // PATIENTS
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
-    /** Paginated/searchable list — DataTables style: ?search=...&page=...&limit=... */
+    /** Paginated/searchable list � DataTables style: ?search=...&page=...&limit=... */
     @GET("patients")
     suspend fun getPatients(@QueryMap params: Map<String, String> = emptyMap()): Response<PagedResponse<Patient>>
 
@@ -50,7 +50,7 @@ interface ApiService {
     @DELETE("patients/{id}")
     suspend fun deletePatient(@Path("id") id: Int): Response<ApiResponse<Unit>>
 
-    /** Full list (no pagination) — used for Dental 3D picker */
+    /** Full list (no pagination) � used for Dental 3D picker */
     @GET("patients-all")
     suspend fun getAllPatients(): Response<ApiResponse<List<Patient>>>
 
@@ -58,9 +58,9 @@ interface ApiService {
     @GET("patients-list")
     suspend fun getPatientsList(): Response<ApiResponse<List<PatientOption>>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // ANAMNESIS
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @GET("patients/{id}/anamnesis")
     suspend fun getAnamnesis(
@@ -87,9 +87,9 @@ interface ApiService {
         @Path("anamId") anamId: Int
     ): Response<ApiResponse<Unit>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // DOCUMENTS
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @GET("patients/{id}/documents")
     suspend fun getDocuments(
@@ -111,9 +111,9 @@ interface ApiService {
         @Path("docId") docId: Int
     ): Response<ApiResponse<Unit>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // TREATMENT CASES
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @GET("treatment-cases")
     suspend fun getTreatmentCases(
@@ -137,9 +137,9 @@ interface ApiService {
     @DELETE("treatment-cases/{id}")
     suspend fun deleteTreatmentCase(@Path("id") id: Int): Response<ApiResponse<Unit>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // CASE PLAN
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @GET("treatment-cases/{id}/plan")
     suspend fun getCasePlan(@Path("id") caseId: Int): Response<ApiResponse<CasePlan>>
@@ -156,9 +156,9 @@ interface ApiService {
         @Body body: Map<String, @JvmSuppressWildcards Any?>
     ): Response<ApiResponse<CasePlan>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // PLAN SEQUENCES
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @GET("treatment-cases/{id}/sequences")
     suspend fun getSequences(
@@ -184,9 +184,9 @@ interface ApiService {
         @Path("seqId") seqId: Int
     ): Response<ApiResponse<Unit>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // MEASUREMENTS (Dental Charting)
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @GET("patients/{patientId}/measurements/latest")
     suspend fun getLatestMeasurement(
@@ -218,9 +218,9 @@ interface ApiService {
         @Path("measureId") measureId: Int
     ): Response<ApiResponse<Unit>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
     // AI GENERATION
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @POST("generate/plan")
     suspend fun generatePlan(
@@ -232,9 +232,27 @@ interface ApiService {
         @Body body: Map<String, @JvmSuppressWildcards Any?>
     ): Response<ApiResponse<List<PlanSequence>>>
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
+    // SUBSCRIPTION & PAYMENTS
+    // -----------------------------------------------------------------------
+
+    @GET("subscription/status")
+    suspend fun getSubscriptionStatus(): Response<ApiResponse<Map<String, Any?>>>
+
+    @POST("subscription/create-checkout-session")
+    suspend fun createCheckoutSession(
+        @Body body: Map<String, String>
+    ): Response<ApiResponse<Map<String, String>>>
+
+    @GET("subscription/payment-history")
+    suspend fun getPaymentHistory(): Response<ApiResponse<Map<String, Any?>>>
+
+    @POST("subscription/cancel")
+    suspend fun cancelSubscription(): Response<ApiResponse<Map<String, String>>>
+
+    // -----------------------------------------------------------------------
     // MISC
-    // ═══════════════════════════════════════════════════════════════════════
+    // -----------------------------------------------------------------------
 
     @GET("categories")
     suspend fun getCategories(): Response<ApiResponse<CategoriesResult>>

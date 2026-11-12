@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SMILESYNC DIMENSION SYSTEM
+         Consistent spacing and sizing following 8dp grid system
+         ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- ═══ SPACING SYSTEM (8dp grid) ═══ -->
+    <dimen name="spacing_xs">4dp</dimen>          <!-- Extra small spacing -->
+    <dimen name="spacing_sm">8dp</dimen>          <!-- Small spacing -->
+    <dimen name="spacing_md">16dp</dimen>         <!-- Medium spacing (base) -->
+    <dimen name="spacing_lg">24dp</dimen>         <!-- Large spacing -->
+    <dimen name="spacing_xl">32dp</dimen>         <!-- Extra large spacing -->
+    <dimen name="spacing_xxl">48dp</dimen>        <!-- 2X large spacing -->
+    <dimen name="spacing_xxxl">64dp</dimen>       <!-- 3X large spacing -->
+
+    <!-- ═══ PADDING ═══ -->
+    <dimen name="padding_content">20dp</dimen>    <!-- Standard content padding -->
+    <dimen name="padding_card">16dp</dimen>       <!-- Card internal padding -->
+    <dimen name="padding_list_item">16dp</dimen>  <!-- List item padding -->
+    <dimen name="padding_section">24dp</dimen>    <!-- Section padding -->
+
+    <!-- ═══ MARGINS ═══ -->
+    <dimen name="margin_card">16dp</dimen>        <!-- Space between cards -->
+    <dimen name="margin_item">12dp</dimen>        <!-- Space between items -->
+    <dimen name="margin_section">24dp</dimen>     <!-- Space between sections -->
+
+    <!-- ═══ CORNER RADIUS ═══ -->
+    <dimen name="radius_xs">4dp</dimen>           <!-- Extra small radius (badges) -->
+    <dimen name="radius_sm">8dp</dimen>           <!-- Small radius (buttons, chips) -->
+    <dimen name="radius_md">12dp</dimen>          <!-- Medium radius (cards) -->
+    <dimen name="radius_lg">16dp</dimen>          <!-- Large radius (dialogs) -->
+    <dimen name="radius_xl">24dp</dimen>          <!-- Extra large radius (bottom sheets) -->
+    <dimen name="radius_round">1000dp</dimen>     <!-- Fully rounded (pills, avatars) -->
+    <dimen name="card_corner_radius">12dp</dimen> <!-- Card corner radius (alias for radius_md) -->
+    <dimen name="button_corner_radius">8dp</dimen> <!-- Button corner radius (alias for radius_sm) -->
+
+    <!-- ═══ ELEVATION ═══ -->
+    <dimen name="elevation_none">0dp</dimen>      <!-- No elevation -->
+    <dimen name="elevation_sm">2dp</dimen>        <!-- Small elevation (cards at rest) -->
+    <dimen name="elevation_md">4dp</dimen>        <!-- Medium elevation (raised cards) -->
+    <dimen name="elevation_lg">8dp</dimen>        <!-- Large elevation (FAB, dialogs) -->
+    <dimen name="elevation_xl">16dp</dimen>       <!-- Extra large elevation (modals) -->
+
+    <!-- ═══ COMPONENT SIZES ═══ -->
+    <!-- Buttons -->
+    <dimen name="button_height">48dp</dimen>      <!-- Standard button height -->
+    <dimen name="button_height_small">36dp</dimen> <!-- Small button height -->
+    <dimen name="button_height_large">56dp</dimen> <!-- Large button height -->
+    <dimen name="button_min_width">88dp</dimen>   <!-- Minimum button width -->
+    <dimen name="button_padding_horizontal">24dp</dimen>
+
+    <!-- Input Fields -->
+    <dimen name="input_height">56dp</dimen>       <!-- Standard input height -->
+    <dimen name="input_padding_horizontal">16dp</dimen>
+    <dimen name="input_padding_vertical">16dp</dimen>
+
+    <!-- Avatars -->
+    <dimen name="avatar_size_small">32dp</dimen>
+    <dimen name="avatar_size_medium">48dp</dimen>
+    <dimen name="avatar_size_large">64dp</dimen>
+    <dimen name="avatar_size_xlarge">96dp</dimen>
+
+    <!-- Icons -->
+    <dimen name="icon_size_small">16dp</dimen>
+    <dimen name="icon_size_medium">24dp</dimen>
+    <dimen name="icon_size_large">32dp</dimen>
+    <dimen name="icon_size_xlarge">48dp</dimen>
+
+    <!-- Stat Cards -->
+    <dimen name="stat_card_height">100dp</dimen>
+    <dimen name="stat_card_min_width">140dp</dimen>
+
+    <!-- Bottom Navigation -->
+    <dimen name="bottom_nav_height">64dp</dimen>
+    <dimen name="bottom_nav_icon_size">24dp</dimen>
+
+    <!-- ═══ TYPOGRAPHY SIZES ═══ -->
+    <dimen name="text_display_large">57sp</dimen>    <!-- Hero text -->
+    <dimen name="text_display_medium">45sp</dimen>   <!-- Large headings -->
+    <dimen name="text_display_small">36sp</dimen>    <!-- Section headings -->
+    
+    <dimen name="text_headline_large">32sp</dimen>   <!-- Page titles -->
+    <dimen name="text_headline_medium">28sp</dimen>  <!-- Card titles -->
+    <dimen name="text_headline_small">24sp</dimen>   <!-- Section titles -->
+    
+    <dimen name="text_title_large">22sp</dimen>      <!-- Emphasis titles -->
+    <dimen name="text_title_medium">16sp</dimen>     <!-- List item titles -->
+    <dimen name="text_title_small">14sp</dimen>      <!-- Dense titles -->
+    
+    <dimen name="text_body_large">16sp</dimen>       <!-- Primary body text -->
+    <dimen name="text_body_medium">14sp</dimen>      <!-- Secondary body text -->
+    <dimen name="text_body_small">12sp</dimen>       <!-- Caption text -->
+    
+    <dimen name="text_label_large">14sp</dimen>      <!-- Button text -->
+    <dimen name="text_label_medium">12sp</dimen>     <!-- Chip text -->
+    <dimen name="text_label_small">11sp</dimen>      <!-- Small labels -->
+
+    <!-- ═══ SYSTEM UI ═══ -->
+    <dimen name="status_bar_padding">48dp</dimen>    <!-- Status bar height + padding -->
+    <dimen name="header_padding_horizontal">20dp</dimen>
+    <dimen name="header_padding_bottom">20dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="app_bar_height">64dp</dimen>
+
+    <!-- ═══ LIST ITEMS ═══ -->
+    <dimen name="list_item_height_small">48dp</dimen>
+    <dimen name="list_item_height_medium">56dp</dimen>
+    <dimen name="list_item_height_large">72dp</dimen>
+    <dimen name="list_item_height_xlarge">88dp</dimen>
+
+    <!-- ═══ DIVIDERS ═══ -->
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_thick">2dp</dimen>
+
+    <!-- ═══ FAB ═══ -->
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- ═══ CARD DIMENSIONS ═══ -->
+    <dimen name="card_min_height">120dp</dimen>
+    <dimen name="card_image_height">180dp</dimen>
+
+    <!-- ═══ DIALOG & BOTTOM SHEET ═══ -->
+    <dimen name="dialog_max_width">560dp</dimen>
+    <dimen name="bottom_sheet_peek_height">96dp</dimen>
+
+    <!-- ═══ PROGRESS INDICATORS ═══ -->
+    <dimen name="progress_size_small">24dp</dimen>
+    <dimen name="progress_size_medium">48dp</dimen>
+    <dimen name="progress_size_large">64dp</dimen>
+    <dimen name="progress_stroke_width">4dp</dimen>
+
+    <!-- ═══ BADGES ═══ -->
+    <dimen name="badge_size">20dp</dimen>
+    <dimen name="badge_text_size">10sp</dimen>
+
+    <!-- ═══ RIPPLE ═══ -->
+    <dimen name="ripple_radius">48dp</dimen>
+</resources>

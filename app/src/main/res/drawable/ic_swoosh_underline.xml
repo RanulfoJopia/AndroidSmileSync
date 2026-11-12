@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="140dp"
+    android:height="14dp"
+    android:viewportWidth="140"
+    android:viewportHeight="14">
+    <!-- Teal swoosh curve under BACK -->
+    <path
+        android:strokeColor="#00BCD4"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M4,10 Q35,2 70,8 Q105,14 136,6" />
+</vector>

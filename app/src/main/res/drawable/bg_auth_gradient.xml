@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Blue gradient that fades from solid blue at top to transparent at bottom -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#FF1565C0"
+        android:centerColor="#CC1565C0"
+        android:endColor="#001565C0"
+        android:angle="270"
+        android:type="linear" />
+</shape>

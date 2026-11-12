@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!-- Full-screen wave background -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_auth_waves"
+        android:scaleType="centerCrop"
+        android:contentDescription="" />
+
+    <!-- Tooth watermark — large, center-left, ghost style -->
+    <ImageView
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="-40dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/ic_tooth_watermark"
+        android:alpha="0.55"
+        android:scaleType="fitCenter"
+        android:contentDescription="" />
+
+    <!-- Logo — top right corner, white circle -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="44dp"
+        app:cardElevation="6dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="#E0E0E0"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/logo_smilesync"
+                android:scaleType="fitCenter"
+                android:contentDescription="SmileSync logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SmileSync"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="#0A2F5C"
+                android:gravity="center" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Main content — bottom 55% of screen -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="48dp">
+
+        <!-- Dual-color divider line: navy + teal -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <View
+                android:layout_width="36dp"
+                android:layout_height="4dp"
+                android:background="#0D1B4B"
+                android:layout_marginEnd="4dp" />
+
+            <View
+                android:layout_width="36dp"
+                android:layout_height="4dp"
+                android:background="#00BCD4" />
+        </LinearLayout>
+
+        <!-- WELCOME — dark navy -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WELCOME"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="#0D1B4B"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.01" />
+
+        <!-- BACK — bright blue -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BACK"
+            android:textSize="52sp"
+            android:textStyle="bold"
+            android:textColor="#1E90FF"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.01"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Teal swoosh underline under BACK -->
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_swoosh_underline"
+            android:scaleType="fitStart"
+            android:layout_marginTop="-8dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your dental care companion.\nSign in or create a new account."
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_marginBottom="40dp" />
+
+        <!-- SIGN IN button — white outlined pill with icon + divider -->
+        <LinearLayout
+            android:id="@+id/btnLandingSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_btn_outlined_pill"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_settings_person"
+                app:tint="#1E90FF"
+                android:layout_marginStart="24dp"
+                android:contentDescription="" />
+
+            <!-- Vertical divider -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="28dp"
+                android:background="#CCCCCC"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SIGN IN"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1E90FF"
+                android:letterSpacing="0.05"
+                android:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+        <!-- SIGN UP button — blue filled pill with icon + divider -->
+        <LinearLayout
+            android:id="@+id/btnLandingSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_btn_filled_pill"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_stat_patients"
+                app:tint="#FFFFFF"
+                android:layout_marginStart="24dp"
+                android:contentDescription="" />
+
+            <!-- Vertical divider -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="28dp"
+                android:background="#FFFFFF"
+                android:alpha="0.4"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SIGN UP"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:letterSpacing="0.05"
+                android:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

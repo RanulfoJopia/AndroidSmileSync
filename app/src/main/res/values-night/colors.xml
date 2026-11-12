@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark theme colors -->
+    <color name="text_primary_dark">#FFFFFF</color>
+    <color name="text_secondary_dark">#B3FFFFFF</color>
+    <color name="text_tertiary_dark">#80FFFFFF</color>
+    <color name="text_gray">#999999</color>
+    <color name="error">#CF6679</color>
+    
+    <!-- Status badge colors -->
+    <color name="status_inactive_bg">#424242</color>
+    <color name="status_active_bg">#1B5E20</color>
+    <color name="status_pending_bg">#E65100</color>
+    
+    <!-- Surface colors -->
+    <color name="surface_dark">#121212</color>
+    <color name="surface_variant_dark">#1E1E1E</color>
+    <color name="outline_variant_dark">#444444</color>
+    <color name="outline_dark">#555555</color>
+    <color name="shadow_dark">#000000</color>
+    
+    <!-- Primary/secondary/success colors -->
+    <color name="primary">#1E88E5</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#42A5F5</color>
+    <color name="secondary">#26A69A</color>
+    <color name="secondary_dark">#00897B</color>
+    <color name="success">#66BB6A</color>
+    <color name="success_green">#4CAF50</color>
+    <color name="warning_orange">#FF9800</color>
+    
+    <!-- Stat card colors -->
+    <color name="stat_orange">#FF9800</color>
+    <color name="stat_purple">#AB47BC</color>
+    
+    <!-- Ripple/transparent -->
+    <color name="ripple_dark">#33FFFFFF</color>
+    <color name="transparent">#00000000</color>
+</resources>

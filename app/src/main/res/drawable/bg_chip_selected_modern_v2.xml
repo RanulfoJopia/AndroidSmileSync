@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modern chip/pill selected state -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple_dark">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/radius_round" />
+            <solid android:color="@color/primary" />
+        </shape>
+    </item>
+</ripple>

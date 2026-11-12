@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PATIENT DETAIL - MODERN PROFESSIONAL DESIGN
+    Material Design 3 with TabLayout and ViewPager2
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    tools:context=".activities.PatientDetailActivity">
+
+    <!-- ═══ APP BAR WITH PROFILE HEADER ═══ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:theme="@style/ThemeOverlay.Material3.Dark"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|snap"
+            app:contentScrim="@color/primary"
+            app:expandedTitleMarginStart="@dimen/spacing_lg"
+            app:expandedTitleMarginBottom="@dimen/spacing_md">
+
+            <!-- Header Background -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_header_hero"
+                android:paddingStart="@dimen/spacing_lg"
+                android:paddingEnd="@dimen/spacing_lg"
+                android:paddingTop="@dimen/spacing_xxl"
+                android:paddingBottom="@dimen/spacing_lg"
+                app:layout_collapseMode="parallax">
+
+                <!-- Back Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_back_patient"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    android:text="← Patients"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_body_medium"
+                    app:icon="@drawable/ic_arrow_right"
+                    app:iconTint="@color/white"
+                    app:iconGravity="start"
+                    app:rippleColor="@color/ripple_dark" />
+
+                <!-- Profile Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/spacing_md">
+
+                    <!-- Profile Picture -->
+                    <FrameLayout
+                        android:layout_width="@dimen/avatar_size_large"
+                        android:layout_height="@dimen/avatar_size_large"
+                        android:layout_marginEnd="@dimen/spacing_md">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="@dimen/radius_round"
+                            app:cardElevation="@dimen/elevation_md"
+                            app:cardBackgroundColor="@color/primary_light"
+                            app:strokeWidth="3dp"
+                            app:strokeColor="@color/white">
+
+                            <ImageView
+                                android:id="@+id/iv_profile_picture"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_person"
+                                android:padding="@dimen/spacing_md"
+                                android:contentDescription="Profile Picture" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Camera FAB -->
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/iv_camera_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:src="@drawable/ic_camera"
+                            app:fabSize="mini"
+                            app:fabCustomSize="28dp"
+                            app:maxImageSize="16dp"
+                            app:backgroundTint="@color/primary"
+                            app:tint="@color/white"
+                            app:elevation="@dimen/elevation_sm"
+                            android:contentDescription="Change Photo" />
+                    </FrameLayout>
+
+                    <!-- Patient Info -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_detail_name"
+                            style="@style/TextAppearance.SmileSync.HeadlineSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Patient Name"
+                            android:textColor="@color/white"
+                            tools:text="Maria Santos" />
+
+                        <TextView
+                            style="@style/TextAppearance.SmileSync.BodyMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="View patient details and history"
+                            android:textColor="@color/white"
+                            android:alpha="0.8" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Action Chips -->
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="@dimen/spacing_sm"
+                    app:singleLine="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/btn_add_case"
+                        style="@style/Widget.Material3.Chip.Assist.Elevated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Case"
+                        android:textColor="@color/white"
+                        app:chipBackgroundColor="@color/primary"
+                        app:chipIcon="@drawable/ic_add"
+                        app:chipIconTint="@color/white"
+                        app:chipCornerRadius="@dimen/radius_sm" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/btn_dental_exam"
+                        style="@style/Widget.Material3.Chip.Assist.Elevated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3D Exam"
+                        android:textColor="@color/white"
+                        app:chipBackgroundColor="@color/secondary"
+                        app:chipCornerRadius="@dimen/radius_sm" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/btn_edit_patient"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:textColor="@color/white"
+                        app:chipBackgroundColor="@color/surface_variant_dark"
+                        app:chipIcon="@drawable/ic_edit"
+                        app:chipIconTint="@color/white"
+                        app:chipCornerRadius="@dimen/radius_sm" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/btn_delete_patient"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete"
+                        android:textColor="@color/error"
+                        app:chipBackgroundColor="@color/surface_variant_dark"
+                        app:chipIcon="@drawable/ic_delete"
+                        app:chipIconTint="@color/error"
+                        app:chipCornerRadius="@dimen/radius_sm" />
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+
+            <!-- Material Tabs -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/transparent"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabTextAppearance="@style/TextAppearance.SmileSync.Tab"
+                app:tabTextColor="@color/white"
+                app:tabSelectedTextColor="@color/white"
+                app:tabIndicatorColor="@color/white"
+                app:tabIndicatorHeight="3dp"
+                app:tabIndicatorFullWidth="false"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Loading Progress -->
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/patient_detail_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/spacing_xl"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:indicatorColor="@color/primary"
+                app:trackThickness="3dp" />
+
+            <!-- Stats Row -->
+            <LinearLayout
+                android:id="@+id/stats_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_md">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    app:cardCornerRadius="@dimen/radius_md"
+                    app:cardElevation="@dimen/elevation_sm"
+                    app:cardBackgroundColor="@color/surface_dark"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/outline_variant_dark">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_detail_cases_count"
+                            style="@style/TextAppearance.SmileSync.HeadlineMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/primary"
+                            tools:text="5" />
+
+                        <TextView
+                            style="@style/TextAppearance.SmileSync.BodySmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="Cases"
+                            android:textColor="@color/text_secondary_dark" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_sm"
+                    app:cardCornerRadius="@dimen/radius_md"
+                    app:cardElevation="@dimen/elevation_sm"
+                    app:cardBackgroundColor="@color/surface_dark"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/outline_variant_dark">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_detail_completed_count"
+                            style="@style/TextAppearance.SmileSync.HeadlineMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/success"
+                            tools:text="3" />
+
+                        <TextView
+                            style="@style/TextAppearance.SmileSync.BodySmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="Completed"
+                            android:textColor="@color/text_secondary_dark" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- Tab Content Panels -->
+            <!-- INFO PANEL -->
+            <LinearLayout
+                android:id="@+id/panel_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_md"
+                android:visibility="visible">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/radius_md"
+                    app:cardElevation="@dimen/elevation_sm"
+                    app:cardBackgroundColor="@color/surface_dark"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/outline_variant_dark">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md">
+
+                        <TextView
+                            style="@style/TextAppearance.SmileSync.TitleMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_md"
+                            android:text="Personal Information"
+                            android:textColor="@color/text_primary_dark" />
+
+                        <!-- Info Row: Birthdate -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/spacing_sm">
+
+                            <TextView
+                                style="@style/TextAppearance.SmileSync.BodyMedium"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:text="Birthdate"
+                                android:textColor="@color/text_secondary_dark" />
+
+                            <TextView
+                                android:id="@+id/tv_detail_birthdate"
+                                style="@style/TextAppearance.SmileSync.BodyMedium"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="N/A"
+                                android:textColor="@color/text_primary_dark"
+                                tools:text="Jan 15, 1985" />
+                        </LinearLayout>
+
+                        <!-- Info Row: Age -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/spacing_sm">
+
+                            <TextView
+                                style="@style/TextAppearance.SmileSync.BodyMedium"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:text="Age"
+                                android:textColor="@color/text_secondary_dark" />
+
+                            <TextView
+                                android:id="@+id/tv_detail_age"
+                                style="@style/TextAppearance.SmileSync.BodyMedium"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="N/A"
+                                android:textColor="@color/text_primary_dark"
+                                tools:text="39 years" />
+                        </LinearLayout>
+
+                        <!-- Info Row: Sex -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/spacing_sm">
+
+                            <TextView
+                                style="@style/TextAppearance.SmileSync.BodyMedium"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:text="Sex"
+                                android:textColor="@color/text_secondary_dark" />
+
+                            <TextView
+                                android:id="@+id/tv_detail_sex"
+                                style="@style/TextAppearance.SmileSync.BodyMedium"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="N/A"
+                                android:textColor="@color/text_primary_dark"
+                                tools:text="Female" />
+                        </LinearLayout>
+
+                        <!-- Info Row: Address -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/TextAppearance.SmileSync.BodyMedium"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:text="Address"
+                                android:textColor="@color/text_secondary_dark" />
+
+                            <TextView
+                                android:id="@+id/tv_detail_address"
+                                style="@style/TextAppearance.SmileSync.BodyMedium"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="N/A"
+                                android:textColor="@color/text_primary_dark"
+                                tools:text="123 Main St, Manila" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Latest Case Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_md"
+                    app:cardCornerRadius="@dimen/radius_md"
+                    app:cardElevation="@dimen/elevation_sm"
+                    app:cardBackgroundColor="@color/surface_dark"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/outline_variant_dark">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md">
+
+                        <TextView
+                            style="@style/TextAppearance.SmileSync.TitleMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_sm"
+                            android:text="Latest Case"
+                            android:textColor="@color/text_primary_dark" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_latest_case"
+                            style="@style/TextAppearance.SmileSync.BodyMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No active cases"
+                            android:textColor="@color/text_secondary_dark"
+                            tools:text="Orthodontic Treatment" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- ANAMNESIS PANEL -->
+            <LinearLayout
+                android:id="@+id/panel_anamnesis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_md"
+                android:visibility="gone">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_anamnesis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_add_anamnesis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/spacing_md"
+                    android:src="@drawable/ic_add"
+                    app:fabSize="normal"
+                    app:backgroundTint="@color/primary"
+                    app:tint="@color/white"
+                    android:contentDescription="Add Anamnesis" />
+            </LinearLayout>
+
+            <!-- DOCUMENTS PANEL -->
+            <LinearLayout
+                android:id="@+id/panel_documents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_md"
+                android:visibility="gone">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_documents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_upload_doc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/spacing_md"
+                    android:src="@drawable/ic_add"
+                    app:fabSize="normal"
+                    app:backgroundTint="@color/primary"
+                    app:tint="@color/white"
+                    android:contentDescription="Upload Document" />
+            </LinearLayout>
+
+            <!-- CASES PANEL -->
+            <LinearLayout
+                android:id="@+id/panel_cases"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_md"
+                android:visibility="gone">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cases"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

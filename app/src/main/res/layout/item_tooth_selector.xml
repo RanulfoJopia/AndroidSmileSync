@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="70dp"
+    android:layout_margin="4dp"
+    android:orientation="vertical"
+    android:background="@drawable/bg_chip_modern"
+    android:padding="8dp"
+    android:gravity="center"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Condition Indicator -->
+    <View
+        android:id="@+id/tooth_condition_indicator"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_avatar_circle" />
+
+    <!-- Tooth Number -->
+    <TextView
+        android:id="@+id/tv_tooth_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11"
+        android:textColor="@color/text_white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Tooth Label -->
+    <TextView
+        android:id="@+id/tv_tooth_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UR1"
+        android:textColor="@color/text_light_gray"
+        android:textSize="10sp" />
+
+</LinearLayout>
