@@ -1,4 +1,4 @@
-﻿package com.example.smilesync.dialogs
+package com.example.smilesync.dialogs
 
 import android.app.Dialog
 import android.content.Context
@@ -89,11 +89,6 @@ class ToothSelectionDialog(
             teethSet.add(odonto.toothNumber)
         }
 
-        // Get teeth from periodontograms (gum health data)
-        measurement.periodontograms?.forEach { perio ->
-            teethSet.add(perio.toothNumber)
-        }
-
         // Get teeth from tooth notes (custom annotations)
         measurement.toothNotes?.forEach { note ->
             if (!note.noteNotes.isNullOrBlank()) {
@@ -101,8 +96,8 @@ class ToothSelectionDialog(
             }
         }
 
-        // Get teeth from tooth measurements with procedures or notes
-        measurement.toothMeasurements?.forEach { tooth ->
+        // Get teeth from tooth records with procedures or notes
+        measurement.toothRecords?.forEach { tooth ->
             if (!tooth.procedures.isNullOrEmpty() || !tooth.recordNotes.isNullOrBlank()) {
                 teethSet.add(tooth.toothNumber)
             }
@@ -181,18 +176,12 @@ class ToothSelectionDialog(
         if (measurement == null) return "normal"
 
         // Check if tooth is missing
-        val toothRecord = measurement.toothMeasurements?.find { it.toothNumber == toothNum }
+        val toothRecord = measurement.toothRecords?.find { it.toothNumber == toothNum }
         if (toothRecord?.status == "missing") return "missing"
 
         // Check odontogram for conditions
         val odontogram = measurement.odontograms?.find { it.toothNumber == toothNum }
         if (odontogram != null && odontogram.conditionType in listOf(1, 7)) { // Caries or Fractured
-            return "needs_treatment"
-        }
-
-        // Check periodontogram for pocket depth
-        val periodontogram = measurement.periodontograms?.find { it.toothNumber == toothNum }
-        if (periodontogram != null && (periodontogram.pocketDepthMm ?: 0.0) > 4.0) {
             return "needs_treatment"
         }
 
