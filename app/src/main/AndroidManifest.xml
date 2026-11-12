@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -16,6 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmileSync"
         android:networkSecurityConfig="@xml/network_security_config">
+
+        <!-- ═══ LANDING PAGE ══════════════════════════════════════════ -->
+        <activity
+            android:name=".activities.LandingActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!-- ═══ AUTH ═══════════════════════════════════════════════════════ -->
         <activity
@@ -64,6 +74,15 @@
             android:name=".activities.ProfileActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- ═══ PAYMENT ═══════════════════════════════════════════════ -->
+        <activity
+            android:name=".activities.PaymentHistoryActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.StripeCheckoutActivity"
+            android:exported="false" />
 
         <!-- ═══ 3D DENTAL EXAM ══════════════════════════════════════════ -->
         <activity
