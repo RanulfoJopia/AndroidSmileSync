@@ -153,7 +153,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_stat_patients"
+                        android:src="@drawable/ic_bar_chart"
                         app:tint="#2196F3"
                         android:layout_marginEnd="6dp"
                         android:contentDescription="" />
@@ -205,35 +205,42 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="12dp">
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            android:gravity="center_vertical">
 
                             <ImageView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
                                 android:src="@drawable/ic_stat_patients"
                                 app:tint="#2196F3"
-                                android:layout_marginBottom="6dp"
+                                android:layout_marginEnd="10dp"
                                 android:contentDescription="" />
 
-                            <TextView
-                                android:id="@+id/tv_stat_total_patients"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2"
-                                android:textSize="28sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A2B4A"
-                                android:fontFamily="sans-serif-black"
-                                tools:text="2" />
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Total Patients"
-                                android:textSize="11sp"
-                                android:textColor="#5A6B7D"
-                                android:layout_marginTop="2dp" />
+                                <TextView
+                                    android:id="@+id/tv_stat_total_patients"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#1A2B4A"
+                                    android:fontFamily="sans-serif-black"
+                                    tools:text="2" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total Patients"
+                                    android:textSize="11sp"
+                                    android:textColor="#5A6B7D"
+                                    android:layout_marginTop="-2dp" />
+                            </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
@@ -250,35 +257,156 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="12dp">
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            android:gravity="center_vertical">
 
                             <ImageView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
                                 android:src="@drawable/ic_stat_pending"
                                 app:tint="#4CAF50"
-                                android:layout_marginBottom="6dp"
+                                android:layout_marginEnd="10dp"
                                 android:contentDescription="" />
 
-                            <TextView
-                                android:id="@+id/tv_stat_pending_plans"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1"
-                                android:textSize="28sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A2B4A"
-                                android:fontFamily="sans-serif-black"
-                                tools:text="1" />
+                                android:orientation="vertical">
 
-                            <TextView
+                                <TextView
+                                    android:id="@+id/tv_stat_pending_plans"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#1A2B4A"
+                                    android:fontFamily="sans-serif-black"
+                                    tools:text="1" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pending Plans"
+                                    android:textSize="11sp"
+                                    android:textColor="#5A6B7D"
+                                    android:layout_marginTop="-2dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Stats Grid - Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Pending Sequencing -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="3dp"
+                        app:cardBackgroundColor="#F3E5F5">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_stat_treatment"
+                                app:tint="#9C27B0"
+                                android:layout_marginEnd="10dp"
+                                android:contentDescription="" />
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pending Plans"
-                                android:textSize="11sp"
-                                android:textColor="#5A6B7D"
-                                android:layout_marginTop="2dp" />
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_stat_pending_sequencing"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#1A2B4A"
+                                    android:fontFamily="sans-serif-black"
+                                    tools:text="0" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pending Sequencing"
+                                    android:textSize="11sp"
+                                    android:textColor="#5A6B7D"
+                                    android:layout_marginTop="-2dp"
+                                    android:maxLines="1"
+                                    android:ellipsize="end" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Completed Cases -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="3dp"
+                        app:cardBackgroundColor="#FFF3E0">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_stat_examined"
+                                app:tint="#FF9800"
+                                android:layout_marginEnd="10dp"
+                                android:contentDescription="" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_stat_completed_cases"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#1A2B4A"
+                                    android:fontFamily="sans-serif-black"
+                                    tools:text="0" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Completed Cases"
+                                    android:textSize="11sp"
+                                    android:textColor="#5A6B7D"
+                                    android:layout_marginTop="-2dp" />
+                            </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
@@ -442,15 +570,15 @@
                         android:background="?attr/selectableItemBackground">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="3dp"
                             app:cardBackgroundColor="#E3F2FD">
 
                             <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_stat_patients"
                                 app:tint="#2196F3"
@@ -484,17 +612,17 @@
                         android:background="?attr/selectableItemBackground">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="3dp"
                             app:cardBackgroundColor="#F3E5F5">
 
                             <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_lock"
+                                android:src="@drawable/ic_tooth_watermark"
                                 app:tint="#9C27B0"
                                 android:contentDescription="" />
                         </com.google.android.material.card.MaterialCardView>
@@ -526,15 +654,15 @@
                         android:background="?attr/selectableItemBackground">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="3dp"
                             app:cardBackgroundColor="#E8F5E9">
 
                             <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_stat_treatment"
                                 app:tint="#4CAF50"
@@ -568,15 +696,15 @@
                         android:background="?attr/selectableItemBackground">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="3dp"
                             app:cardBackgroundColor="#FFF3E0">
 
                             <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_arrow_right"
                                 app:tint="#FF9800"
