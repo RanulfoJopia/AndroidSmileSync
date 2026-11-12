@@ -411,107 +411,6 @@
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
-                <!-- Stats Grid - Row 2 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <!-- Pending Sequencing -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="6dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="3dp"
-                        app:cardBackgroundColor="#F3E5F5">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="12dp">
-
-                            <ImageView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:src="@drawable/ic_stat_treatment"
-                                app:tint="#9C27B0"
-                                android:layout_marginBottom="6dp"
-                                android:contentDescription="" />
-
-                            <TextView
-                                android:id="@+id/tv_stat_pending_sequencing"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textSize="28sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A2B4A"
-                                android:fontFamily="sans-serif-black"
-                                tools:text="0" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pending Sequencing"
-                                android:textSize="11sp"
-                                android:textColor="#5A6B7D"
-                                android:layout_marginTop="2dp"
-                                android:maxLines="1"
-                                android:ellipsize="end" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Completed Cases -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="6dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="3dp"
-                        app:cardBackgroundColor="#FFF3E0">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="12dp">
-
-                            <ImageView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:src="@drawable/ic_stat_examined"
-                                app:tint="#FF9800"
-                                android:layout_marginBottom="6dp"
-                                android:contentDescription="" />
-
-                            <TextView
-                                android:id="@+id/tv_stat_completed_cases"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textSize="28sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A2B4A"
-                                android:fontFamily="sans-serif-black"
-                                tools:text="0" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Completed Cases"
-                                android:textSize="11sp"
-                                android:textColor="#5A6B7D"
-                                android:layout_marginTop="2dp" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
-            </LinearLayout>
-
             <!-- Quick Actions Section - Compact -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -532,8 +431,8 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_arrow_right"
-                        app:tint="#FF9800"
+                        android:src="@drawable/ic_chain"
+                                app:tint="#FF9800"
                         android:layout_marginEnd="6dp"
                         android:contentDescription="" />
 
@@ -706,7 +605,7 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_arrow_right"
+                                android:src="@drawable/ic_chain"
                                 app:tint="#FF9800"
                                 android:contentDescription="" />
                         </com.google.android.material.card.MaterialCardView>

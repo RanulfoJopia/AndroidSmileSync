@@ -1,4 +1,4 @@
-package com.example.smilesync.activities
+﻿package com.example.smilesync.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import com.example.smilesync.fragments.ConsultationFragment
 import com.example.smilesync.fragments.DashboardFragment
 import com.example.smilesync.fragments.PatientsFragment
 import com.example.smilesync.fragments.SettingsFragment
+import com.example.smilesync.fragments.ThreeDFragment
 import com.example.smilesync.utils.TokenManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Auth guard — redirect to login if no token
+        // Auth guard - redirect to login if no token
         if (!TokenManager.getInstance(this).isLoggedIn()) {
             goToLogin(); return
         }
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_dashboard    -> DashboardFragment()
                 R.id.nav_patient      -> PatientsFragment()
                 R.id.nav_consultation -> ConsultationFragment()
+                R.id.nav_3d           -> ThreeDFragment()
                 R.id.nav_settings     -> SettingsFragment()
                 else                  -> DashboardFragment()
             }
