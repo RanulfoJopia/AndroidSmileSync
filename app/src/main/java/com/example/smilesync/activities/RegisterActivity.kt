@@ -59,7 +59,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         btnRegister.setOnClickListener { doRegister() }
-        tvSignIn.setOnClickListener { finish() }
+        tvSignIn.setOnClickListener { 
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
         btnBack.setOnClickListener { finish() }
         
         ivTogglePassword.setOnClickListener {
