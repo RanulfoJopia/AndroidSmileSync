@@ -14,7 +14,7 @@
         android:scaleType="centerCrop"
         android:contentDescription="" />
 
-    <!-- Tooth watermark — large, center-left, ghost style -->
+    <!-- Tooth watermark - large, center-left, ghost style -->
     <ImageView
         android:layout_width="260dp"
         android:layout_height="260dp"
@@ -26,14 +26,14 @@
         android:scaleType="fitCenter"
         android:contentDescription="" />
 
-    <!-- Logo — top right corner, white circle -->
+    <!-- Logo - top right corner, white circle -->
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_gravity="top|end"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        app:cardCornerRadius="44dp"
+        app:cardCornerRadius="55dp"
         app:cardElevation="6dp"
         app:strokeWidth="2dp"
         app:strokeColor="#E0E0E0"
@@ -47,8 +47,8 @@
             android:padding="8dp">
 
             <ImageView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/logo_smilesync"
                 android:scaleType="fitCenter"
                 android:contentDescription="SmileSync logo" />
@@ -65,7 +65,7 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Main content — bottom 55% of screen -->
+    <!-- Main content - bottom 55% of screen -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                 android:background="#00BCD4" />
         </LinearLayout>
 
-        <!-- WELCOME — dark navy -->
+        <!-- WELCOME - dark navy -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:fontFamily="sans-serif-black"
             android:letterSpacing="0.01" />
 
-        <!-- BACK — bright blue -->
+        <!-- BACK - bright blue -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
             android:lineSpacingMultiplier="1.4"
             android:layout_marginBottom="40dp" />
 
-        <!-- SIGN IN button — white outlined pill with icon + divider -->
+        <!-- SIGN IN button - white outlined pill with icon + divider -->
         <LinearLayout
             android:id="@+id/btnLandingSignIn"
             android:layout_width="match_parent"
@@ -178,7 +178,7 @@
 
         </LinearLayout>
 
-        <!-- SIGN UP button — blue filled pill with icon + divider -->
+        <!-- SIGN UP button - blue filled pill with icon + divider -->
         <LinearLayout
             android:id="@+id/btnLandingSignUp"
             android:layout_width="match_parent"

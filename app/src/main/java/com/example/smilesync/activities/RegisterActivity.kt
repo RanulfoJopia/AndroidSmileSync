@@ -1,36 +1,32 @@
-package com.example.smilesync.activities
+﻿package com.example.smilesync.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.view.View
-import android.widget.*
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.example.smilesync.R
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.utils.TokenManager
 import com.example.smilesync.utils.UiUtils
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var etFullName: EditText
-    private lateinit var etLicenseNumber: EditText
-    private lateinit var etEmail: EditText
-    private lateinit var etPhone: EditText
-    private lateinit var etPassword: EditText
-    private lateinit var etConfirmPassword: EditText
-    private lateinit var ivTogglePassword: ImageView
-    private lateinit var ivToggleConfirmPassword: ImageView
-    private lateinit var btnRegister: AppCompatButton
-    private lateinit var tvLogin: TextView
+    private lateinit var etFirstName: TextInputEditText
+    private lateinit var etLastName: TextInputEditText
+    private lateinit var etEmail: TextInputEditText
+    private lateinit var etPassword: TextInputEditText
+    private lateinit var etPasswordConfirm: TextInputEditText
+    private lateinit var btnRegister: MaterialButton
+    private lateinit var tvSignIn: TextView
+    private lateinit var btnBack: MaterialCardView
     private lateinit var progressBar: ProgressBar
-
-    private var showPw = false
-    private var showConfirmPw = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,55 +36,35 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        etFullName            = findViewById(R.id.etFullName)
-        etLicenseNumber       = findViewById(R.id.etLicenseNumber)
-        etEmail               = findViewById(R.id.etEmail)
-        etPhone               = findViewById(R.id.etPhone)
-        etPassword            = findViewById(R.id.etPassword)
-        etConfirmPassword     = findViewById(R.id.etConfirmPassword)
-        ivTogglePassword      = findViewById(R.id.ivTogglePassword)
-        ivToggleConfirmPassword = findViewById(R.id.ivToggleConfirmPassword)
-        btnRegister           = findViewById(R.id.btnRegister)
-        tvLogin               = findViewById(R.id.tvLogin)
-        progressBar           = findViewById(R.id.registerProgressBar)
+        etFirstName       = findViewById(R.id.et_first_name)
+        etLastName        = findViewById(R.id.et_last_name)
+        etEmail           = findViewById(R.id.et_email)
+        etPassword        = findViewById(R.id.et_password)
+        etPasswordConfirm = findViewById(R.id.et_password_confirm)
+        btnRegister       = findViewById(R.id.btn_register)
+        tvSignIn          = findViewById(R.id.tv_sign_in)
+        btnBack           = findViewById(R.id.btn_back)
+        progressBar       = findViewById(R.id.register_progress)
     }
 
     private fun setupListeners() {
-        ivTogglePassword.setOnClickListener {
-            showPw = !showPw
-            etPassword.transformationMethod = if (showPw)
-                HideReturnsTransformationMethod.getInstance()
-            else PasswordTransformationMethod.getInstance()
-            ivTogglePassword.setImageResource(if (showPw) R.drawable.ic_visibility else R.drawable.ic_visibility_off)
-            etPassword.setSelection(etPassword.text.length)
-        }
-        ivToggleConfirmPassword.setOnClickListener {
-            showConfirmPw = !showConfirmPw
-            etConfirmPassword.transformationMethod = if (showConfirmPw)
-                HideReturnsTransformationMethod.getInstance()
-            else PasswordTransformationMethod.getInstance()
-            ivToggleConfirmPassword.setImageResource(if (showConfirmPw) R.drawable.ic_visibility else R.drawable.ic_visibility_off)
-            etConfirmPassword.setSelection(etConfirmPassword.text.length)
-        }
         btnRegister.setOnClickListener { doRegister() }
-        tvLogin.setOnClickListener { finish() }
+        tvSignIn.setOnClickListener { finish() }
+        btnBack.setOnClickListener { finish() }
     }
 
     private fun doRegister() {
-        val fullName  = etFullName.text.toString().trim()
+        val firstName = etFirstName.text.toString().trim()
+        val lastName  = etLastName.text.toString().trim()
         val email     = etEmail.text.toString().trim()
         val password  = etPassword.text.toString()
-        val confirm   = etConfirmPassword.text.toString()
+        val confirm   = etPasswordConfirm.text.toString()
 
-        if (fullName.isEmpty())  { etFullName.error = "Required"; return }
+        if (firstName.isEmpty()) { etFirstName.error = "Required"; return }
+        if (lastName.isEmpty())  { etLastName.error = "Required"; return }
         if (email.isEmpty())     { etEmail.error = "Required"; return }
         if (password.length < 8) { etPassword.error = "Min 8 characters"; return }
-        if (password != confirm) { etConfirmPassword.error = "Passwords do not match"; return }
-
-        // Split full name into first/last for the API
-        val parts     = fullName.split(" ", limit = 2)
-        val firstName = parts[0]
-        val lastName  = if (parts.size > 1) parts[1] else "."
+        if (password != confirm) { etPasswordConfirm.error = "Passwords do not match"; return }
 
         setLoading(true)
         lifecycleScope.launch {

@@ -1,38 +1,35 @@
-package com.example.smilesync.activities
+﻿package com.example.smilesync.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.example.smilesync.R
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.utils.TokenManager
 import com.example.smilesync.utils.UiUtils
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var etEmail: EditText
-    private lateinit var etPassword: EditText
-    private lateinit var ivTogglePassword: ImageView
-    private lateinit var btnLogin: AppCompatButton
+    private lateinit var etEmail: TextInputEditText
+    private lateinit var etPassword: TextInputEditText
+    private lateinit var cbRemember: CheckBox
     private lateinit var tvForgotPassword: TextView
-    private lateinit var tvRegister: TextView
+    private lateinit var btnLogin: MaterialButton
+    private lateinit var tvSignUp: TextView
     private lateinit var progressBar: ProgressBar
-
-    private var isPasswordVisible = false
+    private lateinit var btnBack: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Auto-redirect if already logged in
-        val token = TokenManager.getInstance(this).getToken()
-        if (!token.isNullOrBlank()) {
+        if (TokenManager.getInstance(this).isLoggedIn()) {
             goToMain()
             return
         }
@@ -43,45 +40,42 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        etEmail           = findViewById(R.id.etEmail)
-        etPassword        = findViewById(R.id.etPassword)
-        ivTogglePassword  = findViewById(R.id.ivTogglePassword)
-        btnLogin          = findViewById(R.id.btnLogin)
-        tvForgotPassword  = findViewById(R.id.tvForgotPassword)
-        tvRegister        = findViewById(R.id.tvRegister)
-        progressBar       = findViewById(R.id.loginProgressBar)
+        etEmail = findViewById(R.id.et_email)
+        etPassword = findViewById(R.id.et_password)
+        cbRemember = findViewById(R.id.cb_remember)
+        tvForgotPassword = findViewById(R.id.tv_forgot_password)
+        btnLogin = findViewById(R.id.btn_login)
+        tvSignUp = findViewById(R.id.tv_sign_up)
+        progressBar = findViewById(R.id.login_progress)
+        btnBack = findViewById(R.id.btn_back)
     }
 
     private fun setupClickListeners() {
-        ivTogglePassword.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
-            etPassword.transformationMethod = if (isPasswordVisible)
-                HideReturnsTransformationMethod.getInstance()
-            else
-                PasswordTransformationMethod.getInstance()
-            ivTogglePassword.setImageResource(
-                if (isPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
-            )
-            etPassword.setSelection(etPassword.text.length)
-        }
-
+        btnBack.setOnClickListener { finish() }
         btnLogin.setOnClickListener { doLogin() }
-
         tvForgotPassword.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
-
-        tvRegister.setOnClickListener {
+        tvSignUp.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
         }
     }
 
     private fun doLogin() {
-        val email    = etEmail.text.toString().trim()
+        val email = etEmail.text.toString().trim()
         val password = etPassword.text.toString()
 
-        if (email.isEmpty()) { etEmail.error = "Email is required"; etEmail.requestFocus(); return }
-        if (password.isEmpty()) { etPassword.error = "Password is required"; etPassword.requestFocus(); return }
+        if (email.isEmpty()) {
+            etEmail.error = "Email is required"
+            etEmail.requestFocus()
+            return
+        }
+        if (password.isEmpty()) {
+            etPassword.error = "Password is required"
+            etPassword.requestFocus()
+            return
+        }
 
         setLoading(true)
 
@@ -92,24 +86,23 @@ class LoginActivity : AppCompatActivity() {
                 )
                 if (response.isSuccessful) {
                     val result = response.body()?.result
-                    val token  = result?.token
+                    val token = result?.token
                     val dentist = result?.dentist
                     if (!token.isNullOrBlank() && dentist != null) {
                         val tm = TokenManager.getInstance(this@LoginActivity)
                         tm.saveToken(token)
                         tm.saveDentist(dentist)
-                        RetrofitClient.resetClient()
                         goToMain()
                     } else {
-                        UiUtils.toast(this@LoginActivity, "Login failed — no token received")
+                        UiUtils.toast(this@LoginActivity, "Login failed: no token returned")
+                        setLoading(false)
                     }
                 } else {
-                    val msg = UiUtils.errorMessage(response)
-                    UiUtils.toast(this@LoginActivity, msg)
+                    UiUtils.toast(this@LoginActivity, "Login failed: ${response.message()}")
+                    setLoading(false)
                 }
             } catch (e: Exception) {
-                UiUtils.toast(this@LoginActivity, "Network error: ${e.message}")
-            } finally {
+                UiUtils.toast(this@LoginActivity, "Login error: ${e.message}")
                 setLoading(false)
             }
         }
@@ -118,7 +111,8 @@ class LoginActivity : AppCompatActivity() {
     private fun setLoading(loading: Boolean) {
         progressBar.visibility = if (loading) View.VISIBLE else View.GONE
         btnLogin.isEnabled = !loading
-        btnLogin.text = if (loading) "Signing in…" else "Sign In"
+        etEmail.isEnabled = !loading
+        etPassword.isEnabled = !loading
     }
 
     private fun goToMain() {
