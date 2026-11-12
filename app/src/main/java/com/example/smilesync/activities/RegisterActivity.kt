@@ -2,7 +2,10 @@
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -23,10 +26,15 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var etEmail: TextInputEditText
     private lateinit var etPassword: TextInputEditText
     private lateinit var etPasswordConfirm: TextInputEditText
+    private lateinit var ivTogglePassword: ImageView
+    private lateinit var ivTogglePasswordConfirm: ImageView
     private lateinit var btnRegister: MaterialButton
     private lateinit var tvSignIn: TextView
     private lateinit var btnBack: MaterialCardView
     private lateinit var progressBar: ProgressBar
+    
+    private var isPasswordVisible = false
+    private var isConfirmPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +49,8 @@ class RegisterActivity : AppCompatActivity() {
         etEmail           = findViewById(R.id.et_email)
         etPassword        = findViewById(R.id.et_password)
         etPasswordConfirm = findViewById(R.id.et_password_confirm)
+        ivTogglePassword  = findViewById(R.id.iv_toggle_password)
+        ivTogglePasswordConfirm = findViewById(R.id.iv_toggle_password_confirm)
         btnRegister       = findViewById(R.id.btn_register)
         tvSignIn          = findViewById(R.id.tv_sign_in)
         btnBack           = findViewById(R.id.btn_back)
@@ -51,6 +61,30 @@ class RegisterActivity : AppCompatActivity() {
         btnRegister.setOnClickListener { doRegister() }
         tvSignIn.setOnClickListener { finish() }
         btnBack.setOnClickListener { finish() }
+        
+        ivTogglePassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                ivTogglePassword.setImageResource(R.drawable.ic_visibility)
+            } else {
+                etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                ivTogglePassword.setImageResource(R.drawable.ic_visibility_off)
+            }
+            etPassword.setSelection(etPassword.text?.length ?: 0)
+        }
+        
+        ivTogglePasswordConfirm.setOnClickListener {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible
+            if (isConfirmPasswordVisible) {
+                etPasswordConfirm.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                ivTogglePasswordConfirm.setImageResource(R.drawable.ic_visibility)
+            } else {
+                etPasswordConfirm.transformationMethod = PasswordTransformationMethod.getInstance()
+                ivTogglePasswordConfirm.setImageResource(R.drawable.ic_visibility_off)
+            }
+            etPasswordConfirm.setSelection(etPasswordConfirm.text?.length ?: 0)
+        }
     }
 
     private fun doRegister() {

@@ -2,6 +2,8 @@
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -18,12 +20,15 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var etEmail: TextInputEditText
     private lateinit var etPassword: TextInputEditText
+    private lateinit var ivTogglePassword: ImageView
     private lateinit var cbRemember: CheckBox
     private lateinit var tvForgotPassword: TextView
     private lateinit var btnLogin: MaterialButton
     private lateinit var tvSignUp: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var btnBack: View
+    
+    private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initViews() {
         etEmail = findViewById(R.id.et_email)
         etPassword = findViewById(R.id.et_password)
+        ivTogglePassword = findViewById(R.id.iv_toggle_password)
         cbRemember = findViewById(R.id.cb_remember)
         tvForgotPassword = findViewById(R.id.tv_forgot_password)
         btnLogin = findViewById(R.id.btn_login)
@@ -53,6 +59,19 @@ class LoginActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         btnBack.setOnClickListener { finish() }
         btnLogin.setOnClickListener { doLogin() }
+        
+        ivTogglePassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                ivTogglePassword.setImageResource(R.drawable.ic_visibility)
+            } else {
+                etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                ivTogglePassword.setImageResource(R.drawable.ic_visibility_off)
+            }
+            etPassword.setSelection(etPassword.text?.length ?: 0)
+        }
+        
         tvForgotPassword.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
