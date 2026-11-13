@@ -1,5 +1,6 @@
-﻿package com.example.smilesync.fragments
+package com.example.smilesync.fragments
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +17,10 @@ import com.example.smilesync.activities.WebView3DActivity
 import com.example.smilesync.adapters.PatientPickerAdapter
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.utils.UiUtils
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ThreeDFragment : Fragment() {
 
@@ -24,6 +28,15 @@ class ThreeDFragment : Fragment() {
     private lateinit var progressBar : ProgressBar
     private lateinit var tvEmpty     : TextView
     private lateinit var adapter     : PatientPickerAdapter
+    
+    private lateinit var cardDateFrom : MaterialCardView
+    private lateinit var cardDateTo   : MaterialCardView
+    private lateinit var tvDateFrom   : TextView
+    private lateinit var tvDateTo     : TextView
+    
+    private var selectedDateFrom: String? = null
+    private var selectedDateTo: String? = null
+    private val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
 
     override fun onCreateView(
         inflater: LayoutInflater, 
@@ -40,6 +53,11 @@ class ThreeDFragment : Fragment() {
         progressBar = view.findViewById(R.id.progress_3d_patients)
         tvEmpty     = view.findViewById(R.id.tv_empty_3d_patients)
         
+        cardDateFrom = view.findViewById(R.id.card_date_from)
+        cardDateTo   = view.findViewById(R.id.card_date_to)
+        tvDateFrom   = view.findViewById(R.id.tv_date_from)
+        tvDateTo     = view.findViewById(R.id.tv_date_to)
+        
         adapter = PatientPickerAdapter { patient ->
             // Launch WebView with selected patient
             startActivity(Intent(requireContext(), WebView3DActivity::class.java).apply {
@@ -51,7 +69,45 @@ class ThreeDFragment : Fragment() {
         rvPatients.layoutManager = LinearLayoutManager(requireContext())
         rvPatients.adapter = adapter
         
+        setupFilters()
         loadPatients()
+    }
+    
+    private fun setupFilters() {
+        cardDateFrom.setOnClickListener { showDateFromPicker() }
+        cardDateTo.setOnClickListener { showDateToPicker() }
+    }
+    
+    private fun showDateFromPicker() {
+        val calendar = Calendar.getInstance()
+        DatePickerDialog(
+            requireContext(),
+            { _, year, month, day ->
+                calendar.set(year, month, day)
+                selectedDateFrom = dateFormat.format(calendar.time)
+                tvDateFrom.text = selectedDateFrom
+                loadPatients()
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+    
+    private fun showDateToPicker() {
+        val calendar = Calendar.getInstance()
+        DatePickerDialog(
+            requireContext(),
+            { _, year, month, day ->
+                calendar.set(year, month, day)
+                selectedDateTo = dateFormat.format(calendar.time)
+                tvDateTo.text = selectedDateTo
+                loadPatients()
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
 
     private fun loadPatients() {
@@ -59,8 +115,11 @@ class ThreeDFragment : Fragment() {
         
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                // Use the paginated endpoint with a high limit to get all patients
-                val params = mapOf("limit" to "1000")
+                // Build params with date filters
+                val params = mutableMapOf("limit" to "1000")
+                selectedDateFrom?.let { params["date_from"] = it }
+                selectedDateTo?.let { params["date_to"] = it }
+                
                 val response = RetrofitClient.api.getPatients(params)
                 if (!isAdded) return@launch
                 
