@@ -54,6 +54,16 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    /** Called by DashboardFragment quick action to navigate to 3D Model tab */
+    fun navigateTo3DTab() {
+        bottomNav.selectedItemId = R.id.nav_3d
+    }
+
+    /** Called by DashboardFragment quick action to navigate to Treatment Cases (Consultation) tab */
+    fun navigateToConsultationTab() {
+        bottomNav.selectedItemId = R.id.nav_consultation
+    }
+
     /** Called by SettingsFragment when user taps Logout */
     fun doLogout() {
         TokenManager.getInstance(this).logout()

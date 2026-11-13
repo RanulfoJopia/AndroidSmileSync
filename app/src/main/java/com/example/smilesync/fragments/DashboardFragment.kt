@@ -5,14 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.smilesync.R
+import com.example.smilesync.activities.CaseFormActivity
 import com.example.smilesync.activities.CaseSingleActivity
 import com.example.smilesync.activities.MainActivity
+import com.example.smilesync.activities.PatientFormActivity
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.utils.TokenManager
 import com.example.smilesync.utils.UiUtils
@@ -40,6 +43,12 @@ class DashboardFragment : Fragment() {
     private lateinit var tvCaseStatus: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var tvEmptyCases: TextView
+    
+    // Quick action buttons
+    private lateinit var btnAddPatient: LinearLayout
+    private lateinit var btn3dModel: LinearLayout
+    private lateinit var btnTreatmentPlan: LinearLayout
+    private lateinit var btnTreatmentCase: LinearLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_dashboard, container, false)
@@ -63,6 +72,12 @@ class DashboardFragment : Fragment() {
         tvCaseStatus         = view.findViewById(R.id.tv_case_status)
         progressBar          = view.findViewById(R.id.dashboard_progress)
         tvEmptyCases         = view.findViewById(R.id.tv_empty_cases)
+        
+        // Quick action buttons
+        btnAddPatient        = view.findViewById(R.id.btn_add_patient)
+        btn3dModel           = view.findViewById(R.id.btn_3d_model)
+        btnTreatmentPlan     = view.findViewById(R.id.btn_treatment_plan)
+        btnTreatmentCase     = view.findViewById(R.id.btn_treatment_case)
 
         // Show dentist name and initials from cache immediately
         val dentist = TokenManager.getInstance(requireContext()).getDentist()
@@ -80,8 +95,33 @@ class DashboardFragment : Fragment() {
         cvProfileAvatar.setOnClickListener {
             showLogoutMenu(it)
         }
+        
+        // Setup quick action click listeners
+        setupQuickActions()
 
         loadDashboard()
+    }
+    
+    private fun setupQuickActions() {
+        // Add Patient - Opens PatientFormActivity
+        btnAddPatient.setOnClickListener {
+            startActivity(Intent(requireContext(), PatientFormActivity::class.java))
+        }
+        
+        // 3D Model - Navigates to 3D tab
+        btn3dModel.setOnClickListener {
+            (activity as? MainActivity)?.navigateTo3DTab()
+        }
+        
+        // Treatment Plan - Navigates to Treatment Cases (Consultation) tab
+        btnTreatmentPlan.setOnClickListener {
+            (activity as? MainActivity)?.navigateToConsultationTab()
+        }
+        
+        // Treatment Case - Opens CaseFormActivity to add new case
+        btnTreatmentCase.setOnClickListener {
+            startActivity(Intent(requireContext(), CaseFormActivity::class.java))
+        }
     }
 
     private fun getInitials(fullName: String): String {

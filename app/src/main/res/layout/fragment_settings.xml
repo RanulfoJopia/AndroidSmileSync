@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="24dp"
+            android:paddingTop="40dp"
             android:paddingBottom="80dp">
 
             <!-- Header with back button -->
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Profile"
-                    android:textSize="28sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="#1A2B4A"
                     android:fontFamily="sans-serif-black" />

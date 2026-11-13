@@ -1,391 +1,593 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_gradient">
+    android:layout_height="match_parent">
 
-    <!-- HEADER -->
+    <!-- Background image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_app"
+        android:scaleType="centerCrop"
+        android:contentDescription="" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/bg_header_hero"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="28dp"
-        android:paddingBottom="20dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/btn_back_case"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="12dp"
-            android:clickable="true"
-            android:focusable="true">
-            <ImageView android:layout_width="18dp" android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_right" android:rotation="180" android:alpha="0.7" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp" android:text="Cases"
-                android:textColor="@color/text_light_gray" android:textSize="13sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView android:text="Case Overview" android:textColor="#BBDEFB"
-                    android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tv_case_single_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Case Title"
-                    android:textColor="@color/text_white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_case_single_patient"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#90B4D8"
-                    android:textSize="13sp"
-                    android:layout_marginTop="2dp" />
-            </LinearLayout>
-
-            <!-- Edit + Delete buttons -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/btn_edit_case"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="✏ Edit"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    android:background="@drawable/bg_chip_modern"
-                    android:paddingLeft="14dp"
-                    android:paddingRight="14dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:layout_marginRight="8dp"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:id="@+id/btn_delete_case"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🗑"
-                    android:textColor="#EF9A9A"
-                    android:textSize="14sp"
-                    android:background="@drawable/bg_chip_modern"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:clickable="true"
-                    android:focusable="true" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/case_single_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:visibility="gone" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:overScrollMode="never">
-
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="16dp">
 
-            <!-- Case type chip -->
-            <TextView
-                android:id="@+id/tv_case_single_type"
+            <!-- Back button -->
+            <LinearLayout
+                android:id="@+id/btn_back_case"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#BBDEFB"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:background="@drawable/bg_chip_modern"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:layout_marginBottom="14dp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:padding="4dp">
 
-            <!-- ═══ Clinical Details card ═══ -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/bg_card_glass"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="#1A2B4A"
+                    android:contentDescription="Back" />
 
-                <TextView android:text="CLINICAL DETAILS" android:textColor="#5A7AAF"
-                    android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.1"
-                    android:layout_marginBottom="12dp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-
-                <TextView android:text="Chief Complaint" android:textColor="#5A7AAF" android:textSize="10sp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_case_chief_complaint" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent" android:layout_height="wrap_content" />
-
-                <TextView android:text="Dentist Diagnosis" android:textColor="#5A7AAF" android:textSize="10sp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_case_diagnosis" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent" android:layout_height="wrap_content" />
-
-                <TextView android:text="Clinical Findings" android:textColor="#5A7AAF" android:textSize="10sp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_case_findings" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent" android:layout_height="wrap_content" />
-
-                <TextView android:text="Vital Signs" android:textColor="#5A7AAF" android:textSize="10sp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_case_vital_signs" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Cases"
+                    android:textColor="#1A2B4A"
+                    android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- Description -->
-            <LinearLayout android:id="@+id/card_description"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:background="@drawable/bg_card_glass"
-                android:padding="16dp" android:layout_marginBottom="12dp">
-                <TextView android:text="DESCRIPTION" android:textColor="#5A7AAF" android:textSize="10sp"
-                    android:textStyle="bold" android:letterSpacing="0.1" android:layout_marginBottom="8dp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_case_description" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_width="match_parent" android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <!-- Notes -->
-            <LinearLayout android:id="@+id/card_notes"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:background="@drawable/bg_card_glass"
-                android:padding="16dp" android:layout_marginBottom="16dp">
-                <TextView android:text="CASE NOTES" android:textColor="#5A7AAF" android:textSize="10sp"
-                    android:textStyle="bold" android:letterSpacing="0.1" android:layout_marginBottom="8dp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_case_notes" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_width="match_parent" android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <!-- ═══ Treatment Plan header + action buttons ═══ -->
+            <!-- Title and actions -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp">
+                android:gravity="center_vertical">
 
-                <TextView android:text="Treatment Plan" android:textColor="@color/text_white"
-                    android:textSize="15sp" android:textStyle="bold"
-                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/btn_generate_plan"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Case Overview"
+                        android:textSize="12sp"
+                        android:textColor="#5A6B7D"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:id="@+id/tv_case_single_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Case Title"
+                        android:textColor="#1A2B4A"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-black" />
+
+                    <TextView
+                        android:id="@+id/tv_case_single_patient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5A6B7D"
+                        android:textSize="13sp"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+
+                <!-- Edit + Delete buttons -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="✨ AI"
-                    android:textColor="#FFD54F"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_chip_modern"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:layout_marginRight="8dp"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/btn_edit_plan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+ Create Plan"
-                    android:textColor="#FFFFFF"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_chip_modern_selected"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_edit_case"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#2196F3"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_delete_case"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#FFEBEE"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_delete"
+                            app:tint="#F44336"
+                            android:contentDescription="Delete" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
             </LinearLayout>
-
-            <!-- No-plan placeholder -->
-            <TextView
-                android:id="@+id/tv_no_plan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No treatment plan yet. Tap &quot;+ Create Plan&quot; above."
-                android:textColor="@color/text_light_gray"
-                android:textSize="13sp"
-                android:gravity="center"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone" />
-
-            <!-- Plan details card -->
-            <LinearLayout
-                android:id="@+id/layout_plan_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/bg_card_glass"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone">
-
-                <TextView android:text="Clinical Justification" android:textColor="#5A7AAF"
-                    android:textSize="10sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_plan_justification" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent" android:layout_height="wrap_content" />
-
-                <TextView android:text="Risks &amp; Complications" android:textColor="#5A7AAF"
-                    android:textSize="10sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_plan_risk" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent" android:layout_height="wrap_content" />
-
-                <TextView android:text="Prognosis" android:textColor="#5A7AAF"
-                    android:textSize="10sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_plan_prognosis" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent" android:layout_height="wrap_content" />
-
-                <TextView android:text="Plan Result" android:textColor="#5A7AAF"
-                    android:textSize="10sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_plan_result" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent" android:layout_height="wrap_content" />
-
-                <TextView android:text="Consent Given" android:textColor="#5A7AAF"
-                    android:textSize="10sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_plan_consent_date" android:textColor="@color/text_white"
-                    android:textSize="13sp" android:layout_width="match_parent" android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <!-- ═══ Sequences header + action buttons ═══ -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp">
-
-                <TextView android:text="Treatment Sequence" android:textColor="@color/text_white"
-                    android:textSize="15sp" android:textStyle="bold"
-                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/btn_generate_sequence"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="✨ AI"
-                    android:textColor="#FFD54F"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_chip_modern"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:layout_marginRight="8dp"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:id="@+id/btn_add_sequence"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+ Add Step"
-                    android:textColor="#FFFFFF"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_chip_modern_selected"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:layout_marginRight="8dp"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <!-- Hidden: only shown when we need to save reordering (future enhancement) -->
-                <TextView
-                    android:id="@+id/btn_save_seq_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="💾 Save Order"
-                    android:textColor="#FFFFFF"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_chip_modern"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:visibility="gone"
-                    android:clickable="true"
-                    android:focusable="true" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_no_sequences"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No sequences planned yet. Tap &quot;+ Add Step&quot; or use AI generation."
-                android:textColor="@color/text_light_gray"
-                android:textSize="13sp"
-                android:gravity="center"
-                android:padding="16dp"
-                android:layout_marginBottom="8dp"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_sequences"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:layout_marginBottom="16dp" />
-
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+        <ProgressBar
+            android:id="@+id/case_single_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp">
+
+                <!-- Case type chip -->
+                <TextView
+                    android:id="@+id/tv_case_single_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#2196F3"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_status_badge"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Clinical Details card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:text="CLINICAL DETAILS"
+                            android:textColor="#9E9E9E"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Chief Complaint"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_case_chief_complaint"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Dentist Diagnosis"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_case_diagnosis"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Clinical Findings"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_case_findings"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Vital Signs"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_case_vital_signs"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Description card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:text="DESCRIPTION"
+                            android:textColor="#9E9E9E"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_case_description"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Notes card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:text="CASE NOTES"
+                            android:textColor="#9E9E9E"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_case_notes"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Treatment Plan header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:text="Treatment Plan"
+                        android:textColor="#1A2B4A"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_generate_plan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#FFF8E1"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✨ AI"
+                            android:textColor="#F57C00"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_edit_plan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#2196F3"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ Create Plan"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- No-plan placeholder -->
+                <TextView
+                    android:id="@+id/tv_no_plan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No treatment plan yet. Tap &quot;+ Create Plan&quot; above."
+                    android:textColor="#9E9E9E"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone" />
+
+                <!-- Plan details card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/layout_plan_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:text="Clinical Justification"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_plan_justification"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Risks &amp; Complications"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_plan_risk"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Prognosis"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_plan_prognosis"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Plan Result"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_plan_result"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Consent Given"
+                            android:textColor="#9E9E9E"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_plan_consent_date"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Treatment Sequence header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:text="Treatment Sequence"
+                        android:textColor="#1A2B4A"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_generate_sequence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#FFF8E1"
+                        android:layout_marginEnd="8dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✨ AI"
+                            android:textColor="#F57C00"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_add_sequence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#2196F3"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+ Add Step"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_no_sequences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No sequences planned yet. Tap &quot;+ Add Step&quot; or use AI generation."
+                    android:textColor="#9E9E9E"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_sequences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginBottom="16dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</FrameLayout>

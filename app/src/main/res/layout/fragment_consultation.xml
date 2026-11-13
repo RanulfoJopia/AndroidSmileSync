@@ -1,132 +1,228 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_app"
     tools:context=".fragments.ConsultationFragment">
 
-    <LinearLayout
+    <!-- Background image -->
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:src="@drawable/bg_app"
+        android:scaleType="centerCrop"
+        android:contentDescription="" />
 
-        <!-- HERO HEADER + SEARCH -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/bg_header_hero"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="28dp"
-            android:paddingBottom="20dp">
+            android:paddingTop="40dp"
+            android:paddingBottom="80dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Treatment Cases"
-                android:textColor="@color/text_white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="All cases across your patients"
-                android:textColor="#90B4D8"
-                android:textSize="13sp" />
-
-            <!-- Search bar -->
+            <!-- Header Section -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="16dp">
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Treatment Cases"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A2B4A"
+                    android:fontFamily="sans-serif-black"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All cases across your patients"
+                    android:textSize="13sp"
+                    android:textColor="#5A6B7D"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Search Box -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_search"
+                            app:tint="#9E9E9E"
+                            android:contentDescription="" />
+
+                        <EditText
+                            android:id="@+id/et_search_cases"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:hint="Search for patient name, case title..."
+                            android:textColorHint="#B0B0B0"
+                            android:textColor="#1A2B4A"
+                            android:textSize="14sp"
+                            android:background="@null"
+                            android:singleLine="true"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Filters Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/bg_input_modern"
-                android:layout_marginTop="16dp"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:gravity="center_vertical">
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginBottom="8dp">
 
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_search"
-                    android:alpha="0.6"
-                    android:contentDescription="Search" />
+                <!-- Case Type Filter -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
 
-                <EditText
-                    android:id="@+id/et_search_cases"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Case Type"
+                        android:textSize="12sp"
+                        android:textColor="#5A6B7D"
+                        android:layout_marginBottom="4dp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="1dp"
+                        app:cardBackgroundColor="#FFFFFF">
+
+                        <Spinner
+                            android:id="@+id/sp_filter_case_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:spinnerMode="dropdown"
+                            android:background="@android:color/transparent" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Status Filter -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status"
+                        android:textSize="12sp"
+                        android:textColor="#5A6B7D"
+                        android:layout_marginBottom="4dp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="1dp"
+                        app:cardBackgroundColor="#FFFFFF">
+
+                        <Spinner
+                            android:id="@+id/sp_filter_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:spinnerMode="dropdown"
+                            android:background="@android:color/transparent" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Loading -->
+            <ProgressBar
+                android:id="@+id/cases_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
+            <!-- Empty state -->
+            <TextView
+                android:id="@+id/tv_empty_cases_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No treatment cases found"
+                android:textColor="#5A6B7D"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:padding="32dp"
+                android:visibility="gone" />
+
+            <!-- List -->
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_cases"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_consultations"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:hint="Search by patient or case title…"
-                    android:textColorHint="#5A7AAF"
-                    android:textColor="@color/text_white"
-                    android:textSize="14sp"
-                    android:background="@null"
-                    android:singleLine="true"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text" />
-            </LinearLayout>
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="16dp"
+                    android:clipToPadding="false"
+                    android:scrollbars="none" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
 
-        <!-- Loading -->
-        <ProgressBar
-            android:id="@+id/cases_progress"
+        <!-- FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_case"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:visibility="gone" />
-
-        <!-- Empty state -->
-        <TextView
-            android:id="@+id/tv_empty_cases_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No treatment cases found"
-            android:textColor="@color/text_light_gray"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:padding="32dp"
-            android:visibility="gone" />
-
-        <!-- List -->
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_cases"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_consultations"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="80dp"
-                android:clipToPadding="false"
-                android:scrollbars="none" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </LinearLayout>
-
-    <!-- FAB -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_case"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
-        android:src="@android:drawable/ic_input_add"
-        android:contentDescription="Add treatment case"
-        app:backgroundTint="@color/accent_blue"
-        app:tint="#FFFFFF"
-        app:elevation="8dp" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+            android:layout_gravity="bottom|end"
+            android:layout_margin="24dp"
+            android:src="@android:drawable/ic_input_add"
+            android:contentDescription="Add treatment case"
+            app:backgroundTint="#2196F3"
+            app:tint="#FFFFFF"
+            app:elevation="8dp" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>
