@@ -1,4 +1,4 @@
-package com.example.smilesync.activities
+﻿package com.example.smilesync.activities
 
 import android.os.Bundle
 import android.view.View
@@ -48,7 +48,9 @@ class CaseFormActivity : AppCompatActivity() {
         bindViews()
         tvTitle.text = if (isEdit) "Edit Case" else "Add Treatment Case"
 
+        // Back button
         findViewById<View>(R.id.btn_back_case_form).setOnClickListener { finish() }
+        
         btnSave.setOnClickListener { saveCase() }
 
         loadDropdowns()
