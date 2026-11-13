@@ -17,23 +17,22 @@
         android:gravity="center_horizontal"
         android:layout_marginEnd="12dp">
 
-        <!-- Step number circle (smaller) -->
+        <!-- Status icon circle -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_status_circle"
             android:layout_width="36dp"
             android:layout_height="36dp"
             app:cardCornerRadius="18dp"
             app:cardElevation="3dp"
             app:cardBackgroundColor="#2196F3">
 
-            <TextView
-                android:id="@+id/tv_seq_order"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:text="#1" />
+            <ImageView
+                android:id="@+id/iv_status_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_time"
+                android:tint="#FFFFFF" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Connecting line -->
@@ -54,7 +53,7 @@
             android:background="@drawable/bg_initials_avatar" />
     </LinearLayout>
 
-    <!-- Content card (no icon) -->
+    <!-- Content card -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -160,7 +159,7 @@
                 android:text="Evaluate the extent of the fracture and administer local anesthesia."
                 android:visibility="visible" />
 
-            <!-- Status badge -->
+            <!-- Status badge (text only, no icon) -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/layout_status"
                 android:layout_width="wrap_content"
@@ -170,32 +169,18 @@
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="#C8E6C9">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_seq_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
+                    android:textColor="#2E7D32"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:paddingTop="4dp"
-                    android:paddingBottom="4dp">
-
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:src="@drawable/ic_check"
-                        android:tint="#2E7D32"
-                        android:layout_marginEnd="4dp" />
-
-                    <TextView
-                        android:id="@+id/tv_seq_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#2E7D32"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:text="Planned" />
-                </LinearLayout>
+                    android:paddingBottom="4dp"
+                    android:text="Planned" />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
