@@ -36,7 +36,8 @@ class ThreeDFragment : Fragment() {
     
     private var selectedDateFrom: String? = null
     private var selectedDateTo: String? = null
-    private val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    private val displayFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
 
     override fun onCreateView(
         inflater: LayoutInflater, 
@@ -85,7 +86,7 @@ class ThreeDFragment : Fragment() {
             { _, year, month, day ->
                 calendar.set(year, month, day)
                 selectedDateFrom = dateFormat.format(calendar.time)
-                tvDateFrom.text = selectedDateFrom
+                tvDateFrom.text = displayFormat.format(calendar.time)
                 loadPatients()
             },
             calendar.get(Calendar.YEAR),
@@ -101,7 +102,7 @@ class ThreeDFragment : Fragment() {
             { _, year, month, day ->
                 calendar.set(year, month, day)
                 selectedDateTo = dateFormat.format(calendar.time)
-                tvDateTo.text = selectedDateTo
+                tvDateTo.text = displayFormat.format(calendar.time)
                 loadPatients()
             },
             calendar.get(Calendar.YEAR),
@@ -115,10 +116,13 @@ class ThreeDFragment : Fragment() {
         
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                // Build params with date filters
-                val params = mutableMapOf("limit" to "1000")
-                selectedDateFrom?.let { params["date_from"] = it }
-                selectedDateTo?.let { params["date_to"] = it }
+                // Build params with date filters for measurement creation date
+                val params = mutableMapOf<String, String>(
+                    "limit" to "1000",
+                    "hasMeasurement" to "true"  // Only get patients with measurements
+                )
+                selectedDateFrom?.let { params["measurementDateFrom"] = it }
+                selectedDateTo?.let { params["measurementDateTo"] = it }
                 
                 val response = RetrofitClient.api.getPatients(params)
                 if (!isAdded) return@launch
