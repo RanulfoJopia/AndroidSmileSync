@@ -11,5 +11,5 @@ package com.example.smilesync.api
  */
 object ApiConfig {
     const val BASE_URL = "http://35.212.220.242/backend/api/"
-    const val TIMEOUT_SECONDS = 30L
+    const val TIMEOUT_SECONDS = 60L
 }
