@@ -1,4 +1,4 @@
-package com.example.smilesync.api
+ï»¿package com.example.smilesync.api
 
 import com.example.smilesync.model.*
 import okhttp3.MultipartBody
@@ -28,10 +28,21 @@ interface ApiService {
     suspend fun updateProfile(@Body body: Map<String, String>): Response<ApiResponse<AuthResult>>
 
     // -----------------------------------------------------------------------
+    // MOBILE WEBVIEW BRIDGE
+    // -----------------------------------------------------------------------
+
+    /** Generate a one-time WebView bridge token for 3D viewer */
+    @GET("mobile/webview/generate-token")
+    suspend fun generateWebViewToken(
+        @Query("purpose") purpose: String,
+        @Query("patient_id") patientId: Int? = null
+    ): Response<ApiResponse<WebViewTokenResult>>
+
+    // -----------------------------------------------------------------------
     // PATIENTS
     // -----------------------------------------------------------------------
 
-    /** Paginated/searchable list — DataTables style: ?search=...&page=...&limit=... */
+    /** Paginated/searchable list ï¿½ DataTables style: ?search=...&page=...&limit=... */
     @GET("patients")
     suspend fun getPatients(@QueryMap params: Map<String, String> = emptyMap()): Response<PagedResponse<Patient>>
 
@@ -50,7 +61,7 @@ interface ApiService {
     @DELETE("patients/{id}")
     suspend fun deletePatient(@Path("id") id: Int): Response<ApiResponse<Unit>>
 
-    /** Full list (no pagination) — used for Dental 3D picker */
+    /** Full list (no pagination) ï¿½ used for Dental 3D picker */
     @GET("patients-all")
     suspend fun getAllPatients(): Response<ApiResponse<List<Patient>>>
 
