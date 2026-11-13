@@ -25,7 +25,6 @@ class SequenceAdapter(
         val tvNotes       : TextView           = v.findViewById(R.id.tv_seq_notes)
         val btnEdit       : ImageView          = v.findViewById(R.id.btn_edit_seq)
         val btnDelete     : ImageView          = v.findViewById(R.id.btn_delete_seq)
-        val ivIcon        : ImageView          = v.findViewById(R.id.iv_seq_icon)
         val layoutDuration: View               = v.findViewById(R.id.layout_duration)
         val layoutStatus  : MaterialCardView   = v.findViewById(R.id.layout_status)
         val timelineLine  : View               = v.findViewById(R.id.view_timeline_line)
@@ -87,12 +86,7 @@ class SequenceAdapter(
         } else {
             holder.timelineLine.visibility = View.VISIBLE
             holder.timelineDot.visibility = View.VISIBLE
-        }
-        
-        // Icon based on phase type (optional customization)
-        // For now, keep default ic_treatment icon
-        
-        // Edit/Delete buttons
+        }// Edit/Delete buttons
         val editable = onEdit != null
         holder.btnEdit.visibility   = if (editable) View.VISIBLE else View.GONE
         holder.btnDelete.visibility = if (editable) View.VISIBLE else View.GONE
