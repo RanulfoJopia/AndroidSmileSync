@@ -105,7 +105,9 @@ class CaseFormActivity : AppCompatActivity() {
 
                 // ── Case type spinner ──
                 if (categoriesResp.isSuccessful) {
-                    caseTypeOptions = categoriesResp.body()?.result?.cases ?: emptyList()
+                    // API returns CASES as Map<String, Category>, convert to List
+                    val casesMap = categoriesResp.body()?.result?.cases
+                    caseTypeOptions = casesMap?.values?.toList() ?: emptyList()
                 }
                 // Fallback if categories endpoint returns nothing
                 if (caseTypeOptions.isEmpty()) {

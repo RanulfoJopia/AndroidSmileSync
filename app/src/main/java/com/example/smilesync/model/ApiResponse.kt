@@ -42,9 +42,15 @@ data class Category(
     @SerializedName("label") val label: String = ""
 )
 
+/** 
+ * Categories API response structure
+ * Note: Backend returns nested objects/maps instead of arrays
+ * CASES is a map of category_key -> Category object
+ * ANAMNESIS has nested structure we don't currently use
+ */
 data class CategoriesResult(
-    @SerializedName("CASES")    val cases: List<Category>? = null,
-    // ANAMNESIS structure varies in API response - using Any? since it's not currently used
-    // API returns nested objects instead of Map<String, List<Category>>
+    // API returns CASES as Map<String, Category> not List<Category>
+    @SerializedName("CASES")    val cases: Map<String, Category>? = null,
+    // ANAMNESIS structure varies in API response - not currently used
     @SerializedName("ANAMNESIS") val anamnesis: Any? = null
 )
