@@ -594,7 +594,7 @@ class CaseSingleActivity : AppCompatActivity() {
         }
     }
 
-    private fun showGeneratedSequencesPreview(sequences: List<PlanSequence>) {
+    private fun showGeneratedSequencesPreview(sequences: List<AIGeneratedSequence>) {
         val preview = sequences.take(5).mapIndexed { i, s ->
             "${i + 1}. ${s.description.take(60)}"
         }.joinToString("\n")

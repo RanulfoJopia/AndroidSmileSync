@@ -1,4 +1,4 @@
-﻿package com.example.smilesync.api
+package com.example.smilesync.api
 
 import com.example.smilesync.model.*
 import okhttp3.MultipartBody
@@ -42,7 +42,7 @@ interface ApiService {
     // PATIENTS
     // -----------------------------------------------------------------------
 
-    /** Paginated/searchable list � DataTables style: ?search=...&page=...&limit=... */
+    /** Paginated/searchable list ? DataTables style: ?search=...&page=...&limit=... */
     @GET("patients")
     suspend fun getPatients(@QueryMap params: Map<String, String> = emptyMap()): Response<PagedResponse<Patient>>
 
@@ -61,7 +61,7 @@ interface ApiService {
     @DELETE("patients/{id}")
     suspend fun deletePatient(@Path("id") id: Int): Response<ApiResponse<Unit>>
 
-    /** Full list (no pagination) � used for Dental 3D picker */
+    /** Full list (no pagination) ? used for Dental 3D picker */
     @GET("patients-all")
     suspend fun getAllPatients(): Response<ApiResponse<List<Patient>>>
 
@@ -239,9 +239,7 @@ interface ApiService {
     ): Response<ApiResponse<CasePlan>>
 
     @POST("generate/sequence")
-    suspend fun generateSequence(
-        @Body body: Map<String, @JvmSuppressWildcards Any?>
-    ): Response<ApiResponse<List<PlanSequence>>>
+    suspend fun generateSequence(@Body body: Map<String, @JvmSuppressWildcards Any?>): Response<ApiResponse<List<AIGeneratedSequence>>>
 
     // -----------------------------------------------------------------------
     // SUBSCRIPTION & PAYMENTS
