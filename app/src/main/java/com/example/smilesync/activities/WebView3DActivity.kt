@@ -2,6 +2,8 @@
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
@@ -79,6 +81,15 @@ class WebView3DActivity : AppCompatActivity() {
         
         // Allow all navigation within the web app
         webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                
+                // Inject CSS to center the 3D canvas after page loads
+                Handler(Looper.getMainLooper()).postDelayed({
+                    injectCenteringCSS()
+                }, 500)
+            }
+            
             override fun onReceivedError(
                 view: WebView?,
                 request: WebResourceRequest?,
@@ -89,6 +100,18 @@ class WebView3DActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    
+    private fun injectCenteringCSS() {
+        val js = """
+            javascript:(function() {
+                var style = document.createElement('style');
+                style.innerHTML = 'canvas { position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; }';
+                document.head.appendChild(style);
+            })()
+        """.trimIndent()
+        
+        webView.loadUrl(js)
     }
 
     private fun generateTokenAndLoad(patientId: Int) {
