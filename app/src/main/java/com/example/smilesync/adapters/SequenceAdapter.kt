@@ -61,41 +61,44 @@ class SequenceAdapter(
         }
         
         // Status badge text and colors
-        val statusLabel = when (s.seqStatus) {
-            2    -> "In Progress"
-            3    -> "Done"
-            else -> "Planned"
-        }
-        holder.tvStatus.text = statusLabel
+        val statusLabel: String
+        val iconRes: Int
+        val circleBgColor: Int
+        val badgeBgColor: Int
+        val textColor: Int
         
-        // Status icon and colors based on status
-        val (icon, circleBgColor, badgeBgColor, textColor) = when (s.seqStatus) {
-            3    -> {
+        when (s.seqStatus) {
+            3 -> {
                 // Done: green with checkmark
-                Pair(
-                    Pair(R.drawable.ic_check, 0xFF4CAF50.toInt()),
-                    Pair(0xFFC8E6C9.toInt(), 0xFF2E7D32.toInt())
-                )
+                statusLabel = "Done"
+                iconRes = R.drawable.ic_check
+                circleBgColor = 0xFF4CAF50.toInt()
+                badgeBgColor = 0xFFC8E6C9.toInt()
+                textColor = 0xFF2E7D32.toInt()
             }
-            2    -> {
+            2 -> {
                 // In Progress: blue with progress icon
-                Pair(
-                    Pair(R.drawable.ic_progress, 0xFF2196F3.toInt()),
-                    Pair(0xFFBBDEFB.toInt(), 0xFF1565C0.toInt())
-                )
+                statusLabel = "In Progress"
+                iconRes = R.drawable.ic_progress
+                circleBgColor = 0xFF2196F3.toInt()
+                badgeBgColor = 0xFFBBDEFB.toInt()
+                textColor = 0xFF1565C0.toInt()
             }
             else -> {
                 // Planned: yellow/orange with clock
-                Pair(
-                    Pair(R.drawable.ic_time, 0xFFFFA726.toInt()),
-                    Pair(0xFFFFF9C4.toInt(), 0xFFF57F17.toInt())
-                )
+                statusLabel = "Planned"
+                iconRes = R.drawable.ic_time
+                circleBgColor = 0xFFFFA726.toInt()
+                badgeBgColor = 0xFFFFF9C4.toInt()
+                textColor = 0xFFF57F17.toInt()
             }
         }
         
+        holder.tvStatus.text = statusLabel
+        
         // Set status icon and circle color
-        holder.ivStatusIcon.setImageResource(icon.first)
-        holder.cardStatusCircle.setCardBackgroundColor(icon.second)
+        holder.ivStatusIcon.setImageResource(iconRes)
+        holder.cardStatusCircle.setCardBackgroundColor(circleBgColor)
         
         // Set badge colors
         holder.layoutStatus.setCardBackgroundColor(badgeBgColor)
