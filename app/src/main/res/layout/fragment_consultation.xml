@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
+    android:background="@drawable/bg_app"
     tools:context=".fragments.ConsultationFragment">
 
     <LinearLayout
@@ -129,3 +129,4 @@
         app:elevation="8dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

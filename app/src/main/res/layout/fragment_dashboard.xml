@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg_home_wave"
+        android:src="@drawable/bg_app"
         android:scaleType="centerCrop"
         android:contentDescription="" />
 
@@ -804,5 +804,6 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>
+
 
 

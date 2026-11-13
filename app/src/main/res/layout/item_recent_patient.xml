@@ -1,94 +1,190 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+﻿<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/bg_patient_card"
-    android:paddingLeft="14dp"
-    android:paddingRight="14dp"
-    android:paddingTop="14dp"
-    android:paddingBottom="14dp"
-    android:layout_marginBottom="10dp"
-    android:gravity="center_vertical"
-    android:elevation="2dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#FFFFFF">
 
-    <!-- Left: Initials Avatar -->
-    <FrameLayout
-        android:layout_width="46dp"
-        android:layout_height="46dp"
-        android:layout_marginRight="14dp">
-
-        <TextView
-            android:id="@+id/tv_patient_initials"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:background="@drawable/bg_initials_avatar"
-            android:text="MS"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-    </FrameLayout>
-
-    <!-- Center: Patient info -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_patient_name"
-            android:layout_width="wrap_content"
+        <!-- Left: Initials Avatar Circle -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#2196F3">
+
+            <TextView
+                android:id="@+id/tv_patient_initials"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="GD"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:fontFamily="sans-serif-medium" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Center: Patient Info -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Mike Smith"
-            android:textColor="@color/text_white"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp">
 
-        <TextView
-            android:id="@+id/tv_last_exam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="Last Exam: Dec 23, 2025"
-            android:textColor="@color/text_light_gray"
-            android:textSize="12sp" />
+            <!-- Name -->
+            <TextView
+                android:id="@+id/tv_patient_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dangka, Gehlee"
+                android:textColor="#1A2B4A"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
 
-        <!-- Status badge -->
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Exam Complete"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:background="@drawable/bg_status_complete"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp" />
+            <!-- Status (No cases yet / Recent case) -->
+            <TextView
+                android:id="@+id/tv_last_exam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="No cases yet"
+                android:textColor="#9E9E9E"
+                android:textSize="12sp" />
 
+            <!-- Sex and Age Badge -->
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Female · 28 yrs"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_status_green"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp" />
+
+            <!-- Patient Since Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="#9E9E9E"
+                    android:contentDescription="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Patient Since"
+                    android:textSize="10sp"
+                    android:textColor="#9E9E9E"
+                    android:layout_marginStart="4dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11/08/2026, 8:54:07 PM"
+                android:textSize="11sp"
+                android:textColor="#5A6B7D"
+                android:layout_marginTop="2dp" />
+
+            <!-- Next Recent Case Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="6dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_stat_examined"
+                    app:tint="#9E9E9E"
+                    android:contentDescription="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next Recent Case"
+                    android:textSize="10sp"
+                    android:textColor="#9E9E9E"
+                    android:layout_marginStart="4dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tooth extraction Plan"
+                android:textSize="11sp"
+                android:textColor="#5A6B7D"
+                android:layout_marginTop="2dp" />
+
+            <!-- Sex Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="6dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_user"
+                    app:tint="#9E9E9E"
+                    android:contentDescription="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sex"
+                    android:textSize="10sp"
+                    android:textColor="#9E9E9E"
+                    android:layout_marginStart="4dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textSize="11sp"
+                android:textColor="#5A6B7D"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- Right: Arrow -->
+        <ImageView
+            android:id="@+id/tv_view_patient"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_right"
+            app:tint="#9E9E9E"
+            android:contentDescription="View patient" />
     </LinearLayout>
-
-    <!-- Right: View button -->
-    <TextView
-        android:id="@+id/tv_view_patient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="View"
-        android:textColor="@color/link_color"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:background="@drawable/bg_view_btn"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp" />
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>
