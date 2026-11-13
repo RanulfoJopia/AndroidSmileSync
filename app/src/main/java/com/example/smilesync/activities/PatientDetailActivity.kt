@@ -173,7 +173,7 @@ class PatientDetailActivity : AppCompatActivity() {
             })
         }
         findViewById<View>(R.id.btn_dental_exam).setOnClickListener {
-            startActivity(Intent(this, DentalExamActivity::class.java).apply {
+            startActivity(Intent(this, WebView3DActivity::class.java).apply {
                 putExtra("patient_id", patientId)
                 putExtra("patient_name", patient?.fullName ?: "")
             })

@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.smilesync.R
 import com.example.smilesync.activities.CaseSingleActivity
+import com.example.smilesync.activities.MainActivity
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.utils.TokenManager
 import com.example.smilesync.utils.UiUtils
@@ -24,6 +25,8 @@ import java.util.*
 class DashboardFragment : Fragment() {
 
     private lateinit var tvDoctorName: TextView
+    private lateinit var tvProfileInitials: TextView
+    private lateinit var cvProfileAvatar: MaterialCardView
     private lateinit var tvDashboardDate: TextView
     private lateinit var tvTotalPatients: TextView
     private lateinit var tvPendingPlans: TextView
@@ -45,6 +48,8 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tvDoctorName         = view.findViewById(R.id.tv_doctor_name)
+        tvProfileInitials    = view.findViewById(R.id.tv_profile_initials)
+        cvProfileAvatar      = view.findViewById(R.id.cv_profile_avatar)
         tvDashboardDate      = view.findViewById(R.id.tv_dashboard_date)
         tvTotalPatients      = view.findViewById(R.id.tv_stat_total_patients)
         tvPendingPlans       = view.findViewById(R.id.tv_stat_pending_plans)
@@ -59,15 +64,60 @@ class DashboardFragment : Fragment() {
         progressBar          = view.findViewById(R.id.dashboard_progress)
         tvEmptyCases         = view.findViewById(R.id.tv_empty_cases)
 
-        // Show dentist name from cache immediately
+        // Show dentist name and initials from cache immediately
         val dentist = TokenManager.getInstance(requireContext()).getDentist()
+        val fullName = dentist?.fullName?.ifBlank { "Dr. User" } ?: "Dr. User"
         tvDoctorName.text = "Dr. ${dentist?.lastName ?: "Ongbak"}"
+        
+        // Set profile initials using same logic as SettingsFragment
+        tvProfileInitials.text = getInitials(fullName)
 
         // Display current date
         val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         tvDashboardDate.text = dateFormat.format(Date())
 
+        // Add click listener to profile avatar for logout popup
+        cvProfileAvatar.setOnClickListener {
+            showLogoutMenu(it)
+        }
+
         loadDashboard()
+    }
+
+    private fun getInitials(fullName: String): String {
+        val parts = fullName.trim().split(" ")
+        return when {
+            parts.size >= 2 -> "${parts[0].firstOrNull()?.uppercaseChar() ?: ""}${parts[1].firstOrNull()?.uppercaseChar() ?: ""}"
+            parts.size == 1 -> "${parts[0].take(2).uppercase()}"
+            else -> "DR"
+        }
+    }
+
+    private fun showLogoutMenu(anchorView: View) {
+        val popup = PopupMenu(requireContext(), anchorView)
+        popup.menuInflater.inflate(R.menu.profile_menu, popup.menu)
+        
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_logout -> {
+                    handleLogout()
+                    true
+                }
+                else -> false
+            }
+        }
+        
+        popup.show()
+    }
+
+    private fun handleLogout() {
+        UiUtils.confirm(
+            requireContext(),
+            "Logout",
+            "Are you sure you want to log out?"
+        ) {
+            (activity as? MainActivity)?.doLogout()
+        }
     }
 
     private fun loadDashboard() {
@@ -114,9 +164,10 @@ class DashboardFragment : Fragment() {
                         tvEmptyCases.visibility = View.GONE
                         cvRecentCase.visibility = View.VISIBLE
 
-                        // Get initials from patient name
+                        // Get initials from patient name (format: "LastName, FirstName")
                         val names = latestCase.patientFullName.split(",").map { it.trim() }
                         val initials = if (names.size >= 2) {
+                            // First initial from first name, second initial from last name
                             "${names[1].firstOrNull()?.uppercaseChar() ?: ""}${names[0].firstOrNull()?.uppercaseChar() ?: ""}"
                         } else {
                             latestCase.patientFullName.take(2).uppercase()

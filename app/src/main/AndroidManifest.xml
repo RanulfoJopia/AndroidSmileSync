@@ -84,13 +84,7 @@
             android:name=".activities.StripeCheckoutActivity"
             android:exported="false" />
 
-        <!-- ═══ 3D DENTAL EXAM ══════════════════════════════════════════ -->
-        <activity
-            android:name=".activities.DentalExamActivity"
-            android:exported="false"
-            android:screenOrientation="landscape" />
-
-        <!-- ═══ 3D WEB VIEWER ═════════════════════════════════════════ -->
+<!-- ═══ 3D WEB VIEWER ═════════════════════════════════════════ -->
         <activity
             android:name=".activities.WebView3DActivity"
             android:exported="false"

@@ -1,4 +1,4 @@
-package com.example.smilesync.fragments
+﻿package com.example.smilesync.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smilesync.R
-import com.example.smilesync.activities.DentalExamActivity
+import com.example.smilesync.activities.WebView3DActivity
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.model.Patient
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -28,7 +28,7 @@ class PatientPickerFragment : BottomSheetDialogFragment() {
     private var allPatients  : List<Patient> = emptyList()
     private var searchJob    : Job? = null
 
-    // ── Lifecycle ────────────────────────────────────────────────────────
+    // â”€â”€ Lifecycle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -65,7 +65,7 @@ class PatientPickerFragment : BottomSheetDialogFragment() {
         loadPatients()
     }
 
-    // ── Data ─────────────────────────────────────────────────────────────
+    // â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private fun loadPatients() {
         progress.visibility = View.VISIBLE
@@ -115,20 +115,20 @@ class PatientPickerFragment : BottomSheetDialogFragment() {
         rvPatients.visibility = View.GONE
     }
 
-    // ── Navigation ───────────────────────────────────────────────────────
+    // â”€â”€ Navigation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private fun openDentalExam(patient: Patient) {
         android.util.Log.d("PatientPicker", "Opening 3D exam for patient: id=${patient.patientId} name=${patient.fullName}")
         dismiss()
         startActivity(
-            Intent(requireContext(), DentalExamActivity::class.java).apply {
+            Intent(requireContext(), WebView3DActivity::class.java).apply {
                 putExtra("patient_id",   patient.patientId)
                 putExtra("patient_name", patient.fullName)
             }
         )
     }
 
-    // ── Adapter ──────────────────────────────────────────────────────────
+    // â”€â”€ Adapter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private inner class PatientPickerAdapter(
         private val items    : List<Patient>,
@@ -152,13 +152,13 @@ class PatientPickerFragment : BottomSheetDialogFragment() {
             h.initials.text = p.initials
             h.name.text     = p.fullName
 
-            // Build subtitle: age · sex · cases count
+            // Build subtitle: age Â· sex Â· cases count
             val parts = listOfNotNull(
                 p.ageYears()?.let { "$it yrs" },
                 p.sexLabel.takeIf { it != "N/A" },
                 p.casesCount?.let { "$it case${if (it != 1) "s" else ""}" }
             )
-            h.info.text = parts.joinToString(" · ").ifBlank { "No additional info" }
+            h.info.text = parts.joinToString(" Â· ").ifBlank { "No additional info" }
 
             h.itemView.setOnClickListener { onPick(p) }
         }
