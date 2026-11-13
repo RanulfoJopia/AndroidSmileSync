@@ -95,35 +95,35 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_edit_patient"
                 style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="✏"
-                android:textSize="14sp"
+                android:text="Edit"
+                android:textSize="12sp"
+                android:textColor="#2196F3"
+                android:textAllCaps="false"
                 app:strokeColor="#2196F3"
                 app:cornerRadius="20dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:layout_marginEnd="8dp"
                 app:elevation="0dp"
-                android:stateListAnimator="@null"
-                android:insetLeft="0dp"
-                android:insetRight="0dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp" />
+                android:stateListAnimator="@null" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delete_patient"
                 style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="🗑"
-                android:textSize="14sp"
+                android:text="Delete"
+                android:textSize="12sp"
+                android:textColor="#EF5350"
+                android:textAllCaps="false"
                 app:strokeColor="#EF5350"
                 app:cornerRadius="20dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 app:elevation="0dp"
-                android:stateListAnimator="@null"
-                android:insetLeft="0dp"
-                android:insetRight="0dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp" />
+                android:stateListAnimator="@null" />
         </LinearLayout>
     </LinearLayout>
 
