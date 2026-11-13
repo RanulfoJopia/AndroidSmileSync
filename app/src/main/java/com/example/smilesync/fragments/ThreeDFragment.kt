@@ -58,11 +58,13 @@ class ThreeDFragment : Fragment() {
         
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.api.getAllPatients()
+                // Use the paginated endpoint with a high limit to get all patients
+                val params = mapOf("limit" to "1000")
+                val response = RetrofitClient.api.getPatients(params)
                 if (!isAdded) return@launch
                 
                 if (response.isSuccessful) {
-                    val list = response.body()?.result ?: emptyList()
+                    val list = response.body()?.result?.data ?: emptyList()
                     adapter.update(list)
                     tvEmpty.visibility    = if (list.isEmpty()) View.VISIBLE else View.GONE
                     rvPatients.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
