@@ -1,19 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_gradient">
+    android:background="@drawable/bg_app"
+    android:fitsSystemWindows="true">
 
     <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_header_hero"
         android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="28dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="40dp"
         android:paddingBottom="20dp">
 
         <!-- Back row -->
@@ -23,14 +24,22 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:clickable="true"
             android:focusable="true">
-            <ImageView android:layout_width="18dp" android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_right" android:rotation="180" android:alpha="0.7" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp" android:text="Patients"
-                android:textColor="@color/text_light_gray" android:textSize="13sp" />
+            <ImageView 
+                android:layout_width="24dp" 
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Back"
+                app:tint="#1A2B4A" />
+            <TextView 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp" 
+                android:text="Patients"
+                android:textColor="#1A2B4A" 
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
@@ -38,81 +47,83 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Patient Name"
-            android:textColor="@color/text_white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textColor="#1A2B4A"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black" />
 
         <!-- Action buttons row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="14dp">
+            android:layout_marginTop="12dp">
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_case"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="+ Add Case"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:background="@drawable/bg_chip_modern_selected"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:layout_marginRight="8dp"
-                android:clickable="true"
-                android:focusable="true" />
+                android:textAllCaps="false"
+                app:backgroundTint="#2196F3"
+                app:cornerRadius="20dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginEnd="8dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null" />
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dental_exam"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="🦷 3D Exam"
-                android:textColor="#FFFFFF"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:background="@drawable/bg_stat_card_teal"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:layout_marginRight="8dp"
-                android:clickable="true"
-                android:focusable="true" />
+                android:textAllCaps="false"
+                app:backgroundTint="#00BCD4"
+                app:cornerRadius="20dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginEnd="8dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null" />
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_edit_patient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="✏ Edit"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:background="@drawable/bg_chip_modern"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:layout_marginRight="8dp"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <TextView
-                android:id="@+id/btn_delete_patient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🗑"
-                android:textColor="#EF9A9A"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:text="✏"
                 android:textSize="14sp"
-                android:background="@drawable/bg_chip_modern"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:clickable="true"
-                android:focusable="true" />
+                app:strokeColor="#2196F3"
+                app:cornerRadius="20dp"
+                android:layout_marginEnd="8dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_patient"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:text="🗑"
+                android:textSize="14sp"
+                app:strokeColor="#EF5350"
+                app:cornerRadius="20dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -130,114 +141,162 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
-        android:layout_marginBottom="2dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="8dp"
+        android:layout_marginBottom="16dp">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginRight="8dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_stat_card_blue"
-            android:padding="12dp"
-            android:elevation="4dp">
-            <TextView android:id="@+id/tv_detail_cases_count"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="0" android:textColor="#FFFFFF" android:textSize="24sp" android:textStyle="bold" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Treatment Cases" android:textColor="#BBDEFB" android:textSize="11sp" android:maxLines="2" />
-        </LinearLayout>
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#2196F3">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                
+                <TextView 
+                    android:id="@+id/tv_detail_cases_count"
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:text="0" 
+                    android:textColor="#FFFFFF" 
+                    android:textSize="28sp" 
+                    android:textStyle="bold" 
+                    android:fontFamily="sans-serif-black" />
+                    
+                <TextView 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="Treatment Cases" 
+                    android:textColor="#BBDEFB" 
+                    android:textSize="12sp" 
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_stat_card_teal"
-            android:padding="12dp"
-            android:elevation="4dp">
-            <TextView android:id="@+id/tv_detail_completed_count"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="0" android:textColor="#FFFFFF" android:textSize="24sp" android:textStyle="bold" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Completed Cases" android:textColor="#B2EBF2" android:textSize="11sp" android:maxLines="2" />
-        </LinearLayout>
+            android:layout_marginStart="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#00BCD4">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                
+                <TextView 
+                    android:id="@+id/tv_detail_completed_count"
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:text="0" 
+                    android:textColor="#FFFFFF" 
+                    android:textSize="28sp" 
+                    android:textStyle="bold" 
+                    android:fontFamily="sans-serif-black" />
+                    
+                <TextView 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content"
+                    android:text="Completed Cases" 
+                    android:textColor="#B2EBF2" 
+                    android:textSize="12sp" 
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <!-- TABS — scrollable so all 4 fit on small screens -->
+    <!-- TABS -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="4dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tab_info"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Info"
                 android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColor="@color/accent_blue"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/bg_chip_modern_selected" />
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#2196F3"
+                app:cornerRadius="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginEnd="8dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null" />
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tab_anamnesis"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Anamnesis"
                 android:textSize="13sp"
-                android:textColor="@color/text_light_gray"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/bg_chip_modern" />
+                android:textAllCaps="false"
+                android:textColor="#666666"
+                app:strokeColor="#DDDDDD"
+                app:cornerRadius="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginEnd="8dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null" />
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tab_documents"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Documents"
                 android:textSize="13sp"
-                android:textColor="@color/text_light_gray"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/bg_chip_modern" />
+                android:textAllCaps="false"
+                android:textColor="#666666"
+                app:strokeColor="#DDDDDD"
+                app:cornerRadius="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginEnd="8dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null" />
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tab_cases"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Cases"
                 android:textSize="13sp"
-                android:textColor="@color/text_light_gray"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:background="@drawable/bg_chip_modern" />
+                android:textAllCaps="false"
+                android:textColor="#666666"
+                app:strokeColor="#DDDDDD"
+                app:cornerRadius="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:elevation="0dp"
+                android:stateListAnimator="@null" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -252,53 +311,138 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
 
             <!-- INFO PANEL -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/panel_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/bg_card_glass"
-                android:padding="16dp">
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF">
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:orientation="vertical">
-                        <TextView android:text="Birthdate" android:textColor="#5A7AAF" android:textSize="10sp"
-                            android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                        <TextView android:id="@+id/tv_detail_birthdate" android:textColor="@color/text_white"
-                            android:textSize="14sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout 
+                        android:layout_width="match_parent" 
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" 
+                        android:layout_marginBottom="16dp">
+                        
+                        <LinearLayout 
+                            android:layout_width="0dp" 
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" 
+                            android:orientation="vertical">
+                            
+                            <TextView 
+                                android:text="Birthdate" 
+                                android:textColor="#666666" 
+                                android:textSize="11sp"
+                                android:textStyle="bold" 
+                                android:layout_width="wrap_content" 
+                                android:layout_height="wrap_content" 
+                                android:layout_marginBottom="4dp" />
+                                
+                            <TextView 
+                                android:id="@+id/tv_detail_birthdate" 
+                                android:textColor="#1A2B4A"
+                                android:textSize="15sp" 
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content" 
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        
+                        <LinearLayout 
+                            android:layout_width="0dp" 
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" 
+                            android:orientation="vertical">
+                            
+                            <TextView 
+                                android:text="Age" 
+                                android:textColor="#666666" 
+                                android:textSize="11sp"
+                                android:textStyle="bold" 
+                                android:layout_width="wrap_content" 
+                                android:layout_height="wrap_content" 
+                                android:layout_marginBottom="4dp" />
+                                
+                            <TextView 
+                                android:id="@+id/tv_detail_age" 
+                                android:textColor="#1A2B4A"
+                                android:textSize="15sp" 
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content" 
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        
+                        <LinearLayout 
+                            android:layout_width="0dp" 
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" 
+                            android:orientation="vertical">
+                            
+                            <TextView 
+                                android:text="Sex" 
+                                android:textColor="#666666" 
+                                android:textSize="11sp"
+                                android:textStyle="bold" 
+                                android:layout_width="wrap_content" 
+                                android:layout_height="wrap_content" 
+                                android:layout_marginBottom="4dp" />
+                                
+                            <TextView 
+                                android:id="@+id/tv_detail_sex" 
+                                android:textColor="#1A2B4A"
+                                android:textSize="15sp" 
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content" 
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
                     </LinearLayout>
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:orientation="vertical">
-                        <TextView android:text="Age" android:textColor="#5A7AAF" android:textSize="10sp"
-                            android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                        <TextView android:id="@+id/tv_detail_age" android:textColor="@color/text_white"
-                            android:textSize="14sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:orientation="vertical">
-                        <TextView android:text="Sex" android:textColor="#5A7AAF" android:textSize="10sp"
-                            android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                        <TextView android:id="@+id/tv_detail_sex" android:textColor="@color/text_white"
-                            android:textSize="14sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                    </LinearLayout>
+
+                    <TextView 
+                        android:text="Address" 
+                        android:textColor="#666666" 
+                        android:textSize="11sp"
+                        android:textStyle="bold" 
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content" 
+                        android:layout_marginBottom="4dp" />
+                        
+                    <TextView 
+                        android:id="@+id/tv_detail_address" 
+                        android:textColor="#1A2B4A"
+                        android:textSize="15sp" 
+                        android:layout_marginBottom="16dp"
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content" />
+
+                    <TextView 
+                        android:text="Latest Treatment Case" 
+                        android:textColor="#666666" 
+                        android:textSize="11sp"
+                        android:textStyle="bold" 
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content" 
+                        android:layout_marginBottom="4dp" />
+                        
+                    <TextView 
+                        android:id="@+id/tv_detail_latest_case" 
+                        android:textColor="#1A2B4A"
+                        android:textSize="15sp" 
+                        android:layout_width="match_parent" 
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
-
-                <TextView android:text="Address" android:textColor="#5A7AAF" android:textSize="10sp"
-                    android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_detail_address" android:textColor="@color/text_white"
-                    android:textSize="14sp" android:layout_marginBottom="12dp"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
-
-                <TextView android:text="Latest Treatment Case" android:textColor="#5A7AAF" android:textSize="10sp"
-                    android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <TextView android:id="@+id/tv_detail_latest_case" android:textColor="@color/text_white"
-                    android:textSize="14sp" android:layout_width="match_parent" android:layout_height="wrap_content" />
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- ANAMNESIS PANEL -->
             <LinearLayout
@@ -314,22 +458,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="end"
-                    android:layout_marginBottom="10dp">
-                    <TextView
+                    android:layout_marginBottom="12dp">
+                    
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/fab_add_anamnesis"
+                        style="@style/Widget.Material3.Button"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:text="+ Add Anamnesis"
                         android:textColor="#FFFFFF"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/bg_chip_modern_selected"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
+                        android:textSize="13sp"
+                        android:textAllCaps="false"
+                        app:backgroundTint="#2196F3"
+                        app:cornerRadius="8dp"
+                        app:elevation="0dp"
+                        android:stateListAnimator="@null"
                         android:visibility="gone" />
                 </LinearLayout>
 
@@ -338,10 +481,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="No anamnesis records yet"
-                    android:textColor="@color/text_light_gray"
-                    android:textSize="13sp"
+                    android:textColor="#999999"
+                    android:textSize="14sp"
                     android:gravity="center"
-                    android:padding="24dp"
+                    android:padding="32dp"
                     android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -365,22 +508,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="end"
-                    android:layout_marginBottom="10dp">
-                    <TextView
+                    android:layout_marginBottom="12dp">
+                    
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/fab_upload_doc"
+                        style="@style/Widget.Material3.Button"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:text="↑ Upload Document"
                         android:textColor="#FFFFFF"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/bg_stat_card_teal"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
+                        android:textSize="13sp"
+                        android:textAllCaps="false"
+                        app:backgroundTint="#00BCD4"
+                        app:cornerRadius="8dp"
+                        app:elevation="0dp"
+                        android:stateListAnimator="@null"
                         android:visibility="gone" />
                 </LinearLayout>
 
@@ -389,10 +531,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="No documents uploaded yet"
-                    android:textColor="@color/text_light_gray"
-                    android:textSize="13sp"
+                    android:textColor="#999999"
+                    android:textSize="14sp"
                     android:gravity="center"
-                    android:padding="24dp"
+                    android:padding="32dp"
                     android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView

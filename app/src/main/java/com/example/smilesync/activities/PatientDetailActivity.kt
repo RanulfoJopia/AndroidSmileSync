@@ -1,4 +1,4 @@
-package com.example.smilesync.activities
+﻿package com.example.smilesync.activities
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import com.google.android.material.button.MaterialButton
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -50,10 +51,10 @@ class PatientDetailActivity : AppCompatActivity() {
     private lateinit var tvLatestCase     : TextView
 
     // Tabs
-    private lateinit var tabInfo      : TextView
-    private lateinit var tabAnamnesis : TextView
-    private lateinit var tabDocuments : TextView
-    private lateinit var tabCases     : TextView
+    private lateinit var tabInfo      : MaterialButton
+    private lateinit var tabAnamnesis : MaterialButton
+    private lateinit var tabDocuments : MaterialButton
+    private lateinit var tabCases     : MaterialButton
 
     // Panels
     private lateinit var panelInfo     : View
@@ -90,7 +91,7 @@ class PatientDetailActivity : AppCompatActivity() {
     }
 
     // Severity options (matches Laravel)
-    private val severityOptions = listOf("— None —", "MILD", "MODERATE", "SEVERE")
+    private val severityOptions = listOf("â€” None â€”", "MILD", "MODERATE", "SEVERE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -223,9 +224,9 @@ class PatientDetailActivity : AppCompatActivity() {
         tvLatestCase.text     = p.latestCase?.caseTitle ?: "No active cases"
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     // ANAMNESIS
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     private fun loadAnamnesis() {
         lifecycleScope.launch {
@@ -314,7 +315,7 @@ class PatientDetailActivity : AppCompatActivity() {
             if (desc.isEmpty()) { etDesc.error = "Required"; return@setOnClickListener }
 
             val selectedSeverity = severityOptions[spSeverity.selectedItemPosition]
-            val severityName = if (selectedSeverity == "— None —") null else selectedSeverity
+            val severityName = if (selectedSeverity == "â€” None â€”") null else selectedSeverity
 
             val body = mapOf<String, Any?>(
                 "anam_description" to desc,
@@ -370,9 +371,9 @@ class PatientDetailActivity : AppCompatActivity() {
         }
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     // DOCUMENTS
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     private fun loadDocuments() {
         lifecycleScope.launch {
@@ -464,9 +465,9 @@ class PatientDetailActivity : AppCompatActivity() {
         }
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     // CASES
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     private fun loadCases() {
         lifecycleScope.launch {
@@ -487,9 +488,9 @@ class PatientDetailActivity : AppCompatActivity() {
         }
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     // DELETE PATIENT
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     private fun deletePatient() {
         progressBar.visibility = View.VISIBLE
@@ -511,9 +512,9 @@ class PatientDetailActivity : AppCompatActivity() {
         }
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     // HELPERS
-    // ═══════════════════════════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     private fun showDatePicker(onPicked: (Int, Int, Int) -> Unit) {
         val cal = Calendar.getInstance()
