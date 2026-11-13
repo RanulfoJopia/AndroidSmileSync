@@ -56,9 +56,7 @@ class CaseSingleActivity : AppCompatActivity() {
     private lateinit var tvNoSequences     : TextView
     private lateinit var btnAddSeq         : View
     private lateinit var btnGenerateSeq    : View
-    private lateinit var btnSaveSeqOrder   : View
-
-    // Mutable sequence list for in-place updates
+        // Mutable sequence list for in-place updates
     private val sequenceList = mutableListOf<PlanSequence>()
 
     // Phase/status labels for bottom sheet spinners
@@ -126,7 +124,6 @@ class CaseSingleActivity : AppCompatActivity() {
         tvNoSequences     = findViewById(R.id.tv_no_sequences)
         btnAddSeq         = findViewById(R.id.btn_add_sequence)
         btnGenerateSeq    = findViewById(R.id.btn_generate_sequence)
-        btnSaveSeqOrder   = findViewById(R.id.btn_save_seq_order)
 
         rvSequences.layoutManager = LinearLayoutManager(this)
     }
@@ -279,7 +276,8 @@ class CaseSingleActivity : AppCompatActivity() {
                 "clinical_justification" to justif,
                 "risk_complications"     to risk,
                 "prognosis"              to prognosis,
-                "plan_result"            to result.ifBlank { null }
+                "plan_result"            to result.ifBlank { null },
+                "plan_status"            to "draft"
             )
 
             btnSave.isEnabled = false
@@ -530,7 +528,8 @@ class CaseSingleActivity : AppCompatActivity() {
             "clinical_justification" to plan.clinicalJustification,
             "risk_complications"     to plan.riskComplications,
             "prognosis"              to plan.prognosis,
-            "plan_result"            to plan.planResult
+            "plan_result"            to plan.planResult,
+            "plan_status"            to "draft"
         )
         progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
