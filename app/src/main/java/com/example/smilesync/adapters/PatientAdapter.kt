@@ -1,8 +1,9 @@
-package com.example.smilesync.adapters
+﻿package com.example.smilesync.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smilesync.R
@@ -18,7 +19,7 @@ class PatientAdapter(
         val tvName     : TextView = v.findViewById(R.id.tv_patient_name)
         val tvLastExam : TextView = v.findViewById(R.id.tv_last_exam)
         val tvStatus   : TextView = v.findViewById(R.id.tv_status)
-        val tvView     : TextView = v.findViewById(R.id.tv_view_patient)
+        val ivView     : ImageView = v.findViewById(R.id.tv_view_patient)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -32,7 +33,7 @@ class PatientAdapter(
         holder.tvName.text      = p.fullName
         holder.tvLastExam.text  = p.caseTitle?.let { "Recent: $it" } ?: "No cases yet"
         holder.tvStatus.text    = p.sexLabel + (p.ageYears()?.let { " · $it yrs" } ?: "")
-        holder.tvView.setOnClickListener { onClick(p) }
+        holder.ivView.setOnClickListener { onClick(p) }
         holder.itemView.setOnClickListener { onClick(p) }
     }
 
