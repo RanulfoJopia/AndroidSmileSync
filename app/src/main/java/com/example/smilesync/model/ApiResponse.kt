@@ -1,4 +1,4 @@
-package com.example.smilesync.model
+﻿package com.example.smilesync.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -44,5 +44,7 @@ data class Category(
 
 data class CategoriesResult(
     @SerializedName("CASES")    val cases: List<Category>? = null,
-    @SerializedName("ANAMNESIS") val anamnesis: Map<String, List<Category>>? = null
+    // ANAMNESIS structure varies in API response - using Any? since it's not currently used
+    // API returns nested objects instead of Map<String, List<Category>>
+    @SerializedName("ANAMNESIS") val anamnesis: Any? = null
 )
