@@ -17,22 +17,29 @@
         android:gravity="center_horizontal"
         android:layout_marginEnd="12dp">
 
-        <!-- Status icon circle -->
+        <!-- Status badge (replacing number circle) -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_status_circle"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="#2196F3">
+            android:id="@+id/card_status_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="70dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#C8E6C9">
 
-            <ImageView
-                android:id="@+id/iv_status_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_time"
-                android:tint="#FFFFFF" />
+            <TextView
+                android:id="@+id/tv_seq_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#2E7D32"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:text="Planned" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Connecting line -->
@@ -158,30 +165,6 @@
                 android:lineSpacingExtra="2dp"
                 android:text="Evaluate the extent of the fracture and administer local anesthesia."
                 android:visibility="visible" />
-
-            <!-- Status badge (text only, no icon) -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/layout_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#C8E6C9">
-
-                <TextView
-                    android:id="@+id/tv_seq_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#2E7D32"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:text="Planned" />
-            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

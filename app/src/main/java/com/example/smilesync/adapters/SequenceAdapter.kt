@@ -18,16 +18,14 @@ class SequenceAdapter(
 ) : RecyclerView.Adapter<SequenceAdapter.VH>() {
 
     inner class VH(v: View) : RecyclerView.ViewHolder(v) {
-        val ivStatusIcon  : ImageView          = v.findViewById(R.id.iv_status_icon)
-        val cardStatusCircle: MaterialCardView = v.findViewById(R.id.card_status_circle)
+        val cardStatusBadge: MaterialCardView = v.findViewById(R.id.card_status_badge)
+        val tvStatus      : TextView           = v.findViewById(R.id.tv_seq_status)
         val tvDesc        : TextView           = v.findViewById(R.id.tv_seq_description)
         val tvCode        : TextView           = v.findViewById(R.id.tv_seq_code)
-        val tvStatus      : TextView           = v.findViewById(R.id.tv_seq_status)
         val tvNotes       : TextView           = v.findViewById(R.id.tv_seq_notes)
         val btnEdit       : ImageView          = v.findViewById(R.id.btn_edit_seq)
         val btnDelete     : ImageView          = v.findViewById(R.id.btn_delete_seq)
         val layoutDuration: View               = v.findViewById(R.id.layout_duration)
-        val layoutStatus  : MaterialCardView   = v.findViewById(R.id.layout_status)
         val timelineLine  : View               = v.findViewById(R.id.view_timeline_line)
         val timelineDot   : View               = v.findViewById(R.id.view_timeline_dot)
     }
@@ -60,48 +58,34 @@ class SequenceAdapter(
             holder.tvNotes.visibility = View.GONE
         }
         
-        // Status badge text and colors
+        // Status badge in timeline (replacing number circle)
         val statusLabel: String
-        val iconRes: Int
-        val circleBgColor: Int
         val badgeBgColor: Int
         val textColor: Int
         
         when (s.seqStatus) {
             3 -> {
-                // Done: green with checkmark
+                // Done: green
                 statusLabel = "Done"
-                iconRes = R.drawable.ic_check
-                circleBgColor = 0xFF4CAF50.toInt()
                 badgeBgColor = 0xFFC8E6C9.toInt()
                 textColor = 0xFF2E7D32.toInt()
             }
             2 -> {
-                // In Progress: blue with progress icon
+                // In Progress: blue
                 statusLabel = "In Progress"
-                iconRes = R.drawable.ic_progress
-                circleBgColor = 0xFF2196F3.toInt()
                 badgeBgColor = 0xFFBBDEFB.toInt()
                 textColor = 0xFF1565C0.toInt()
             }
             else -> {
-                // Planned: yellow/orange with clock
+                // Planned: yellow/orange
                 statusLabel = "Planned"
-                iconRes = R.drawable.ic_time
-                circleBgColor = 0xFFFFA726.toInt()
                 badgeBgColor = 0xFFFFF9C4.toInt()
                 textColor = 0xFFF57F17.toInt()
             }
         }
         
         holder.tvStatus.text = statusLabel
-        
-        // Set status icon and circle color
-        holder.ivStatusIcon.setImageResource(iconRes)
-        holder.cardStatusCircle.setCardBackgroundColor(circleBgColor)
-        
-        // Set badge colors
-        holder.layoutStatus.setCardBackgroundColor(badgeBgColor)
+        holder.cardStatusBadge.setCardBackgroundColor(badgeBgColor)
         holder.tvStatus.setTextColor(textColor)
         
         // Timeline visibility - hide line and dot for last item
