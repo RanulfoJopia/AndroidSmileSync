@@ -6,6 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.webkit.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.smilesync.R
@@ -17,18 +19,21 @@ import kotlinx.coroutines.launch
 /**
  * Full-screen WebView for displaying the 3D dental viewer.
  * 
- * Receives patient_id as an extra, generates a WebView bridge token,
+ * Receives patient_id and patient_name as extras, generates a WebView bridge token,
  * and loads the web app's /mobile/webview?token=<token> endpoint.
  * 
  * The web app validates the token and routes to /3D/{patient_id}/embed.
  */
 class WebView3DActivity : AppCompatActivity() {
 
-    private lateinit var webView  : WebView
-    private lateinit var progress : LinearProgressIndicator
+    private lateinit var webView   : WebView
+    private lateinit var progress  : LinearProgressIndicator
+    private lateinit var btnBack   : ImageView
+    private lateinit var tvTitle   : TextView
     
     companion object {
         const val EXTRA_PATIENT_ID = "patient_id"
+        const val EXTRA_PATIENT_NAME = "patient_name"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,13 +46,24 @@ class WebView3DActivity : AppCompatActivity() {
         
         webView  = findViewById(R.id.webview_3d)
         progress = findViewById(R.id.webview_3d_progress)
+        btnBack  = findViewById(R.id.btn_back_3d)
+        tvTitle  = findViewById(R.id.tv_3d_title)
         
         val patientId = intent.getIntExtra(EXTRA_PATIENT_ID, 0)
+        val patientName = intent.getStringExtra(EXTRA_PATIENT_NAME) ?: "Patient"
         
         if (patientId == 0) {
             UiUtils.toast(this, "Invalid patient ID")
             finish()
             return
+        }
+        
+        // Set title with patient name
+        tvTitle.text = "$patientName 3D Model"
+        
+        // Back button handler
+        btnBack.setOnClickListener {
+            finish()
         }
         
         setupWebView()

@@ -6,7 +6,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Progress bar at top -->
+    <!-- Header with back button and title -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="16dp">
+
+        <!-- Back button -->
+        <ImageView
+            android:id="@+id/btn_back_3d"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="#1A2B4A" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tv_3d_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Patient 3D Model"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1A2B4A"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Progress bar -->
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/webview_3d_progress"
         android:layout_width="match_parent"

@@ -44,6 +44,7 @@ class ThreeDFragment : Fragment() {
             // Launch WebView with selected patient
             startActivity(Intent(requireContext(), WebView3DActivity::class.java).apply {
                 putExtra(WebView3DActivity.EXTRA_PATIENT_ID, patient.patientId)
+                putExtra(WebView3DActivity.EXTRA_PATIENT_NAME, patient.fullName)
             })
         }
         
