@@ -277,7 +277,7 @@ class CaseSingleActivity : AppCompatActivity() {
                 "risk_complications"     to risk,
                 "prognosis"              to prognosis,
                 "plan_result"            to result.ifBlank { null },
-                "plan_status"            to "draft"
+                "plan_status"            to 1
             )
 
             btnSave.isEnabled = false
@@ -529,7 +529,7 @@ class CaseSingleActivity : AppCompatActivity() {
             "risk_complications"     to plan.riskComplications,
             "prognosis"              to plan.prognosis,
             "plan_result"            to plan.planResult,
-            "plan_status"            to "draft"
+            "plan_status"            to 1
         )
         progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
