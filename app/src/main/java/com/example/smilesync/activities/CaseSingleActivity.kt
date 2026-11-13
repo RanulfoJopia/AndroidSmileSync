@@ -14,6 +14,7 @@ import com.example.smilesync.adapters.SequenceAdapter
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.model.CasePlan
 import com.example.smilesync.model.PlanSequence
+import com.example.smilesync.model.AIGeneratedSequence
 import com.example.smilesync.model.TreatmentCase
 import com.example.smilesync.utils.UiUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -608,13 +609,14 @@ class CaseSingleActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun saveGeneratedSequences(sequences: List<PlanSequence>) {
+    private fun saveGeneratedSequences(sequences: List<AIGeneratedSequence>) {
         val payload = sequences.mapIndexed { i, s ->
             mapOf<String, Any?>(
                 "description"    to s.description,
                 "procedure_code" to s.procedureCode,
-                "phase_type"     to s.phaseType,
-                "seq_status"     to s.seqStatus,
+                "phase_type"     to s.toPhaseInt(),  // Convert string to int
+
+                "seq_status"     to 1,  // Default: Planned
                 "seq_notes"      to s.seqNotes,
                 "order_number"   to (i + 1)
             )
