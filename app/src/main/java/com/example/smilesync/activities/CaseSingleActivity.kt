@@ -338,8 +338,8 @@ class CaseSingleActivity : AppCompatActivity() {
         tvTitle.text = if (isNew) "Add Sequence Step" else "Edit Sequence Step"
         btnSave.text = if (isNew) "Add Step" else "Save Changes"
 
-        spPhase.adapter  = ArrayAdapter(this, R.layout.spinner_dropdown_item_white, phaseOptions)
-        spStatus.adapter = ArrayAdapter(this, R.layout.spinner_dropdown_item_white, statusOptions)
+        spPhase.adapter  = ArrayAdapter(this, R.layout.spinner_dropdown_item_dark, phaseOptions)
+        spStatus.adapter = ArrayAdapter(this, R.layout.spinner_dropdown_item_dark, statusOptions)
 
         existing?.let { s ->
             etDesc.setText(s.description)
