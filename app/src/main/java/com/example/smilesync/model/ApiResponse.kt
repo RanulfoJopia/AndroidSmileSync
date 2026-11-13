@@ -43,14 +43,14 @@ data class Category(
 )
 
 /** 
- * Categories API response structure
- * Note: Backend returns nested objects/maps instead of arrays
- * CASES is a map of category_key -> Category object
- * ANAMNESIS has nested structure we don't currently use
+ * Categories API response structure from Laravel backend
+ * Backend returns: { "CASES": { "Orthodontic": 1, "Restorative": 2, ... } }
+ * Where keys are category names and values are category IDs (integers)
+ * ANAMNESIS has similar nested structure but is not currently used
  */
 data class CategoriesResult(
-    // API returns CASES as Map<String, Category> not List<Category>
-    @SerializedName("CASES")    val cases: Map<String, Category>? = null,
-    // ANAMNESIS structure varies in API response - not currently used
+    // Map of category name -> category ID (e.g., "Orthodontic" -> 1)
+    @SerializedName("CASES")    val cases: Map<String, Int>? = null,
+    // ANAMNESIS structure varies - not currently used
     @SerializedName("ANAMNESIS") val anamnesis: Any? = null
 )

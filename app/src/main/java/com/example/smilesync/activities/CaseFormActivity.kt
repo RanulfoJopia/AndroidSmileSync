@@ -105,10 +105,16 @@ class CaseFormActivity : AppCompatActivity() {
 
                 // ── Case type spinner ──
                 if (categoriesResp.isSuccessful) {
-                    // API returns CASES as Map<String, Category>, convert to List
+                    // API returns CASES as Map<String, Int> where key=name, value=id
+                    // Convert to List<Category> for the spinner
                     val casesMap = categoriesResp.body()?.result?.cases
-                    caseTypeOptions = casesMap?.values?.toList() ?: emptyList()
+                    if (casesMap != null) {
+                        caseTypeOptions = casesMap.map { (name, id) ->
+                            Category(value = id, label = name)
+                        }
+                    }
                 }
+                
                 // Fallback if categories endpoint returns nothing
                 if (caseTypeOptions.isEmpty()) {
                     caseTypeOptions = listOf(
@@ -119,6 +125,7 @@ class CaseFormActivity : AppCompatActivity() {
                         Category(5, "Prosthodontic")
                     )
                 }
+                
                 val typeLabels = caseTypeOptions.map { it.label }
                 spCaseType.adapter = ArrayAdapter(this@CaseFormActivity,
                     android.R.layout.simple_spinner_dropdown_item, typeLabels)
