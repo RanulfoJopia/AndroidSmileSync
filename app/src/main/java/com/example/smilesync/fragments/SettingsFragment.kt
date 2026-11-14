@@ -1,4 +1,4 @@
-﻿package com.example.smilesync.fragments
+package com.example.smilesync.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -142,12 +142,26 @@ class SettingsFragment : Fragment() {
                     subscriptionData = response.body()?.result
                     view?.let { updateSubscriptionUI(it) }
                 } else {
-                    Log.e("SettingsFragment", "Failed to fetch subscription: ${response.errorBody()?.string()}")
+                    // Hide subscription section if endpoint not found (404)
+                    if (response.code() == 404) {
+                        view?.let { hideSubscriptionSection(it) }
+                    }
+                    Log.e("SettingsFragment", "Subscription endpoint not available: ${response.code()}")
                 }
             } catch (e: Exception) {
-                Log.e("SettingsFragment", "Error fetching subscription", e)
+                // Hide subscription section on error
+                view?.let { hideSubscriptionSection(it) }
+                Log.d("SettingsFragment", "Subscription feature not available")
             }
         }
+    }
+
+    private fun hideSubscriptionSection(view: View) {
+        // Hide subscription cards if backend endpoint is not implemented
+        view.findViewById<MaterialCardView>(R.id.card_subscription)?.visibility = View.GONE
+        view.findViewById<MaterialCardView>(R.id.card_payment_method)?.visibility = View.GONE
+        view.findViewById<MaterialCardView>(R.id.card_cancel_subscription)?.visibility = View.GONE
+        view.findViewById<MaterialCardView>(R.id.card_payment_history)?.visibility = View.GONE
     }
 
     private fun updateSubscriptionUI(view: View) {
