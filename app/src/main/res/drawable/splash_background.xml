@@ -7,8 +7,11 @@
         </shape>
     </item>
     
-    <!-- Logo centered -->
-    <item>
+    <!-- Logo centered with proper sizing -->
+    <item
+        android:width="200dp"
+        android:height="200dp"
+        android:gravity="center">
         <bitmap
             android:src="@drawable/logo_smilesync"
             android:gravity="center"/>
