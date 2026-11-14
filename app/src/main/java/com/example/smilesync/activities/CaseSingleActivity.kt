@@ -18,6 +18,7 @@ import com.example.smilesync.model.AIGeneratedSequence
 import com.example.smilesync.model.TreatmentCase
 import com.example.smilesync.utils.UiUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -49,6 +50,8 @@ class CaseSingleActivity : AppCompatActivity() {
     private lateinit var tvRisk            : TextView
     private lateinit var tvPrognosis       : TextView
     private lateinit var tvConsentDate     : TextView
+    private lateinit var tvPlanStatus      : TextView
+    private lateinit var cardPlanStatus    : MaterialCardView
     private lateinit var btnEditPlan       : View
     private lateinit var btnGeneratePlan   : View
 
@@ -60,6 +63,9 @@ class CaseSingleActivity : AppCompatActivity() {
         // Mutable sequence list for in-place updates
     private val sequenceList = mutableListOf<PlanSequence>()
 
+    // Plan status labels
+    private val planStatusOptions = listOf("Draft", "Active", "Completed", "Canceled")
+    
     // Phase/status labels for bottom sheet spinners
     private val phaseOptions   = listOf("— None —", "Diagnostic", "Preventive", "Restorative",
         "Surgical", "Prosthodontic", "Orthodontic", "Periodontic", "Endodontic", "Maintenance")
@@ -118,6 +124,8 @@ class CaseSingleActivity : AppCompatActivity() {
         tvRisk            = findViewById(R.id.tv_plan_risk)
         tvPrognosis       = findViewById(R.id.tv_plan_prognosis)
         tvConsentDate     = findViewById(R.id.tv_plan_consent_date)
+        tvPlanStatus      = findViewById(R.id.tv_plan_status)
+        cardPlanStatus    = findViewById(R.id.card_plan_status)
         tvPlanResult      = findViewById(R.id.tv_plan_result)
         btnEditPlan       = findViewById(R.id.btn_edit_plan)
         btnGeneratePlan   = findViewById(R.id.btn_generate_plan)
@@ -664,3 +672,9 @@ class CaseSingleActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
+
+
+

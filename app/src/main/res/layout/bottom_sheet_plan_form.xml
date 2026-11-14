@@ -112,6 +112,18 @@
             android:gravity="top"
             android:layout_marginBottom="20dp" />
 
+        <!-- Plan Status -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Plan Status" android:textColor="#5A7AAF" android:textSize="11sp"
+            android:layout_marginBottom="4dp" />
+        <Spinner
+            android:id="@+id/sp_plan_status"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingLeft="12dp"
+            android:layout_marginBottom="20dp" />
+
         <!-- Buttons -->
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -137,3 +149,4 @@
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
+
