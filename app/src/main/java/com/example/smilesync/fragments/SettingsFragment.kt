@@ -17,6 +17,7 @@ import com.example.smilesync.activities.StripeCheckoutActivity
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.utils.TokenManager
 import com.example.smilesync.utils.UiUtils
+import com.example.smilesync.utils.NetworkUtils
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -75,7 +76,7 @@ class SettingsFragment : Fragment() {
         view.findViewById<Button>(R.id.btn_save_changes)?.setOnClickListener {
             val newPassword = view.findViewById<EditText>(R.id.et_new_password)?.text.toString()
             if (newPassword.isNotBlank()) {
-                UiUtils.toast(requireContext(), "Password change API not implemented yet")
+                changePassword(newPassword)
             } else {
                 UiUtils.toast(requireContext(), "Enter a new password to change it")
             }
@@ -155,11 +156,11 @@ class SettingsFragment : Fragment() {
     }
 
     private fun showDefaultSubscriptionUI(view: View) {
-        // Show subscription section with default values when API is not available
+        // Show all subscription sections with default values when API is not available
         view.findViewById<MaterialCardView>(R.id.card_subscription)?.visibility = View.VISIBLE
         view.findViewById<MaterialCardView>(R.id.card_payment_method)?.visibility = View.VISIBLE
-        view.findViewById<MaterialCardView>(R.id.card_cancel_subscription)?.visibility = View.GONE
-        view.findViewById<MaterialCardView>(R.id.card_payment_history)?.visibility = View.GONE
+        view.findViewById<MaterialCardView>(R.id.card_cancel_subscription)?.visibility = View.VISIBLE
+        view.findViewById<MaterialCardView>(R.id.card_payment_history)?.visibility = View.VISIBLE
         
         // Set default values
         view.findViewById<TextView>(R.id.tv_subscription_badge)?.visibility = View.GONE
@@ -310,6 +311,32 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun changePassword(newPassword: String) {
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.api.updateProfile(
+                    mapOf("password" to newPassword)
+                )
+
+                if (response.isSuccessful && response.body()?.result != null) {
+                    UiUtils.toast(requireContext(), "Password changed successfully")
+                    // Clear the password field
+                    view?.findViewById<EditText>(R.id.et_new_password)?.setText("")
+                } else {
+                    val errorMsg = response.body()?.error?.message ?: "Failed to change password"
+                    UiUtils.toast(requireContext(), errorMsg)
+                }
+            } catch (e: Exception) {
+                if (!NetworkUtils.isNetworkAvailable(requireContext())) {
+                    UiUtils.toast(requireContext(), "No internet connection. Please check your network settings.")
+                } else if (NetworkUtils.isNetworkError(e)) {
+                    UiUtils.toast(requireContext(), NetworkUtils.getErrorMessage(e))
+                } else {
+                    UiUtils.toast(requireContext(), "Error: ${e.message}")
+                }
+            }
+        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_SUBSCRIPTION) {
@@ -317,4 +344,8 @@ class SettingsFragment : Fragment() {
         }
     }
 }
+
+
+
+
 
