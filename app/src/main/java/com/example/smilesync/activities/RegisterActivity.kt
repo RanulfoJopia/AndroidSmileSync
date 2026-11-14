@@ -1,4 +1,4 @@
-﻿package com.example.smilesync.activities
+package com.example.smilesync.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +14,7 @@ import com.example.smilesync.R
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.utils.TokenManager
 import com.example.smilesync.utils.UiUtils
+import com.example.smilesync.utils.NetworkUtils
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
@@ -133,7 +134,13 @@ class RegisterActivity : AppCompatActivity() {
                     UiUtils.toast(this@RegisterActivity, UiUtils.errorMessage(response))
                 }
             } catch (e: Exception) {
-                UiUtils.toast(this@RegisterActivity, "Network error: ${e.message}")
+                if (!NetworkUtils.isNetworkAvailable(this@RegisterActivity)) {
+                    UiUtils.toast(this@RegisterActivity, "No internet connection. Please check your network settings.")
+                } else if (NetworkUtils.isNetworkError(e)) {
+                    UiUtils.toast(this@RegisterActivity, NetworkUtils.getErrorMessage(e))
+                } else {
+                    UiUtils.toast(this@RegisterActivity, "Network error: ${e.message}")
+                }
             } finally {
                 setLoading(false)
             }

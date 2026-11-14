@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smilesync.R
 import com.example.smilesync.utils.ThemeManager
+import com.example.smilesync.utils.NetworkUtils
+import com.example.smilesync.utils.UiUtils
 
 /**
  * Base activity that applies the saved theme to all activities.
@@ -25,5 +27,20 @@ open class BaseActivity : AppCompatActivity() {
             if (isDarkMode) R.style.Theme_SmileSync_Dark
             else R.style.Theme_SmileSync_Light
         )
+    }
+
+    /**
+     * Handle network errors with user-friendly messages
+     */
+    protected fun handleNetworkError(e: Exception, customMessage: String? = null) {
+        val message = when {
+            !NetworkUtils.isNetworkAvailable(this) -> 
+                "No internet connection. Please check your network settings."
+            NetworkUtils.isNetworkError(e) -> 
+                NetworkUtils.getErrorMessage(e)
+            else -> 
+                customMessage ?: "An error occurred: ${e.message}"
+        }
+        UiUtils.toast(this, message)
     }
 }

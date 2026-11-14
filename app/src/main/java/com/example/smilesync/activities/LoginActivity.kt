@@ -1,4 +1,4 @@
-﻿package com.example.smilesync.activities
+package com.example.smilesync.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import com.example.smilesync.R
 import com.example.smilesync.api.RetrofitClient
 import com.example.smilesync.utils.TokenManager
 import com.example.smilesync.utils.UiUtils
+import com.example.smilesync.utils.NetworkUtils
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
@@ -121,7 +122,14 @@ class LoginActivity : AppCompatActivity() {
                     setLoading(false)
                 }
             } catch (e: Exception) {
-                UiUtils.toast(this@LoginActivity, "Login error: ${e.message}")
+                // Check for network connectivity
+                if (!NetworkUtils.isNetworkAvailable(this@LoginActivity)) {
+                    UiUtils.toast(this@LoginActivity, "No internet connection. Please check your network settings.")
+                } else if (NetworkUtils.isNetworkError(e)) {
+                    UiUtils.toast(this@LoginActivity, NetworkUtils.getErrorMessage(e))
+                } else {
+                    UiUtils.toast(this@LoginActivity, "Login error: ${e.message}")
+                }
                 setLoading(false)
             }
         }

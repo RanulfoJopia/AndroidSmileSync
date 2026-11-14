@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -17,17 +17,23 @@
         android:theme="@style/Theme.SmileSync"
         android:networkSecurityConfig="@xml/network_security_config">
 
-        <!-- ═══ LANDING PAGE ══════════════════════════════════════════ -->
+        <!-- --- SPLASH SCREEN ------------------------------------------ -->
         <activity
-            android:name=".activities.LandingActivity"
-            android:exported="true">
+            android:name=".activities.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- ═══ AUTH ═══════════════════════════════════════════════════════ -->
+        <!-- --- LANDING PAGE ------------------------------------------ -->
+        <activity
+            android:name=".activities.LandingActivity"
+            android:exported="false" />
+
+        <!-- --- AUTH ------------------------------------------------------- -->
         <activity
             android:name=".activities.LoginActivity"
             android:exported="false"
@@ -43,12 +49,12 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- ═══ MAIN SHELL ═══════════════════════════════════════════════ -->
+        <!-- --- MAIN SHELL ----------------------------------------------- -->
         <activity
             android:name=".activities.MainActivity"
             android:exported="false" />
 
-        <!-- ═══ PATIENT SCREENS ══════════════════════════════════════════ -->
+        <!-- --- PATIENT SCREENS ------------------------------------------ -->
         <activity
             android:name=".activities.PatientDetailActivity"
             android:exported="false"
@@ -59,7 +65,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- ═══ TREATMENT CASE SCREENS ══════════════════════════════════ -->
+        <!-- --- TREATMENT CASE SCREENS ---------------------------------- -->
         <activity
             android:name=".activities.CaseSingleActivity"
             android:exported="false" />
@@ -69,13 +75,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- ═══ PROFILE ═══════════════════════════════════════════════ -->
+        <!-- --- PROFILE ----------------------------------------------- -->
         <activity
             android:name=".activities.ProfileActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- ═══ PAYMENT ═══════════════════════════════════════════════ -->
+        <!-- --- PAYMENT ----------------------------------------------- -->
         <activity
             android:name=".activities.PaymentHistoryActivity"
             android:exported="false" />
@@ -84,7 +90,7 @@
             android:name=".activities.StripeCheckoutActivity"
             android:exported="false" />
 
-<!-- ═══ 3D WEB VIEWER ═════════════════════════════════════════ -->
+<!-- --- 3D WEB VIEWER ----------------------------------------- -->
         <activity
             android:name=".activities.WebView3DActivity"
             android:exported="false"
@@ -93,3 +99,4 @@
     </application>
 
 </manifest>
+
