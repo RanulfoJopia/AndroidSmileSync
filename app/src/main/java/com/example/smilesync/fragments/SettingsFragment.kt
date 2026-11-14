@@ -142,18 +142,36 @@ class SettingsFragment : Fragment() {
                     subscriptionData = response.body()?.result
                     view?.let { updateSubscriptionUI(it) }
                 } else {
-                    // Hide subscription section if endpoint not found (404)
-                    if (response.code() == 404) {
-                        view?.let { hideSubscriptionSection(it) }
-                    }
-                    Log.e("SettingsFragment", "Subscription endpoint not available: ${response.code()}")
+                    // Show default subscription UI if endpoint not available
+                    Log.d("SettingsFragment", "Subscription endpoint not available, showing default UI")
+                    view?.let { showDefaultSubscriptionUI(it) }
                 }
             } catch (e: Exception) {
-                // Hide subscription section on error
-                view?.let { hideSubscriptionSection(it) }
-                Log.d("SettingsFragment", "Subscription feature not available")
+                // Show default subscription UI on error
+                Log.d("SettingsFragment", "Subscription API error, showing default UI")
+                view?.let { showDefaultSubscriptionUI(it) }
             }
         }
+    }
+
+    private fun showDefaultSubscriptionUI(view: View) {
+        // Show subscription section with default values when API is not available
+        view.findViewById<MaterialCardView>(R.id.card_subscription)?.visibility = View.VISIBLE
+        view.findViewById<MaterialCardView>(R.id.card_payment_method)?.visibility = View.VISIBLE
+        view.findViewById<MaterialCardView>(R.id.card_cancel_subscription)?.visibility = View.GONE
+        view.findViewById<MaterialCardView>(R.id.card_payment_history)?.visibility = View.GONE
+        
+        // Set default values
+        view.findViewById<TextView>(R.id.tv_subscription_badge)?.visibility = View.GONE
+        view.findViewById<TextView>(R.id.tv_subscription_price)?.text = "$29.00"
+        view.findViewById<TextView>(R.id.tv_trial_expiration)?.text = "N/A"
+        view.findViewById<TextView>(R.id.tv_access_status)?.apply {
+            text = "Full Access (Read/Write)"
+            setTextColor(android.graphics.Color.parseColor("#4CAF50"))
+        }
+        view.findViewById<Button>(R.id.btn_subscribe_now)?.visibility = View.VISIBLE
+        view.findViewById<TextView>(R.id.tv_payment_method_status)?.text = 
+            "No payment method on file. Add a card for automated subscription renewals."
     }
 
     private fun hideSubscriptionSection(view: View) {
@@ -299,3 +317,4 @@ class SettingsFragment : Fragment() {
         }
     }
 }
+
