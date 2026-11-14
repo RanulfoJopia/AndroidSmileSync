@@ -1,4 +1,4 @@
-﻿package com.example.smilesync.fragments
+package com.example.smilesync.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -189,9 +189,14 @@ class DashboardFragment : Fragment() {
                     }
 
                     // Calculate stats
+                    // Pending Plans: Cases without treatment plan
                     val pending   = cases.count { !it.hasPlan }
-                    val completed = cases.count { it.planId != null && it.consentGivenAt != null }
-                    val pendingSeq = 0 // TODO: Add sequencing logic when field available
+                    
+                    // Pending Sequencing: Cases with treatment plan BUT without sequences
+                    val pendingSeq = cases.count { it.hasPlan && (it.sequencesCount == null || it.sequencesCount == 0) }
+                    
+                    // Completed Cases: Cases with BOTH treatment plan AND sequences
+                    val completed = cases.count { it.hasPlan && it.sequencesCount != null && it.sequencesCount!! > 0 }
 
                     tvPendingPlans.text       = pending.toString()
                     tvCompletedCases.text     = completed.toString()

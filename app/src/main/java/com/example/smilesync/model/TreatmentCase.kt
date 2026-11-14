@@ -22,7 +22,8 @@ data class TreatmentCase(
     @SerializedName("middle_name")       val middleName: String? = null,
     @SerializedName("name_suffix")       val nameSuffix: String? = null,
     @SerializedName("plan_id")           val planId: Int? = null,
-    @SerializedName("consent_given_at")  val consentGivenAt: String? = null
+    @SerializedName("consent_given_at")  val consentGivenAt: String? = null,
+    @SerializedName("sequences_count")   val sequencesCount: Int? = null
 ) {
     val patientFullName: String get() {
         val parts = listOfNotNull(
@@ -33,3 +34,4 @@ data class TreatmentCase(
     }
     val hasPlan: Boolean get() = planId != null
 }
+
